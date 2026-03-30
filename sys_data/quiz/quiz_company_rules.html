@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0f172a">
+<title>会社ルールクイズ</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:'Noto Sans JP',system-ui,sans-serif;background:#f1f5f9;overflow-x:hidden}
+.app{max-width:430px;margin:0 auto;min-height:100dvh;background:#f1f5f9}
+.header{background:linear-gradient(135deg,#0f172a,#1b2a4a,#1e3a5f);padding:52px 24px 32px}
+.body{padding:16px 16px 32px}
+.card{background:#fff;border-radius:14px;padding:16px;margin-bottom:12px;border:1px solid #e2e8f0;box-shadow:0 1px 3px rgba(0,0,0,0.04)}
+.card-dark{background:#1b2a4a;border:none}
+.card-title{font-size:13px;font-weight:700;color:#1b2a4a;margin-bottom:12px}
+.ni{width:100%;padding:12px 14px;border-radius:10px;border:2px solid #e2e8f0;font-size:15px;font-family:inherit;font-weight:600;color:#1b2a4a;outline:none}
+.ni:focus{border-color:#0891B2}
+.ns{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;background:#f0fdf4;border:1px solid #bbf7d0;font-size:13px;font-weight:600;color:#166534}
+.ne{background:none;border:none;color:#0891B2;font-size:12px;font-weight:600;cursor:pointer;margin-left:8px;font-family:inherit}
+.db{display:flex;align-items:center;justify-content:space-between;width:100%;padding:14px;border-radius:10px;border:2px solid;margin-bottom:8px;cursor:pointer;font-size:14px;font-weight:500;font-family:inherit}
+.db:active{transform:scale(0.98)}.db.off{opacity:0.35;pointer-events:none}
+.dg{padding:3px 10px;border-radius:6px;color:#fff;font-size:12px;font-weight:700}
+.lb{background:none;border:none;color:#0891B2;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit}
+.mr{display:flex;gap:8px}.mi{flex:1;text-align:center;padding:8px 4px;border-radius:10px;border:1px solid}
+.qt{display:flex;align-items:center;gap:10px;padding:12px 16px;background:#fff;border-bottom:1px solid #e2e8f0}
+.cb{background:none;border:none;font-size:20px;color:#94a3b8;cursor:pointer}
+.pw{flex:1;height:6px;background:#e2e8f0;border-radius:3px;overflow:hidden}
+.pb{height:100%;background:linear-gradient(90deg,#0891B2,#06B6D4);border-radius:3px;transition:width 0.3s}
+.qc{font-size:13px;font-weight:700;color:#1b2a4a}
+.tr{display:flex;justify-content:center;padding:10px 16px 0}
+.tb{font-size:13px;font-weight:700;padding:4px 14px;border-radius:20px}
+.qa{padding:16px 20px 8px}
+.tt{display:inline-block;font-size:10px;font-weight:700;color:#0891B2;background:#0891B215;padding:3px 10px;border-radius:20px;margin-bottom:10px}
+.qx{font-size:17px;font-weight:700;color:#1b2a4a;line-height:1.6}
+.os{padding:8px 16px 16px;display:flex;flex-direction:column;gap:8px}
+.ob{display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:12px;border:2px solid #e2e8f0;background:#fff;font-size:14px;font-weight:600;color:#1b2a4a;cursor:pointer;text-align:left;font-family:inherit}
+.ob.off{pointer-events:none}.ob.ok{border-color:#16a34a;background:#f0fdf4;color:#166534}
+.ob.ng{border-color:#dc2626;background:#fef2f2;color:#991b1b}.ob.fd{opacity:0.35}
+.ol{width:28px;height:28px;border-radius:8px;background:#f1f5f9;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#64748b;flex-shrink:0}
+.fb{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:#fff;border-top:2px solid #fecaca;padding:12px 20px;display:flex;justify-content:space-between;align-items:center;z-index:10}
+.rh{padding:40px 24px 28px;text-align:center}
+.rh.ps{background:linear-gradient(135deg,#065f46,#0d9488)}
+.rh.fl{background:linear-gradient(135deg,#991b1b,#dc2626)}
+.ss{margin-top:12px;padding:6px 16px;border-radius:20px;font-size:12px;font-weight:600;display:inline-block}
+.so{background:rgba(255,255,255,0.15);color:rgba(255,255,255,0.9)}
+.sf{background:rgba(255,0,0,0.15);color:#fecaca}
+.sn{background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.6)}
+.wr{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f1f5f9}
+.wi{padding:10px 0;border-bottom:1px solid #f1f5f9}
+.br{display:flex;gap:8px;margin-bottom:20px}
+.p1{flex:1;padding:14px;border-radius:12px;border:none;background:linear-gradient(135deg,#0891B2,#06B6D4);color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
+.p2{flex:1;padding:14px;border-radius:12px;border:2px solid #e2e8f0;background:#fff;color:#475569;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
+.hh{display:flex;align-items:center;gap:12px;padding:16px;background:#fff;border-bottom:1px solid #e2e8f0}
+.bb{background:none;border:none;font-size:13px;font-weight:600;color:#0891B2;cursor:pointer;font-family:inherit}
+.hi{display:flex;align-items:center;gap:12px;padding:12px 16px}
+.hs{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pg{font-size:10px;font-weight:800;padding:4px 8px;border-radius:6px;letter-spacing:1px}
+.rb{background:none;border:none;color:#dc2626;font-size:12px;cursor:pointer;display:block;margin:16px auto;font-family:inherit}
+.cn{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;padding:3px 10px;border-radius:20px;margin-top:10px}
+.co{background:#f0fdf4;color:#166534;border:1px solid #bbf7d0}
+.cf{background:rgba(255,255,255,0.1);color:#94a3b8;border:1px solid rgba(255,255,255,0.1)}
+</style>
+</head>
+<body>
+<div class="app" id="app"></div>
+<script>
+var SCRIPT_URL="";
+var TITLE="会社ルールクイズ";
+var TAG="COMPANY RULES";
+var PASS=80;
+var CM="#dc2626";
+var SK="company-rules-quiz-v2";
+
+// lv: 1=研修, 2=初級, 3=中級, 4=上級, 5=超級
+var QS=[{"q": "コンプライアンス相談窓口の担当者は？", "o": ["店長", "本部長", "羽石 晋（株式会社every 役員）", "エリアマネージャー"], "a": "羽石 晋（株式会社every 役員）", "cat": "ルール基本", "lv": 1}, {"q": "お客様の個人情報の取り扱いで正しいものは？", "o": ["SNSに投稿してよい", "業務目的以外では使用しない", "同僚と共有してよい", "自宅に持ち帰って作業してよい"], "a": "業務目的以外では使用しない", "cat": "ルール基本", "lv": 1}, {"q": "ハラスメントを目撃した場合の対応は？", "o": ["見て見ぬふりをする", "本人同士で解決させる", "コンプライアンス窓口に相談する", "SNSで告発する"], "a": "コンプライアンス窓口に相談する", "cat": "ルール基本", "lv": 1}, {"q": "業務用端末のパスワード管理で正しいものは？", "o": ["誕生日を使う", "付箋にメモ", "定期的に変更し他人と共有しない", "全員共通"], "a": "定期的に変更し他人と共有しない", "cat": "ルール基本", "lv": 1}, {"q": "SNSで店舗に関する投稿をする際の注意点は？", "o": ["自由に投稿", "お客様情報なしならOK", "会社のSNSガイドラインに従う", "個人アカウントなら制限なし"], "a": "会社のSNSガイドラインに従う", "cat": "ルール基本", "lv": 1}, {"q": "コンプライアンス相談窓口の連絡先は？", "o": ["店舗電話", "080-4165-0099", "110番", "本社代表"], "a": "080-4165-0099", "cat": "規程・権限", "lv": 3}, {"q": "個人情報漏洩が発覚した場合の対応は？", "o": ["隠す", "速やかに上長に報告し、影響範囲を調査する", "お客様にだけ連絡", "SNSで発表"], "a": "速やかに上長に報告し、影響範囲を調査する", "cat": "規程・権限", "lv": 3}, {"q": "欠勤者が発生した場合、最初に対応すべき役職は？", "o": ["社長", "エリアマネージャー", "ブロック長", "店舗スタッフ同士"], "a": "ブロック長", "cat": "規程・権限", "lv": 3}, {"q": "緊急時にブロック長がエリアマネージャー承認なしでできることは？", "o": ["臨時休業", "シフト変更指示", "開店時間変更", "全て"], "a": "シフト変更指示", "cat": "規程・権限", "lv": 3}, {"q": "臨時休業や開店時間変更の権限を持つのは？", "o": ["ブロック長", "店舗スタッフ", "エリアマネージャーと本部長", "誰でも"], "a": "エリアマネージャーと本部長", "cat": "規程・権限", "lv": 3}, {"q": "ブロック長が公休の場合、欠勤対応は誰が判断する？", "o": ["店舗スタッフ", "エリアマネージャー", "社長", "対応不要"], "a": "エリアマネージャー", "cat": "規程・権限", "lv": 3}, {"q": "本部長が公休の場合の報告先は？", "o": ["エリアマネージャー", "ブロック長", "社長", "翌日報告"], "a": "社長", "cat": "規程・権限", "lv": 3}, {"q": "業務端末を紛失した場合の対応は？", "o": ["翌日探す", "直ちに上長に報告し、リモートロック等の対策を講じる", "自分で探す", "新しいのを買う"], "a": "直ちに上長に報告し、リモートロック等の対策を講じる", "cat": "規程・権限", "lv": 3}, {"q": "お客様から修理内容についてSNSで質問された場合の対応は？", "o": ["詳細に回答", "個別の修理内容は個人情報なのでDMまたは電話で対応するよう案内", "無視", "公開で回答"], "a": "個別の修理内容は個人情報なのでDMまたは電話で対応するよう案内", "cat": "規程・権限", "lv": 3}, {"q": "勤務中に私用スマホを使用してよい場面は？", "o": ["いつでも", "緊急連絡時のみ、業務に支障のない範囲で", "休憩時間のみ", "絶対不可"], "a": "休憩時間のみ", "cat": "規程・権限", "lv": 3}, {"q": "店舗の鍵の管理で正しいものは？", "o": ["スタッフ全員に配布", "管理者のみが保管し、受渡し記録を残す", "店舗の外に隠す", "コピーを自由に作成"], "a": "管理者のみが保管し、受渡し記録を残す", "cat": "規程・権限", "lv": 3}, {"q": "古物商許可証の名義確認方法は？", "o": ["警察署に電話", "許可証原本確認", "ポータルのブロック長業務→古物商タブを参照", "確認不要"], "a": "ポータルのブロック長業務→古物商タブを参照", "cat": "規程・権限", "lv": 3}, {"q": "コンプライアンス相談窓口の担当者の所属は？", "o": ["社内人事部", "株式会社every 役員 経営推進部 組織改善担当", "外部弁護士", "警察"], "a": "株式会社every 役員 経営推進部 組織改善担当", "cat": "コンプライアンス", "lv": 4}, {"q": "個人情報保護法に基づく「個人情報」に該当するものは？", "o": ["修理機種名のみ", "氏名・電話番号・メールアドレス・端末内データ全て", "店舗名", "修理料金"], "a": "氏名・電話番号・メールアドレス・端末内データ全て", "cat": "コンプライアンス", "lv": 4}, {"q": "情報セキュリティインシデント発生時の対応の優先順位は？", "o": ["原因究明→報告→対策", "被害拡大防止→上長報告→原因調査→再発防止", "報告→放置", "対策→報告"], "a": "被害拡大防止→上長報告→原因調査→再発防止", "cat": "コンプライアンス", "lv": 4}, {"q": "SNS上で店舗の悪評・虚偽レビューを発見した場合は？", "o": ["反論コメントを書く", "上長に報告し、会社のガイドラインに沿って対応する", "無視", "個人アカウントで反論"], "a": "上長に報告し、会社のガイドラインに沿って対応する", "cat": "コンプライアンス", "lv": 4}, {"q": "退職者のアカウント・アクセス権限の対応は？", "o": ["そのまま放置", "退職日に全アカウント・アクセス権限を即座に無効化する", "1ヶ月後に対応", "本人に任せる"], "a": "退職日に全アカウント・アクセス権限を即座に無効化する", "cat": "コンプライアンス", "lv": 4}, {"q": "欠勤対応でエリアマネージャーも公休の場合、ブロック長は何ができる？", "o": ["何もできない", "現場へのシフト変更指示、その後本部長へ報告", "臨時休業を決定", "社長に直接連絡"], "a": "現場へのシフト変更指示、その後本部長へ報告", "cat": "コンプライアンス", "lv": 4}, {"q": "古物商の許可が自分名義か会社名義か確認する最も確実な方法は？", "o": ["記憶", "許可証原本の名義欄を確認", "同僚に聞く", "気にしない"], "a": "許可証原本の名義欄を確認", "cat": "コンプライアンス", "lv": 4}, {"q": "業務データを個人のUSBメモリにコピーすることについて正しいのは？", "o": ["便利なのでOK", "情報セキュリティポリシーで原則禁止", "上長の許可があればOK", "暗号化すればOK"], "a": "情報セキュリティポリシーで原則禁止", "cat": "コンプライアンス", "lv": 4}, {"q": "お客様が「修理データを第三者に提供しないか」と聞かれた場合の回答は？", "o": ["提供する場合がある", "業務目的以外では一切提供しないことを明確に伝える", "答えない", "法律で決まっている"], "a": "業務目的以外では一切提供しないことを明確に伝える", "cat": "コンプライアンス", "lv": 4}, {"q": "防火管理者の届出が必要な場合の対応手順は？", "o": ["自分で消防署に行く", "ブロック長業務→防火防災タブの手順に従う", "放置", "本社に任せる"], "a": "ブロック長業務→防火防災タブの手順に従う", "cat": "コンプライアンス", "lv": 4}, {"q": "勤務中に犯罪行為（万引き等）を目撃した場合の対応は？", "o": ["見て見ぬふりをする", "安全を確保しつつ上長に連絡、状況に応じて警察通報", "自分で取り押さえる", "SNSで報告"], "a": "安全を確保しつつ上長に連絡、状況に応じて警察通報", "cat": "コンプライアンス", "lv": 5}, {"q": "店舗の営業許可証や古物商許可証の掲示義務について正しいのは？", "o": ["掲示不要", "法律で定められた場所に常時掲示する義務がある", "金庫に保管", "本社で保管"], "a": "法律で定められた場所に常時掲示する義務がある", "cat": "コンプライアンス", "lv": 5}, {"q": "業務上知り得た他のスタッフの個人情報の取り扱いは？", "o": ["自由に話してよい", "業務目的以外で共有・漏洩してはならない", "SNSで共有OK", "友人に話してもよい"], "a": "業務目的以外で共有・漏洩してはならない", "cat": "コンプライアンス", "lv": 5}, {"q": "労働時間の記録で正しいものは？", "o": ["自己申告のみ", "実際の始業・終業時刻を正確に記録する", "概算でよい", "管理者が決める"], "a": "実際の始業・終業時刻を正確に記録する", "cat": "コンプライアンス", "lv": 5}, {"q": "店舗で地震が発生した場合の初動対応は？", "o": ["すぐ外に出る", "まず身の安全を確保し、お客様の避難誘導を行う", "修理を続ける", "電話で確認"], "a": "まず身の安全を確保し、お客様の避難誘導を行う", "cat": "コンプライアンス", "lv": 5}, {"q": "反社会的勢力からの不当要求があった場合の対応は？", "o": ["要求に従う", "毅然と断り、直ちに上長・警察に報告する", "話し合う", "値引きで対応"], "a": "毅然と断り、直ちに上長・警察に報告する", "cat": "コンプライアンス", "lv": 5}, {"q": "未成年のお客様から修理依頼があった場合の注意点は？", "o": ["通常と同じ", "保護者の同意確認が必要な場合がある", "断る", "割引する"], "a": "保護者の同意確認が必要な場合がある", "cat": "コンプライアンス", "lv": 5}, {"q": "お客様が端末内の違法コンテンツを見せてきた場合の対応は？", "o": ["無視", "修理のみ対応し、内容には触れない。必要に応じて上長に相談", "通報", "閲覧する"], "a": "修理のみ対応し、内容には触れない。必要に応じて上長に相談", "cat": "コンプライアンス", "lv": 5}, {"q": "業務で使用するクラウドサービスのセキュリティ設定で重要なのは？", "o": ["設定不要", "二段階認証の有効化とアクセス権限の最小化", "パスワード共有", "誰でもアクセス可"], "a": "二段階認証の有効化とアクセス権限の最小化", "cat": "コンプライアンス", "lv": 5}, {"q": "競合他社から転職してきたスタッフが前職の機密情報を提供しようとした場合は？", "o": ["歓迎する", "受け取りを拒否し、不正競争防止法違反になることを伝える", "利用する", "黙認"], "a": "受け取りを拒否し、不正競争防止法違反になることを伝える", "cat": "コンプライアンス", "lv": 5}, {"q": "出勤時の打刻はいつ行う？", "o": ["始業5分前", "始業時刻ちょうどに打刻", "到着したらすぐ", "打刻不要"], "a": "始業時刻ちょうどに打刻", "cat": "勤怠ルール", "lv": 1}, {"q": "遅刻しそうな場合の正しい対応は？", "o": ["黙って遅れる", "事前にブロック長に連絡する", "翌日に報告", "SNSで連絡"], "a": "事前にブロック長に連絡する", "cat": "勤怠ルール", "lv": 1}, {"q": "私用スマホの勤務中使用ルールは？", "o": ["いつでも使用可", "緊急連絡時のみ、業務に支障のない範囲で", "完全禁止", "休憩時間のみ"], "a": "緊急連絡時のみ、業務に支障のない範囲で", "cat": "服務規律", "lv": 1}, {"q": "ポータルサイトの資料を私用デバイスで閲覧してよい？", "o": ["はい", "いいえ、禁止されている", "自宅でなら可", "上司の許可があれば可"], "a": "いいえ、禁止されている", "cat": "情報セキュリティ", "lv": 1}, {"q": "会社の備品を私的に使用することは？", "o": ["問題ない", "就業規則で禁止されている", "少しなら可", "上司に聞く"], "a": "就業規則で禁止されている", "cat": "服務規律", "lv": 1}, {"q": "副業・兼業について正しいのは？", "o": ["自由にできる", "会社の許可なく行うことは禁止", "届出だけでOK", "禁止ではない"], "a": "会社の許可なく行うことは禁止", "cat": "就業規則", "lv": 1}, {"q": "SNSに業務内容を投稿することは？", "o": ["自由", "禁止されている", "匿名ならOK", "写真なしならOK"], "a": "禁止されている", "cat": "情報セキュリティ", "lv": 1}, {"q": "コンプライアンス違反を発見した場合の対応は？", "o": ["無視する", "コンプライアンス窓口に通報する", "同僚に相談だけ", "SNSで公開"], "a": "コンプライアンス窓口に通報する", "cat": "コンプライアンス", "lv": 1}, {"q": "社員紹介制度の紹介手当はいくら？", "o": ["5万円", "10万円", "25万円", "50万円"], "a": "25万円", "cat": "制度", "lv": 2}, {"q": "パーツ保証期間は？", "o": ["1ヶ月", "3ヶ月", "6ヶ月", "1年"], "a": "3ヶ月", "cat": "保証規定", "lv": 2}, {"q": "タイムカードの記録で正しいものは？", "o": ["自己申告のみ", "実際の始業・終業時刻を正確に記録", "概算でよい", "管理者が決める"], "a": "実際の始業・終業時刻を正確に記録", "cat": "勤怠ルール", "lv": 2}, {"q": "ハラスメント行為について正しいのは？", "o": ["冗談なら許される", "いかなるハラスメントも禁止", "指導なら問題ない", "本人が嫌がらなければOK"], "a": "いかなるハラスメントも禁止", "cat": "コンプライアンス", "lv": 2}, {"q": "お客様の個人情報は退職後も守秘義務がある？", "o": ["退職したら関係ない", "在職中・退職後ともに守秘義務がある", "1年間だけ", "口頭なら可"], "a": "在職中・退職後ともに守秘義務がある", "cat": "情報セキュリティ", "lv": 2}]];
+
+var DIFF_CFG=[
+  {key:"training",label:"研修",n:10,color:"#6b7280",bg:"#f9fafb"},
+  {key:"beginner",label:"初級",n:10,color:"#16a34a",bg:"#f0fdf4"},
+  {key:"intermediate",label:"中級",n:15,color:"#2563eb",bg:"#eff6ff"},
+  {key:"advanced",label:"上級",n:20,color:"#dc2626",bg:"#fef2f2"},
+  {key:"expert",label:"超級",n:20,color:"#7c3aed",bg:"#faf5ff"}
+];
+
+var S={screen:"home",qs:[],cur:0,ans:[],sel:null,fb:false,tm:0,hist:[],diff:0,name:"",ss:""};
+var ti=null;
+
+function lh(){try{return JSON.parse(localStorage.getItem(SK+"-h"))||[];}catch(e){return[];}}
+function sh(h){try{localStorage.setItem(SK+"-h",JSON.stringify(h));}catch(e){}}
+function _ln(){try{return localStorage.getItem(SK+"-n")||"";}catch(e){return"";}}
+function _sn(n){try{localStorage.setItem(SK+"-n",n);}catch(e){}}
+
+function sub(r){
+  if(!SCRIPT_URL){S.ss="no-url";R();return;}
+  S.ss="sending";R();
+  var dc=DIFF_CFG[r.diff];
+  var p={name:S.name,date:r.date,score:r.score,correct:r.correct,total:r.total,passed:r.passed,quiz:TITLE,
+    difficulty:dc?dc.label:"",
+    answers:r.ans.map(function(a){return{category:a.q.cat||"",question:a.q.q,selected:a.sel,answer:a.q.a,correct:a.ok,time:a.tm};})
+  };
+  fetch(SCRIPT_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain"},body:JSON.stringify(p)})
+    .then(function(){S.ss="ok";R();})
+    .catch(function(){S.ss="fail";R();});
+}
+
+// Filter by level, shuffle, pick n. Answers also shuffled.
+function gq(diffIdx){
+  var cfg=DIFF_CFG[diffIdx];
+  var lv=diffIdx+1;
+  // For higher levels, include questions from lower levels too
+  var pool=QS.filter(function(q){return q.lv<=lv;});
+  pool.sort(function(){return Math.random()-0.5;});
+  // Prioritize current level questions
+  var thisLv=pool.filter(function(q){return q.lv===lv;});
+  var lowerLv=pool.filter(function(q){return q.lv<lv;});
+  thisLv.sort(function(){return Math.random()-0.5;});
+  lowerLv.sort(function(){return Math.random()-0.5;});
+  var merged=thisLv.concat(lowerLv).slice(0,cfg.n);
+  merged.sort(function(){return Math.random()-0.5;});
+  // Shuffle answer options for each question
+  return merged.map(function(q){
+    var oidx=q.o.map(function(o,i){return{o:o,i:i};});
+    oidx.sort(function(){return Math.random()-0.5;});
+    return{q:q.q,o:oidx.map(function(x){return x.o;}),a:q.a,cat:q.cat,lv:q.lv};
+  });
+}
+
+function stm(){clearInterval(ti);S.tm=0;ti=setInterval(function(){S.tm++;var e=document.getElementById("tm");if(e){var t=S.tm;e.style.background=t>20?"#fef2f2":t>10?"#fffbeb":"#f0fdf4";e.style.color=t>20?"#dc2626":t>10?"#d97706":"#16a34a";e.textContent="⏱ "+t+"秒";}},1000);}
+function st(){clearInterval(ti);}
+
+function setN(){var e=document.getElementById("ni");if(e&&e.value.trim()){S.name=e.value.trim();_sn(S.name);R();}}
+function edN(){S.name="";R();setTimeout(function(){var e=document.getElementById("ni");if(e)e.focus();},50);}
+
+function go(di){
+  if(!S.name){alert("名前を入力してください");return;}
+  S.diff=di;S.qs=gq(di);S.cur=0;S.ans=[];S.sel=null;S.fb=false;S.tm=0;S.ss="";S.screen="quiz";R();stm();
+}
+
+function ans(idx){if(S.fb)return;var q=S.qs[S.cur];var o=q.o[idx];S.sel=o;S.fb=true;st();var ok=(o===q.a);S.ans.push({q:q,sel:o,ok:ok,tm:S.tm});R();setTimeout(function(){if(S.cur<S.qs.length-1){S.cur++;S.sel=null;S.fb=false;S.tm=0;R();stm();}else{fin();}},ok?800:2200);}
+function fin(){st();var c=S.ans.filter(function(a){return a.ok;}).length;var s=Math.round(c/S.ans.length*100);var rec={date:new Date().toLocaleString("ja-JP"),score:s,total:S.ans.length,correct:c,passed:s>=PASS,diff:S.diff,ans:S.ans,name:S.name};S.hist=[rec].concat(S.hist).slice(0,50);sh(S.hist);S.screen="result";R();sub(rec);}
+function hm(){st();S.screen="home";R();}
+function hs(){S.screen="history";R();}
+function rs(){if(confirm("全履歴を削除しますか？")){S.hist=[];sh([]);R();}}
+function qt(){if(confirm("テストを中断しますか？"))hm();}
+
+function R(){
+  var a=document.getElementById("app");
+  switch(S.screen){
+    case "home":a.innerHTML=rH();break;
+    case "quiz":a.innerHTML=rQ();break;
+    case "result":a.innerHTML=rR();break;
+    case "history":a.innerHTML=rHi();break;
+  }
+}
+
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+
+function rH(){
+  var cn=SCRIPT_URL?'<div class="cn co">● Spreadsheet連携ON</div>':'<div class="cn cf">● オフライン</div>';
+  var nm;
+  if(S.name){
+    nm='<div class="ns">👤 '+esc(S.name)+' さん<button class="ne" onclick="edN()">変更</button></div>';
+  } else {
+    nm='<div style="display:flex;gap:8px"><input class="ni" id="ni" placeholder="名前を入力"><button style="padding:8px 16px;border-radius:10px;border:none;background:'+CM+';color:#fff;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap" onclick="setN()">決定</button></div>';
+  }
+  var dc=S.name?"":"off";
+  var btns="";
+  for(var i=0;i<DIFF_CFG.length;i++){
+    var d=DIFF_CFG[i];
+    btns+='<button class="db '+dc+'" style="border-color:'+d.color+';background:'+d.bg+'" onclick="go('+i+')"><div style="display:flex;align-items:center"><span class="dg" style="background:'+d.color+'">'+d.label+'</span><span style="font-size:13px;color:#475569;margin-left:10px">'+d.n+'問</span></div><span style="font-size:18px;color:'+d.color+'">→</span></button>';
+  }
+  var mi="";
+  if(S.hist.length>0){
+    var ms="";
+    for(var i=0;i<Math.min(5,S.hist.length);i++){
+      var r=S.hist[i];var bg=r.passed?"#f0fdf4":"#fef2f2";var bc=r.passed?"#bbf7d0":"#fecaca";var sc=r.passed?"#16a34a":"#dc2626";
+      var ds=(r.date.split(" ")[0]||"").split("/").slice(1).join("/");
+      ms+='<div class="mi" style="background:'+bg+';border-color:'+bc+'"><div style="font-size:18px;font-weight:800;color:'+sc+'">'+r.score+'%</div><div style="font-size:9px;color:#94a3b8">'+ds+'</div></div>';
+    }
+    mi='<div class="card"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><span style="font-size:13px;font-weight:700;color:#1b2a4a">最近の結果</span><button class="lb" onclick="hs()">履歴 →</button></div><div class="mr">'+ms+'</div></div>';
+  }
+  return '<div class="header"><div style="font-size:11px;font-weight:700;color:'+CM+';letter-spacing:2px">'+TAG+'</div>'
+    +'<h1 style="font-size:34px;font-weight:900;color:#fff;margin:8px 0 0;line-height:1.2">'+TITLE+'</h1>'
+    +'<div style="font-size:13px;color:#94a3b8;margin-top:8px">全'+QS.length+'問から出題</div>'+cn+'</div>'
+    +'<div class="body"><div class="card"><div class="card-title">受験者名</div>'+nm+'</div>'
+    +'<div class="card"><div class="card-title">難易度を選択</div>'+btns+'</div>'+mi
+    +'<div class="card card-dark"><div style="font-size:12px;font-weight:700;color:'+CM+';margin-bottom:6px">合格ライン</div>'
+    +'<div style="font-size:28px;font-weight:800;color:#fff">'+PASS+'%<span style="font-size:14px;color:#94a3b8;margin-left:8px">以上で合格</span></div></div></div>';
+}
+
+function rQ(){
+  var q=S.qs[S.cur];var pr=(S.cur/S.qs.length*100).toFixed(0);
+  var op="";
+  for(var i=0;i<q.o.length;i++){
+    var o=q.o[i];var c="ob";var r="";
+    if(S.fb){
+      if(o===q.a){c+=" ok";r='<span style="font-size:18px;margin-left:auto">✓</span>';}
+      else if(o===S.sel){c+=" ng";r='<span style="font-size:18px;margin-left:auto">✗</span>';}
+      else{c+=" fd";}
+      c+=" off";
+    }
+    op+='<button class="'+c+'" onclick="ans('+i+')"><span class="ol">'+String.fromCharCode(65+i)+'</span><span style="flex:1;text-align:left">'+esc(o)+'</span>'+r+'</button>';
+  }
+  var fb="";
+  if(S.fb&&S.sel!==q.a){fb='<div class="fb"><div style="font-weight:700;color:#dc2626;font-size:13px">不正解</div><div style="font-size:12px;color:#64748b">正解：'+esc(q.a)+'</div></div>';}
+  return '<div class="qt"><button class="cb" onclick="qt()">✕</button><div class="pw"><div class="pb" style="width:'+pr+'%"></div></div><div class="qc">'+(S.cur+1)+'/'+S.qs.length+'</div></div>'
+    +'<div class="tr"><div class="tb" id="tm" style="background:#f0fdf4;color:#16a34a">⏱ 0秒</div></div>'
+    +'<div class="qa"><div class="tt">'+(q.cat||"")+'</div><h2 class="qx">'+esc(q.q)+'</h2></div>'
+    +'<div class="os">'+op+'</div>'+fb;
+}
+
+function rR(){
+  var r=S.hist[0];if(!r)return"";
+  var ss="";
+  if(S.ss==="sending")ss='<div class="ss sn">📡 送信中...</div>';
+  else if(S.ss==="ok")ss='<div class="ss so">✅ 記録済み</div>';
+  else if(S.ss==="fail")ss='<div class="ss sf">⚠ 送信失敗</div>';
+  else if(S.ss==="no-url")ss='<div class="ss sf">未接続</div>';
+
+  var wt={};
+  for(var i=0;i<r.ans.length;i++){var a=r.ans[i];var t=a.q.cat||"その他";if(!wt[t])wt[t]={t:0,w:0};wt[t].t++;if(!a.ok)wt[t].w++;}
+  var wl=Object.keys(wt).filter(function(k){return wt[k].w>0;}).sort(function(a,b){return wt[b].w-wt[a].w;});
+  var wh="";
+  if(wl.length>0){
+    wh='<div class="card"><div class="card-title">苦手分野</div>';
+    for(var i=0;i<wl.length;i++){var t=wl[i];wh+='<div class="wr"><span style="font-size:12px;color:#475569">'+esc(t)+'</span><span style="font-size:12px;font-weight:700;color:#dc2626">'+wt[t].w+'問ミス/'+wt[t].t+'問</span></div>';}
+    wh+='</div>';
+  }
+  var wr=r.ans.filter(function(a){return!a.ok;});
+  var wrh="";
+  if(wr.length===0){wrh='<div style="font-size:12px;color:#16a34a;font-weight:600">全問正解！ 🎉</div>';}
+  else{for(var i=0;i<wr.length;i++){var a=wr[i];wrh+='<div class="wi"><div style="font-size:11px;color:#dc2626;font-weight:700">Q. '+esc(a.q.q)+'</div><div style="font-size:11px;color:#64748b;margin-top:2px">回答：<span style="color:#dc2626;font-weight:600">'+esc(a.sel)+'</span>　正解：<span style="color:#16a34a;font-weight:600">'+esc(a.q.a)+'</span></div></div>';}}
+  var dc=DIFF_CFG[r.diff];var dl=dc?dc.label:"";
+  return '<div class="rh '+(r.passed?"ps":"fl")+'">'
+    +'<div style="font-size:48px">'+(r.passed?"🎉":"📝")+'</div>'
+    +'<div style="font-size:14px;color:rgba(255,255,255,0.8);font-weight:600">'+(r.passed?"合格！":"不合格")+'</div>'
+    +'<div style="font-size:56px;font-weight:800;color:#fff;line-height:1">'+r.score+'%</div>'
+    +'<div style="font-size:13px;color:rgba(255,255,255,0.7);margin-top:4px">'+r.correct+'/'+r.total+'問（'+dl+'）- '+esc(r.name)+'</div>'+ss+'</div>'
+    +'<div class="body" style="padding-top:16px">'+wh
+    +'<div class="card"><div class="card-title">'+(wr.length>0?"間違えた問題":"結果")+'</div>'+wrh+'</div>'
+    +'<div class="br"><button class="p1" onclick="go('+r.diff+')">もう一度</button><button class="p2" onclick="hm()">ホーム</button></div></div>';
+}
+
+function rHi(){
+  var h=S.hist;
+  if(!h.length)return '<div class="hh"><button class="bb" onclick="hm()">← 戻る</button><h2 style="font-size:18px;font-weight:800;color:#1b2a4a">履歴</h2></div><div class="body" style="text-align:center;padding:40px;color:#94a3b8">記録なし</div>';
+  var mx=0;var pc=0;
+  for(var i=0;i<h.length;i++){if(h[i].score>mx)mx=h[i].score;if(h[i].passed)pc++;}
+  var items="";
+  for(var i=0;i<h.length;i++){
+    var r=h[i];var dc=DIFF_CFG[r.diff];var dl=dc?dc.label:"";
+    items+='<div class="card" style="padding:0"><div class="hi"><div class="hs" style="background:'+(r.passed?"#f0fdf4":"#fef2f2")+'"><span style="font-size:20px;font-weight:800;color:'+(r.passed?"#16a34a":"#dc2626")+'">'+r.score+'</span></div>'
+      +'<div style="flex:1"><div style="font-size:13px;font-weight:700;color:#1b2a4a">'+(r.passed?"合格":"不合格")+' '+r.correct+'/'+r.total+' ('+dl+')'+(r.name?" - "+esc(r.name):"")+'</div>'
+      +'<div style="font-size:11px;color:#94a3b8">'+r.date+'</div></div>'
+      +'<div class="pg" style="background:'+(r.passed?"#dcfce7":"#fecaca")+';color:'+(r.passed?"#166534":"#991b1b")+'">'+(r.passed?"PASS":"FAIL")+'</div></div></div>';
+  }
+  return '<div class="hh"><button class="bb" onclick="hm()">← 戻る</button><h2 style="font-size:18px;font-weight:800;color:#1b2a4a">履歴</h2></div>'
+    +'<div class="body"><div class="card card-dark"><div style="display:flex;justify-content:space-around;text-align:center">'
+    +'<div><div style="font-size:24px;font-weight:800;color:'+CM+'">'+h.length+'</div><div style="font-size:10px;color:#94a3b8">受験</div></div>'
+    +'<div><div style="font-size:24px;font-weight:800;color:#16a34a">'+pc+'</div><div style="font-size:10px;color:#94a3b8">合格</div></div>'
+    +'<div><div style="font-size:24px;font-weight:800;color:#fff">'+mx+'%</div><div style="font-size:10px;color:#94a3b8">最高</div></div>'
+    +'</div></div>'+items+'<button class="rb" onclick="rs()">履歴リセット</button></div>';
+}
+
+document.addEventListener("keydown",function(e){if(e.key==="Enter"){var ni=document.getElementById("ni");if(ni&&document.activeElement===ni)setN();}});
+S.hist=lh();S.name=_ln();R();
+</script>
+</body>
+</html>

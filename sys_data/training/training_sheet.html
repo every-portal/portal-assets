@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>研修シート — スキル確認チェックリスト</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-primary: #f5f7fa;
+  --bg-card: #ffffff;
+  --bg-surface: #eef2f7;
+  --accent: #2563eb;
+  --accent-light: #2563eb;
+  --accent-glow: rgba(37, 99, 235, 0.08);
+  --accent-bright: #6366f1;
+  --green: #059669;
+  --amber: #d97706;
+  --rose: #e11d48;
+  --purple: #a855f7;
+  --teal: #14b8a6;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-dim: #94a3b8;
+  --border: #e5e7eb;
+  --border-accent: rgba(37, 99, 235, 0.25);
+  --radius: 16px;
+  --radius-sm: 10px;
+  --shadow: 0 4px 24px rgba(0,0,0,0.06);
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-primary: #0f1117;
+    --bg-card: #1e2130;
+    --bg-surface: #161922;
+    --accent: #4f8fff;
+    --accent-light: #6ba1ff;
+    --accent-glow: rgba(79, 143, 255, 0.12);
+    --accent-bright: #818cf8;
+    --green: #34d399;
+    --amber: #fbbf24;
+    --rose: #fb7185;
+    --purple: #c084fc;
+    --teal: #2dd4bf;
+    --text-primary: #e8eaf0;
+    --text-secondary: #9ba3b5;
+    --text-dim: #5d6578;
+    --border: #2a2e3d;
+    --border-accent: rgba(79, 143, 255, 0.3);
+    --shadow: 0 4px 24px rgba(0,0,0,0.3);
+  }
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+}
+.manual-container {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 32px 24px 80px;
+}
+
+/* ===== ヘッダー ===== */
+.manual-header {
+  text-align: center;
+  margin-bottom: 36px;
+}
+.manual-header-icon {
+  width: 80px; height: 80px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-bright));
+  border-radius: 20px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 36px;
+  margin: 0 auto 16px;
+  box-shadow: 0 8px 24px rgba(37,99,235,0.2);
+}
+.manual-header h1 {
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+.manual-header p {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+.manual-meta {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+.manual-meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-dim);
+  font-weight: 500;
+}
+.manual-meta-item strong { color: var(--text-secondary); }
+.manual-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.04em;
+}
+.manual-tag.info { background: rgba(37,99,235,0.08); color: var(--accent); }
+
+/* ===== セクション ===== */
+.section-title {
+  font-size: 17px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.section-title::before {
+  content: '';
+  width: 4px; height: 20px;
+  background: var(--accent);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+/* ===== ステップカード ===== */
+.step-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 20px;
+  overflow: hidden;
+  transition: all var(--transition);
+}
+.step-card:hover {
+  border-color: var(--border-accent);
+  box-shadow: var(--shadow);
+}
+.step-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 24px;
+  cursor: pointer;
+  user-select: none;
+  transition: background var(--transition);
+}
+.step-header:hover {
+  background: var(--accent-glow);
+}
+.step-badge {
+  min-width: 72px;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  text-align: center;
+  color: #fff;
+  flex-shrink: 0;
+}
+.step-badge.s0 { background: var(--text-dim); }
+.step-badge.s1 { background: var(--accent); }
+.step-badge.s2 { background: var(--green); }
+.step-badge.s3 { background: var(--teal); }
+.step-badge.s4 { background: var(--rose); }
+.step-badge.s5 { background: var(--amber); }
+.step-badge.s6 { background: var(--purple); }
+.step-badge.s7 { background: #64748b; }
+.step-badge.s8 { background: #0891b2; }
+.step-badge.s9 { background: #ea580c; }
+.step-name {
+  font-size: 15px;
+  font-weight: 700;
+  flex: 1;
+}
+.step-count {
+  font-size: 12px;
+  color: var(--text-dim);
+  flex-shrink: 0;
+}
+.step-chevron {
+  width: 20px; height: 20px;
+  color: var(--text-dim);
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+.step-card.open .step-chevron {
+  transform: rotate(180deg);
+}
+
+/* ===== チェックリスト ===== */
+.checklist {
+  padding: 0 24px 20px;
+  display: none;
+}
+.step-card.open .checklist {
+  display: block;
+}
+.check-group-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent);
+  margin: 14px 0 8px;
+  padding-left: 4px;
+}
+.check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.7;
+  transition: background var(--transition);
+}
+.check-item:hover {
+  background: var(--bg-surface);
+}
+.check-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  margin-top: 8px;
+  flex-shrink: 0;
+}
+.check-text { flex: 1; }
+
+/* ===== 確認欄 ===== */
+.confirm-row {
+  display: flex;
+  gap: 12px;
+  padding: 12px 24px 16px;
+  border-top: 1px solid var(--border);
+}
+.confirm-box {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: var(--bg-surface);
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  color: var(--text-dim);
+  font-weight: 600;
+}
+.confirm-box span { color: var(--text-secondary); }
+
+/* ===== フッター ===== */
+.manual-footer {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  font-size: 11px;
+  color: var(--text-dim);
+}
+
+/* ===== レスポンシブ ===== */
+@media (max-width: 600px) {
+  .manual-container { padding: 20px 16px 60px; }
+  .step-header { padding: 14px 16px; }
+  .checklist { padding: 0 16px 16px; }
+  .confirm-row { padding: 12px 16px; flex-direction: column; }
+}
+@media print {
+  body { background: #fff; }
+  .step-card { break-inside: avoid; box-shadow: none; }
+  .checklist { display: block !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="manual-container">
+
+  <!-- ===== ヘッダー ===== -->
+  <div class="manual-header">
+    <div class="manual-header-icon">📋</div>
+    <h1>研修シート</h1>
+    <p>スキル確認チェックリスト — 全10ステップ</p>
+    <div class="manual-meta">
+      <span class="manual-meta-item">👥 <strong>対象</strong> 全スタッフ</span>
+      <span class="manual-meta-item">📊 <strong>項目数</strong> 計120項目以上</span>
+      <span class="manual-tag info">研修基準</span>
+    </div>
+  </div>
+
+  <!-- ===== Step 0 ===== -->
+  <div class="step-card open" onclick="toggleStep(this)">
+    <div class="step-header">
+      <div class="step-badge s0">Step 0</div>
+      <div class="step-name">基本の基本</div>
+      <div class="step-count">3項目</div>
+      <svg class="step-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="checklist">
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">身だしなみや清潔感がなぜ重要なのかを理解し、実行できる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">他スタッフとの円滑なコミュニケーションがとれる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">分からないことを放置せず、自分から理解を深める努力をすることができる</div></div>
+    </div>
+    <div class="confirm-row">
+      <div class="confirm-box">✅ <span>確認者</span>___________</div>
+      <div class="confirm-box">✅ <span>確認者</span>___________</div>
+    </div>
+  </div>
+
+  <!-- ===== Step 1 ===== -->
+  <div class="step-card" onclick="toggleStep(this)">
+    <div class="step-header">
+      <div class="step-badge s1">Step 1</div>
+      <div class="step-name">基礎知識編</div>
+      <div class="step-count">38項目</div>
+      <svg class="step-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="checklist">
+      <div class="check-group-title">安全知識</div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">バッテリーの危険性を理解している</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">エタノールの危険性を理解している</div></div>
+
+      <div class="check-group-title">機種知識</div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">Touch ID機とFace ID機の違いが分かり、説明ができる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">各モデルの見分けができる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">SE 1stの特徴が言える</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">iPhone SE1stと5/5s/5cの違いが分かり、説明ができる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">iPhone 6系の特徴が言える</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">iPhone 7系の特徴が言える</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">iPhone 8系の特徴が言える</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">iPhone SE2/3の特徴が言える</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">iPhone 6〜SE2/3までの違いが分かり、説明ができる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">iPhone X系の特徴が言える</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">iPhone 11系の特徴が言える</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">iPhone X系と11系の違いが分かり、説明ができる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">iPhone 12系の特徴が言える</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">iPhone 13系の特徴が言える</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">iPhone 14系の特徴が言える</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">iPhone 15系の特徴が言える</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">iPhone 12系〜15系の違いが分かり、説明ができる</div></div>
+
+      <div class="check-group-title">画面の種類</div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">ガラス割れ、液晶交換の違いを理解し、説明ができる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">コピー/Sクラスの違いを理解し、説明ができる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">液晶と有機ELの違いを理解し、説明ができる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">Sクラス（有機EL）を勧める接客ができる</div></div>
+
+      <div class="check-group-title">純正品以外のパーツの機能制限</div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">機能制限が起こる機種・パーツが分かる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">どのような機能制限がかかるか説明ができる</div></div>
+
+      <div class="check-group-title">修理知識</div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">リンゴループのおおまかな理解があり、説明ができる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">水没修理の理解があり、説明ができる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">基板修理の理解があり、説明ができる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">背面ガラス修理の理解があり、説明ができる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">iPhoneの基本的な構造、パーツの機能を理解している</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">リカバリーモード、DFUモードを理解しており、操作ができる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">iTunesのリカバリー、復元の違いを理解し、操作ができる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">iTunes、Wi-Fiでバックアップをとれる</div></div>
+
+      <div class="check-group-title">動作確認</div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">電波の受信状態</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">各種ボタンの動作</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">画面表示、ちらつき</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">画面のタッチ、フリック、触覚タッチ</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">上下スピーカー</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">近接センサー</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">ケーブル、背面充電</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">Touch/Face ID</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">上下マイク</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">前後カメラ</div></div>
+    </div>
+    <div class="confirm-row">
+      <div class="confirm-box">✅ <span>確認者</span>___________</div>
+      <div class="confirm-box">✅ <span>確認者</span>___________</div>
+    </div>
+  </div>
+
+  <!-- ===== Step 2 ===== -->
+  <div class="step-card" onclick="toggleStep(this)">
+    <div class="step-header">
+      <div class="step-badge s2">Step 2</div>
+      <div class="step-name">受付編</div>
+      <div class="step-count">16項目</div>
+      <svg class="step-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="checklist">
+      <div class="check-group-title">基本姿勢</div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">カウンターや机の上のセッティングが常に整えられている</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">声を出して挨拶ができる（聞こえなければ言ってないのと同じ）</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">明るい、落ち着いた声のトーンで話ができる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">失礼のない所作（肘をつかない、正面を向く、背筋を伸ばすなど）</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">お客さまが信頼できそうな態度で対応ができる（お客様の言葉を遮らない、質問に質問で返さない、的外れな回答や適当な回答をしないなど）</div></div>
+
+      <div class="check-group-title">受付業務</div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">エアレジを操作し、金額のご案内ができる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">ガラス交換、液晶交換の違いを理解し、説明ができる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">Sクラス、有機ELをおすすめすることができる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">受付伝票の書き方を理解しており、お客さまにご案内ができる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">利用規約の理解</div></div>
+
+      <div class="check-group-title">案内スキル</div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">Apple Careやキャリアの保証について案内ができる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">経年劣化や衝撃などのダメージがある場合のご案内ができる（画面やフィルムの細かいヒビなどは、リスクを考えた案内が必要）</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">防水性能についてご案内ができる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">保証対応、保証期間、再修理の可否について説明ができる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">フレームの歪み、大きな打痕がある場合、リスクを理解し、案内ができる</div></div>
+    </div>
+    <div class="confirm-row">
+      <div class="confirm-box">✅ <span>確認者</span>___________</div>
+      <div class="confirm-box">✅ <span>確認者</span>___________</div>
+    </div>
+  </div>
+
+  <!-- ===== Step 3 ===== -->
+  <div class="step-card" onclick="toggleStep(this)">
+    <div class="step-header">
+      <div class="step-badge s3">Step 3</div>
+      <div class="step-name">お渡し編</div>
+      <div class="step-count">12項目</div>
+      <svg class="step-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="checklist">
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">指紋で汚れたままの端末を渡していない</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">トレーを使って端末を渡している</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">保証期間、保証内容について正しく案内ができる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">パーツ交換を伴わない調整について案内ができる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">フレームの歪み、浮きなどを説明している</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">修理中にあった不具合について、隠さず事実を伝えている</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">画面、バッテリー、カメラなどの表示不備を案内できる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">口コミの案内をしている</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">口コミを取るために自分なりの努力をしている</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">コーティング作業ができる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">コーティング剤の使用量と原価を理解している</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">利用できる支払い方法を理解し、会計を行うことができる</div></div>
+    </div>
+    <div class="confirm-row">
+      <div class="confirm-box">✅ <span>確認者</span>___________</div>
+      <div class="confirm-box">✅ <span>確認者</span>___________</div>
+    </div>
+  </div>
+
+  <!-- ===== Step 4 ===== -->
+  <div class="step-card" onclick="toggleStep(this)">
+    <div class="step-header">
+      <div class="step-badge s4">Step 4</div>
+      <div class="step-name">再修理・破損・クレーム対応編</div>
+      <div class="step-count">5項目</div>
+      <svg class="step-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="checklist">
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">再修理の受付ができる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">再修理の可否を正しく判断ができる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">再修理不可の場合、適切な対応ができる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">クレームが入った場合に適切な対応を理解している</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">端末を破損してしまった場合に適切な対応を理解している</div></div>
+    </div>
+    <div class="confirm-row">
+      <div class="confirm-box">✅ <span>確認者</span>___________</div>
+      <div class="confirm-box">✅ <span>確認者</span>___________</div>
+    </div>
+  </div>
+
+  <!-- ===== Step 5 ===== -->
+  <div class="step-card" onclick="toggleStep(this)">
+    <div class="step-header">
+      <div class="step-badge s5">Step 5</div>
+      <div class="step-name">お預かり修理編</div>
+      <div class="step-count">7項目</div>
+      <svg class="step-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="checklist">
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">基板修理の案内、受付ができる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">iPhone以外で修理対応ができるものを理解し、案内、受付ができる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">お預かり期間がどれくらいになるか理解し、ご案内ができる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">お預かりした端末の送り先を正しく理解し、報告を行うことができる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">お預かりした端末と伝票を正しく準備し、発送することができる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">戻った端末の動作確認を行い、不良があった場合に対応ができる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">料金の算出、保証書などお渡しまでの準備ができる</div></div>
+    </div>
+    <div class="confirm-row">
+      <div class="confirm-box">✅ <span>確認者</span>___________</div>
+      <div class="confirm-box">✅ <span>確認者</span>___________</div>
+    </div>
+  </div>
+
+  <!-- ===== Step 6 ===== -->
+  <div class="step-card" onclick="toggleStep(this)">
+    <div class="step-header">
+      <div class="step-badge s6">Step 6</div>
+      <div class="step-name">電話・メール対応編</div>
+      <div class="step-count">3項目</div>
+      <svg class="step-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="checklist">
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">電話の応対ができる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">メール返信の仕方がわかる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">集客につながる文面でメール返信をしている</div></div>
+    </div>
+    <div class="confirm-row">
+      <div class="confirm-box">✅ <span>確認者</span>___________</div>
+      <div class="confirm-box">✅ <span>確認者</span>___________</div>
+    </div>
+  </div>
+
+  <!-- ===== Step 7 ===== -->
+  <div class="step-card" onclick="toggleStep(this)">
+    <div class="step-header">
+      <div class="step-badge s7">Step 7</div>
+      <div class="step-name">締め作業編</div>
+      <div class="step-count">13項目</div>
+      <svg class="step-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="checklist">
+      <div class="check-group-title">日報・データ</div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">日報を正しく入力することができる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">エアレジの売上と入力した内容に差異がないか確認ができる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">受付伝票をスキャンし、正しい場所に保存することができる</div></div>
+
+      <div class="check-group-title">在庫管理</div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">在庫表の重要性を理解し、使用在庫の入力が正しくできる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">出荷表、在庫表、エアレジの使用パーツに差異がないか確認ができる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">回収パネル、初期不良のパーツを適切に処理、管理することができる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">初期不良個数入力シートを正しく入力することができる</div></div>
+
+      <div class="check-group-title">レジ・売上</div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">レジ金に差異がないかを確認することができる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">差異があった場合、確認の仕方が分かり適切に対処ができる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">エアレジで正しく精算を行うことができる</div></div>
+
+      <div class="check-group-title">売上報告・入金</div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">報告内容を理解し、報告ができる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">商業施設店舗と路面店の入金の違いを理解し、正しく入金をすることができる</div></div>
+    </div>
+    <div class="confirm-row">
+      <div class="confirm-box">✅ <span>確認者</span>___________</div>
+      <div class="confirm-box">✅ <span>確認者</span>___________</div>
+    </div>
+  </div>
+
+  <!-- ===== Step 8 ===== -->
+  <div class="step-card" onclick="toggleStep(this)">
+    <div class="step-header">
+      <div class="step-badge s8">Step 8</div>
+      <div class="step-name">端末買取編</div>
+      <div class="step-count">3項目</div>
+      <svg class="step-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="checklist">
+      <div class="check-group-title">iPhoneの買取</div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">受付〜動作確認</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">報告〜査定返信</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">買取終結後の手続き</div></div>
+    </div>
+    <div class="confirm-row">
+      <div class="confirm-box">✅ <span>確認者</span>___________</div>
+      <div class="confirm-box">✅ <span>確認者</span>___________</div>
+    </div>
+  </div>
+
+  <!-- ===== Step 9 ===== -->
+  <div class="step-card" onclick="toggleStep(this)">
+    <div class="step-header">
+      <div class="step-badge s9">Step 9</div>
+      <div class="step-name">事務作業編</div>
+      <div class="step-count">7項目</div>
+      <svg class="step-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="checklist">
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">在庫管理の重要性を理解し、棚卸しを正確に行うことができる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">在庫が減った時に発注を行うことができる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">入荷したパーツの確認、入力を行うことができる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">入荷したパーツを片付けることができる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">パーツが欠品している場合、取り寄せ修理の案内ができる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">Googleビジネスプロフィールの更新を行うことができる</div></div>
+      <div class="check-item"><div class="check-dot"></div><div class="check-text">HPの更新ができる</div></div>
+    </div>
+    <div class="confirm-row">
+      <div class="confirm-box">✅ <span>確認者</span>___________</div>
+      <div class="confirm-box">✅ <span>確認者</span>___________</div>
+    </div>
+  </div>
+
+  <!-- ===== フッター ===== -->
+  <div class="manual-footer">
+    社内マニュアル ─ 社外秘 ｜ モバイル修理救急便
+  </div>
+
+</div>
+
+<script>
+function toggleStep(card) {
+  card.classList.toggle('open');
+}
+</script>
+</body>
+</html>

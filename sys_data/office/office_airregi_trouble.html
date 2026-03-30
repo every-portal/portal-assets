@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>作業マニュアル エアレジトラブル編</title>
+<style>
+:root{--bg:#f8fafc;--card:#fff;--text:#0f172a;--dim:#64748b;--border:#e2e8f0;--accent:#2563eb;--warn:#dc2626;--ok:#059669;--info:#0891b2}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:24px 20px 60px}
+.header{background:linear-gradient(135deg,#0f172a,#1e3a5f);padding:40px 28px 28px;border-radius:0 0 20px 20px;margin:-24px -20px 28px;color:#fff}
+.header h1{font-size:22px;font-weight:800}
+.header p{font-size:13px;color:#94a3b8;margin-top:4px}
+.tag{display:inline-block;font-size:10px;font-weight:700;color:var(--accent);background:rgba(37,99,235,0.1);padding:2px 10px;border-radius:20px;margin-bottom:8px;letter-spacing:1px}
+.section{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:16px}
+.section h2{font-size:17px;font-weight:800;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.section h3{font-size:14px;font-weight:700;margin:16px 0 8px;color:var(--accent)}
+.section p,.section li{font-size:13px;color:#475569}
+.section ul,.section ol{padding-left:20px}
+.section li{margin-bottom:6px}
+.warn{background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:14px 16px;margin:12px 0;font-size:13px;color:var(--warn)}
+.warn strong{color:#991b1b}
+.info{background:#f0f9ff;border:1px solid #bae6fd;border-radius:10px;padding:14px 16px;margin:12px 0;font-size:13px;color:#0369a1}
+.ok{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:14px 16px;margin:12px 0;font-size:13px;color:var(--ok)}
+.step{display:flex;gap:12px;align-items:flex-start;margin:8px 0}
+.step-num{width:28px;height:28px;border-radius:8px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0}
+.step-text{font-size:13px;color:#475569;flex:1}
+.contact{background:#1e293b;color:#fff;border-radius:10px;padding:14px 16px;margin:12px 0;font-size:12px}
+.contact strong{color:#60a5fa}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="header">
+<div class="tag">OFFICE MANUAL</div>
+<h1>作業マニュアル エアレジトラブル編</h1>
+<p>エアレジ・Airペイの決済トラブル対処法</p>
+</div>
+
+<div class="section">
+<h2>💳 会計方法を間違えた場合の対処法</h2>
+<p>クレジット決済をご希望だったのに現金で精算してしまった場合、履歴から返品処理ができます。先に正しい精算を行い、お客様がお帰りになった後に対応します。</p>
+<div class="info">お客様をお待たせしないようにしましょう。</div>
+<h3>手順</h3>
+<div class="step"><div class="step-num">1</div><div class="step-text">ホーム画面【点検・精算】をタップ</div></div>
+<div class="step"><div class="step-num">2</div><div class="step-text">【レジ締め前伝票一覧】を開く</div></div>
+<div class="step"><div class="step-num">3</div><div class="step-text">取消をしたい伝票を選んで【返品する】</div></div>
+<div class="step"><div class="step-num">4</div><div class="step-text">返品の金額に間違いないか確認し【返金方法の選択に進む】</div></div>
+<div class="step"><div class="step-num">5</div><div class="step-text">返品の種類を確認し、返金理由（レジ誤登録など）を入力し【返品する】</div></div>
+<div class="warn"><strong>⚠️ 注意事項</strong>
+<ul>
+<li>操作が分からない場合は店舗スタッフ・上長に確認し、勝手に操作をしない</li>
+<li>クレジットカード決済、Suicaなどのタッチ決済の場合、お客様のカードや端末が必要なのでその場で処理</li>
+<li>PayPay、メルペイなどのQR決済はエアレジだけでは決済を取り消せず、それぞれのサポートに問い合わせが必要</li>
+</ul></div>
+</div>
+
+<div class="section">
+<h2>💰 価格変更・新商品追加方法</h2>
+<p>価格調査などを元に修理金額が変更になる場合があります。</p>
+<div class="step"><div class="step-num">1</div><div class="step-text">ホーム画面の【商品】を開く</div></div>
+<div class="step"><div class="step-num">2</div><div class="step-text">カテゴリーを選んで【バリエーション】を開く</div></div>
+<div class="step"><div class="step-num">3</div><div class="step-text">枠の中をタッチして変更する項目を編集</div></div>
+<div class="step"><div class="step-num">4</div><div class="step-text">金額だけなら価格を編集し右下の【保存する】</div></div>
+<div class="step"><div class="step-num">5</div><div class="step-text">更新が終わったらホームの左上【設定更新】を<strong>必ず押す</strong>（押さないと反映されません）</div></div>
+<div class="warn"><strong>⚠️ 重要</strong>
+<ul>
+<li>種別は全店で統一されているので勝手に変更しないこと</li>
+<li>PCからエアレジにログインしても編集可能。どちらで編集しても設定更新は必須</li>
+<li>他の方が価格更新作業を行い、エリアに「〇〇店エアレジ更新をお願いします」とアナウンスが入った場合も設定更新を必ず押す</li>
+</ul></div>
+</div>
+
+<div class="section">
+<h2>🔧 カードリーダーの決済時エラー対処方法</h2>
+<h3>充電を確認</h3>
+<p>充電が少ないと決済エラーとなる場合があります。</p>
+<h3>更新情報を確認</h3>
+<p>【設定】＞【カードリーダー状況確認】でアップデートが最新になっていればOK。アップデートが必要な場合は時間がかかるので注意。</p>
+<h3>スリープ機能</h3>
+<p>何も操作せず3分ほどでスリープモードに。決済前にカードリーダーのボタンを押してディスプレイを点灯させ、10秒ほど待ってから読み取り画面に進んでください。</p>
+<h3>Wi-Fiの切り替え</h3>
+<ul>
+<li><strong>A（5GHz）</strong>：通信速度が速いが、障害物に弱い</li>
+<li><strong>G（2.4GHz）</strong>：電波が遠くまで届くが、干渉を受けやすい</li>
+</ul>
+<p>通信が安定しない場合はAとGを切り替えて試してください。</p>
+</div>
+
+<div class="section">
+<h2>⚠️ 二重決済の対処方法</h2>
+<p>同じカード番号で同じ金額の決済が直前に行われた場合に表示されます。</p>
+<h3>対処手順</h3>
+<div class="step"><div class="step-num">1</div><div class="step-text">「キャンセル」をタッチ</div></div>
+<div class="step"><div class="step-num">2</div><div class="step-text">Airペイアプリで取引履歴を開き、決済が重複していないか確認</div></div>
+<div class="step"><div class="step-num">3</div><div class="step-text">重複していない場合は再度決済をやり直す</div></div>
+<div class="warn"><strong>⚠️ 重要</strong>
+<ul>
+<li>エアレジ・Airペイの取引履歴に残っていなくても決済が通っている場合がある</li>
+<li>最終的な取引の確定は翌日15時以降、Airペイの管理画面の取引履歴で確認</li>
+<li>お客様には翌15時以降にならないと確認できないことをお詫びし、連絡方法を確認</li>
+</ul></div>
+<h3>二重決済が確認された場合</h3>
+<ol>
+<li><strong>お客様に連絡</strong> — クレジット・iD・QUICPayの返金にはカード/端末が必要なので再来店が必要</li>
+<li><strong>上長に報告</strong> — 状況説明、お客様への連絡状況を共有</li>
+<li><strong>事務の方と共有</strong> — 日計表の集計表余白部分に二重決済と金額・対応状況を記載</li>
+</ol>
+<div class="contact"><strong>リクルート決済サービス ヘルプデスク</strong><br>電話番号：0120-39-4861（年中無休 9:30〜23:00）</div>
+</div>
+</div>
+</body>
+</html>

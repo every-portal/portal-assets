@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>機種情報＆見分け方ガイド</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #f5f7fa;
+            --bg-secondary: #ffffff;
+            --bg-card: #ffffff;
+            --bg-card-hover: #f0f4ff;
+            --bg-surface: #eef2f7;
+            --accent: #2563eb;
+            --accent-light: #2563eb;
+            --accent-glow: rgba(37, 99, 235, 0.08);
+            --green: #059669;
+            --amber: #d97706;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-dim: #94a3b8;
+            --text: #0f172a;
+            --bg-hover: #f0f4ff;
+            --border: #e5e7eb;
+            --border-accent: rgba(37, 99, 235, 0.25);
+            --radius: 16px;
+            --radius-sm: 10px;
+            --shadow: 0 4px 24px rgba(0,0,0,0.06);
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0f1117;
+            --bg-secondary: #1a1d27;
+            --bg-card: #1e2130;
+            --bg-card-hover: #252a3a;
+            --bg-surface: #161922;
+            --accent: #4f8fff;
+            --accent-light: #6ba1ff;
+            --accent-glow: rgba(79, 143, 255, 0.12);
+            --green: #34d399;
+            --amber: #fbbf24;
+            --text-primary: #e8eaf0;
+            --text-secondary: #9ba3b5;
+            --text-dim: #5d6578;
+            --text: #e8eaf0;
+            --bg-hover: #252a3a;
+            --border: #2a2e3d;
+            --border-accent: rgba(79, 143, 255, 0.3);
+            --shadow: 0 4px 24px rgba(0,0,0,0.3);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .welcome-hero {
+            background: linear-gradient(135deg, var(--bg-card) 0%, var(--accent-glow) 100%);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 28px 32px;
+            margin-bottom: 28px;
+        }
+        .welcome-hero h1 { font-size: 1.5rem; font-weight: 800; margin-bottom: 6px; }
+        .welcome-hero p { color: var(--text-secondary); font-size: 0.92rem; }
+
+        .device-category {
+            margin-bottom: 32px;
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .category-icon {
+            width: 36px; height: 36px;
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 18px;
+        }
+
+        .category-icon.iphone { background: rgba(59,130,246,0.12); }
+        .category-icon.ipad { background: rgba(129,140,248,0.12); }
+        .category-icon.android { background: rgba(52,211,153,0.12); }
+        .category-icon.other { background: rgba(251,191,36,0.12); }
+
+        .category-name {
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .device-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .device-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all var(--transition);
+            text-decoration: none;
+            color: inherit;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .device-card:hover {
+            border-color: var(--accent);
+            background: var(--bg-card-hover);
+            color: var(--accent-light);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(37,99,235,0.1);
+        }
+
+        .device-dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
+            flex-shrink: 0;
+        }
+
+
+        .category-header {
+            cursor: pointer;
+            user-select: none;
+        }
+        .category-header:hover {
+            background: rgba(37,99,235,0.03);
+            border-radius: 8px 8px 0 0;
+        }
+        .category-toggle {
+            margin-left: auto;
+            width: 24px; height: 24px;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--text-dim);
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+        }
+        .category-toggle svg {
+            width: 18px; height: 18px;
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
+        }
+        .device-category.collapsed .category-toggle {
+            transform: rotate(-90deg);
+        }
+        .device-category .device-grid {
+            max-height: 2000px;
+            overflow: hidden;
+            transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.3s ease;
+            opacity: 1;
+        }
+        .device-category.collapsed .device-grid {
+            max-height: 0;
+            opacity: 0;
+            padding: 0;
+            margin: 0;
+        }
+        .category-count {
+            font-size: 12px;
+            color: var(--text-dim);
+            font-weight: 500;
+            margin-left: 8px;
+            background: var(--bg-surface);
+            padding: 2px 10px;
+            border-radius: 20px;
+        }
+
+
+
+        .manual-iframe-wrapper {
+            display: none;
+            position: relative;
+        }
+        .manual-iframe-wrapper.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        .iframe-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 18px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text-secondary);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition);
+            font-family: inherit;
+            margin-bottom: 16px;
+        }
+        .iframe-back:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+        .iframe-back svg {
+            width: 16px; height: 16px;
+            stroke: currentColor; stroke-width: 2; fill: none;
+        }
+
+        @media (max-width: 600px) {
+            .device-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            body { padding: 12px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="welcome-hero">
+        <h1>📱 機種情報＆見分け方ガイド</h1>
+        <p>外観・スペックから端末の機種を見分けるためのガイドです。機種を選択すると詳細が表示されます。</p>
+    </div>
+
+    <!-- カテゴリタブ -->
+    <div style="display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap;" id="idCatTabs">
+        <button class="detail-tab active" onclick="switchIdCat('iphone',this)" style="padding:8px 18px;border:1px solid var(--border);border-radius:8px;background:var(--accent);color:#fff;cursor:pointer;font-weight:600;font-size:14px;font-family:inherit;">📱 iPhone</button>
+        <button class="detail-tab" onclick="switchIdCat('ipad',this)" style="padding:8px 18px;border:1px solid var(--border);border-radius:8px;background:var(--bg-card);color:var(--text);cursor:pointer;font-weight:600;font-size:14px;font-family:inherit;">📱 iPad</button>
+        <button class="detail-tab" onclick="switchIdCat('applewatch',this)" style="padding:8px 18px;border:1px solid var(--border);border-radius:8px;background:var(--bg-card);color:var(--text);cursor:pointer;font-weight:600;font-size:14px;font-family:inherit;">⌚ Apple Watch</button>
+        <button class="detail-tab" onclick="switchIdCat('ipod',this)" style="padding:8px 18px;border:1px solid var(--border);border-radius:8px;background:var(--bg-card);color:var(--text);cursor:pointer;font-weight:600;font-size:14px;font-family:inherit;">🎵 iPod</button>
+        <button class="detail-tab" onclick="switchIdCat('android',this)" style="padding:8px 18px;border:1px solid var(--border);border-radius:8px;background:var(--bg-card);color:var(--text);cursor:pointer;font-weight:600;font-size:14px;font-family:inherit;">🤖 Android</button>
+        <button class="detail-tab" onclick="switchIdCat('switch',this)" style="padding:8px 18px;border:1px solid var(--border);border-radius:8px;background:var(--bg-card);color:var(--text);cursor:pointer;font-weight:600;font-size:14px;font-family:inherit;">🎮 Switch</button>
+    </div>
+
+    <!-- デバイスリスト -->
+    <div id="idDeviceList"></div>
+
+    <!-- デバイス詳細 -->
+    <div class="manual-iframe-wrapper" id="idDetailWrap">
+        <button class="iframe-back" onclick="closeIdDetail()">
+            <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+            機種一覧に戻る
+        </button>
+        <div id="idDetailContent"></div>
+    </div>
+
+<script>
+    // テーマ引き継ぎ（親からのメッセージ or URLパラメータ）
+    (function() {
+        var params = new URLSearchParams(window.location.search);
+        var theme = params.get('theme');
+        if (theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+        }
+        window.addEventListener('message', function(e) {
+            if (e.data && e.data.type === 'theme-change') {
+                document.documentElement.setAttribute('data-theme', e.data.theme);
+            }
+        });
+        // ローカルストレージからも取得（フォールバック）
+        try {
+            var stored = localStorage.getItem('portal-theme');
+            if (stored && !theme) {
+                document.documentElement.setAttribute('data-theme', stored);
+            }
+        } catch(ex) {}
+    })();
+
+    // ===== Device Identification Data & Logic =====
+    var idData = {
+      iphone: {
+        '17 シリーズ': [
+          {n:'iPhone 17',y:'2025',d:'6.3"',ch:'A19',cn:'USB-C',bio:'Face ID',col:'ブラック,ホワイト,ミストブルー,セージ,ラベンダー',w:'177g',sz:'149.6×71.5×7.95mm',mn:'A3258等',tip:'デュアルFusionカメラ（48MP+48MP）。USB-C。Dynamic Island。アクションボタン。カメラコントロール。アルミフレーム。',imgs:[
+  {src:'17/cam_black.png',lb:'カメラ部 ブラック'},
+  {src:'17/back_top_black.png',lb:'背面上部 ブラック'},
+  {src:'17/backside_black.png',lb:'背面+側面 ブラック'},
+  {src:'17/combo_angle_black.png',lb:'コンボ斜め ブラック'},
+  {src:'17/cam_white.png',lb:'カメラ部 ホワイト'},
+  {src:'17/back_top_white.png',lb:'背面上部 ホワイト'},
+  {src:'17/backside_white.png',lb:'背面+側面 ホワイト'},
+  {src:'17/combo_angle_white.png',lb:'コンボ斜め ホワイト'},
+  {src:'17/cam_blue.png',lb:'カメラ部 ミストブルー'},
+  {src:'17/back_top_blue.png',lb:'背面上部 ミストブルー'},
+  {src:'17/backside_blue.png',lb:'背面+側面 ミストブルー'},
+  {src:'17/combo_angle_blue.png',lb:'コンボ斜め ミストブルー'},
+  {src:'17/cam_green.png',lb:'カメラ部 セージ'},
+  {src:'17/back_top_green.png',lb:'背面上部 セージ'},
+  {src:'17/backside_green.png',lb:'背面+側面 セージ'},
+  {src:'17/combo_angle_green.png',lb:'コンボ斜め セージ'},
+  {src:'17/cam_pink.png',lb:'カメラ部 ラベンダー'},
+  {src:'17/back_top_pink.png',lb:'背面上部 ラベンダー'},
+  {src:'17/backside_pink.png',lb:'背面+側面 ラベンダー'},
+  {src:'17/combo_angle_pink.png',lb:'コンボ斜め ラベンダー'},
+  {src:'17/back_all.png',lb:'背面 全色'}
+],quiz:{q:'iPhone 17に搭載されているコネクタは？',o:['Lightning','USB-C','Micro USB'],a:1}},
+          {n:'iPhone 17 Air',y:'2025',d:'6.5"',ch:'A19 Pro',cn:'USB-C',bio:'Face ID',col:'スペースブラック,クラウドホワイト,ライトゴールド,スカイブルー',w:'165g',sz:'156.2×74.7×5.64mm',mn:'A3301等',tip:'歴代最薄iPhone（5.6mm）。チタニウムフレーム。シングルカメラ（48MP）。USB-C。Dynamic Island。アクションボタン。カメラコントロール。',imgs:[{src:'17air/cam_skyblue.png',lb:'カメラ部 スカイブルー'},{src:'17air/cam_starlight.png',lb:'カメラ部 ライトゴールド'},{src:'17air/cam_white.png',lb:'カメラ部 クラウドホワイト'},{src:'17air/cam_black.png',lb:'カメラ部 スペースブラック'},{src:'17air/back_top_black.png',lb:'背面上部 スペースブラック'},{src:'17air/backside_black.png',lb:'背面+側面 スペースブラック'},{src:'17air/combo_angle_black.png',lb:'コンボ斜め スペースブラック'},{src:'17air/back_top_white.png',lb:'背面上部 クラウドホワイト'},{src:'17air/backside_white.png',lb:'背面+側面 クラウドホワイト'},{src:'17air/combo_angle_white.png',lb:'コンボ斜め クラウドホワイト'},{src:'17air/back_top_starlight.png',lb:'背面上部 ライトゴールド'},{src:'17air/backside_starlight.png',lb:'背面+側面 ライトゴールド'},{src:'17air/combo_angle_starlight.png',lb:'コンボ斜め ライトゴールド'},{src:'17air/combo_angle_skyblue.png',lb:'コンボ斜め スカイブルー'},{src:'17air/back_top_skyblue.png',lb:'背面上部 スカイブルー'},{src:'17air/backside_skyblue.png',lb:'背面+側面 スカイブルー'},{src:'17air/combo_angle.png',lb:'コンボ斜め 全色'}],quiz:{q:'iPhone 17 Airの最大の特徴は？',o:['カメラ3つ','歴代最薄（5.6mm）','Lightning搭載'],a:1}},
+          {n:'iPhone 17 Pro',y:'2025',d:'6.3"',ch:'A19 Pro',cn:'USB-C',bio:'Face ID',col:'シルバー,コスミックオレンジ,ディープブルー',w:'206g',sz:'150.0×71.9×8.75mm',mn:'A3303等',tip:'アルミユニボディ。トリプルカメラ全48MP。テトラプリズム8倍光学品質ズーム。アクションボタン。カメラコントロール。ProResビデオ対応。',imgs:[{src:'17pro/combo_angle.png',lb:'コンボ斜め 全色'},{src:'17pro/cam_white_ti.png',lb:'カメラ部 シルバー'},{src:'17pro/cam_orange_ti.png',lb:'カメラ部 コスミックオレンジ'},{src:'17pro/cam_darkblue_ti.png',lb:'カメラ部 ディープブルー'},{src:'17pro/back_top_darkblue_ti.png',lb:'背面上部 ディープブルー'},{src:'17pro/backside_darkblue_ti.png',lb:'背面+側面 ディープブルー'},{src:'17pro/combo_darkblue_ti.png',lb:'コンボ ディープブルー'},{src:'17pro/back_top_orange_ti.png',lb:'背面上部 コスミックオレンジ'},{src:'17pro/backside_orange_ti.png',lb:'背面+側面 コスミックオレンジ'},{src:'17pro/combo_orange_ti.png',lb:'コンボ コスミックオレンジ'},{src:'17pro/back_top_white_ti.png',lb:'背面上部 シルバー'},{src:'17pro/backside_white_ti.png',lb:'背面+側面 シルバー'},{src:'17pro/combo_white_ti.png',lb:'コンボ シルバー'}],quiz:{q:'iPhone 17 Proのフレーム素材は？',o:['アルミ','ステンレス','チタニウム'],a:0}},
+          {n:'iPhone 17 Pro Max',y:'2025',d:'6.9"',ch:'A19 Pro',cn:'USB-C',bio:'Face ID',col:'シルバー,コスミックオレンジ,ディープブルー',w:'233g',sz:'163.4×78.0×8.75mm',mn:'A3305等',tip:'17シリーズ最大サイズ。アルミユニボディ。トリプルカメラ全48MP。テトラプリズム8倍光学品質ズーム。バッテリー容量最大。',imgs:[
+  {src:'17promax/cam_white_ti.png',lb:'カメラ部 シルバー'},
+  {src:'17promax/cam_orange_ti.png',lb:'カメラ部 コスミックオレンジ'},
+  {src:'17promax/cam_darkblue_ti.png',lb:'カメラ部 ディープブルー'},
+  {src:'17promax/back_top_darkblue_ti.png',lb:'背面上部 ディープブルー'},
+  {src:'17promax/backside_darkblue_ti.png',lb:'背面+側面 ディープブルー'},
+  {src:'17promax/combo_darkblue_ti.png',lb:'コンボ ディープブルー'},
+  {src:'17promax/back_top_orange_ti.png',lb:'背面上部 コスミックオレンジ'},
+  {src:'17promax/backside_orange_ti.png',lb:'背面+側面 コスミックオレンジ'},
+  {src:'17promax/combo_orange_ti.png',lb:'コンボ コスミックオレンジ'},
+  {src:'17promax/back_top_white_ti.png',lb:'背面上部 シルバー'},
+  {src:'17promax/backside_white_ti.png',lb:'背面+側面 シルバー'},
+  {src:'17promax/combo_white_ti.png',lb:'コンボ シルバー'},
+  {src:'17promax/back_all.png',lb:'背面 全色'}
+],quiz:{q:'iPhone 17 Pro Maxの画面サイズは？',o:['6.1"','6.7"','6.9"'],a:2}}
+        ],
+        '16 シリーズ': [
+          {n:'iPhone 16',y:'2024',d:'6.1"',ch:'A18',cn:'USB-C',bio:'Face ID',col:'ブラック,ホワイト,ピンク,ティール,ウルトラマリン',w:'170g',sz:'147.6×71.6×7.8mm',mn:'A3287等',tip:'縦並びデュアルカメラ（48MP+12MP）。カメラコントロールボタン初搭載。USB-C。アクションボタン。Dynamic Island。',imgs:[{src:'16/cam_pink.png',lb:'カメラ部 ピンク'},{src:'16/cam_black.png',lb:'カメラ部 ブラック'},{src:'16/cam_teal.png',lb:'カメラ部 ティール'},{src:'16/cam_ultramarine.png',lb:'カメラ部 ウルトラマリン'},{src:'16/cam_white.png',lb:'カメラ部 ホワイト'},{src:'16/combo_pink.png',lb:'コンボ ピンク'},{src:'16/combo_black.png',lb:'コンボ ブラック'},{src:'16/combo_teal.png',lb:'コンボ ティール'},{src:'16/combo_ultramarine.png',lb:'コンボ ウルトラマリン'},{src:'16/combo_white.png',lb:'コンボ ホワイト'},{src:'16/backside_pink.png',lb:'背面+側面 ピンク'},{src:'16/backside_black.png',lb:'背面+側面 ブラック'},{src:'16/backside_teal.png',lb:'背面+側面 ティール'},{src:'16/backside_ultramarine.png',lb:'背面+側面 ウルトラマリン'},{src:'16/backside_white.png',lb:'背面+側面 ホワイト'},{src:'16/bottom_pink.png',lb:'背面下部 ピンク'},{src:'16/bottom_black.png',lb:'背面下部 ブラック'},{src:'16/bottom_teal.png',lb:'背面下部 ティール'},{src:'16/bottom_ultramarine.png',lb:'背面下部 ウルトラマリン'},{src:'16/bottom_white.png',lb:'背面下部 ホワイト'},{src:'16/combo_angle.png',lb:'コンボ斜め 全色'}],quiz:{q:'iPhone 16のカメラ配置は？',o:['横並び','縦並び','正方形'],a:1}},
+          {n:'iPhone 16 Plus',y:'2024',d:'6.7"',ch:'A18',cn:'USB-C',bio:'Face ID',col:'ブラック,ホワイト,ピンク,ティール,ウルトラマリン',w:'199g',sz:'160.9×77.8×7.8mm',mn:'A3289等',tip:'16と同じデザインの大画面版。縦並びデュアルカメラ。カメラコントロールボタン。',imgs:[{src:'16plus/pink.png',lb:'ピンク'},{src:'16plus/ultramarine.png',lb:'ウルトラマリン'},{src:'16plus/teal.png',lb:'ティール'},{src:'16plus/black.png',lb:'ブラック'},{src:'16plus/white.png',lb:'ホワイト'},{src:'16plus/backside_pink.png',lb:'背面+側面 ピンク'},{src:'16plus/backside_ultramarine.png',lb:'背面+側面 ウルトラマリン'},{src:'16plus/backside_teal.png',lb:'背面+側面 ティール'},{src:'16plus/backside_black.png',lb:'背面+側面 ブラック'},{src:'16plus/backside_white.png',lb:'背面+側面 ホワイト'},{src:'16plus/bottom_pink.png',lb:'背面下部 ピンク'},{src:'16plus/bottom_ultramarine.png',lb:'背面下部 ウルトラマリン'},{src:'16plus/bottom_teal.png',lb:'背面下部 ティール'},{src:'16plus/bottom_black.png',lb:'背面下部 ブラック'},{src:'16plus/bottom_white.png',lb:'背面下部 ホワイト'},{src:'16plus/cam_pink.png',lb:'カメラ部 ピンク'},{src:'16plus/cam_ultramarine.png',lb:'カメラ部 ウルトラマリン'},{src:'16plus/cam_teal.png',lb:'カメラ部 ティール'},{src:'16plus/cam_black.png',lb:'カメラ部 ブラック'},{src:'16plus/cam_white.png',lb:'カメラ部 ホワイト'},{src:'16plus/lineup.png',lb:'全カラー ラインナップ'}],quiz:{q:'iPhone 16 Plusの画面サイズは？',o:['6.1"','6.7"','6.9"'],a:1}},
+          {n:'iPhone 16 Pro',y:'2024',d:'6.3"',ch:'A18 Pro',cn:'USB-C',bio:'Face ID',col:'デザートチタニウム,ナチュラルチタニウム,ホワイトチタニウム,ブラックチタニウム',w:'199g',sz:'149.6×71.5×8.25mm',mn:'A3291等',tip:'チタニウムフレーム。トリプルカメラ。カメラコントロール。極薄ベゼル。',imgs:[{src:'16pro/desert_ti.png',lb:'デザートチタニウム'},{src:'16pro/natural_ti.png',lb:'ナチュラルチタニウム'},{src:'16pro/white_ti.png',lb:'ホワイトチタニウム'},{src:'16pro/black_ti.png',lb:'ブラックチタニウム'},{src:'16pro/cam_black.png',lb:'カメラ部 ブラック'},{src:'16pro/cam_natural.png',lb:'カメラ部 ナチュラル'},{src:'16pro/cam_white.png',lb:'カメラ部 ホワイト'},{src:'16pro/cam_desert.png',lb:'カメラ部 デザート'},{src:'16pro/backside_white.png',lb:'背面+側面 ホワイト'},{src:'16pro/backside_natural.png',lb:'背面+側面 ナチュラル'},{src:'16pro/backside_desert.png',lb:'背面+側面 デザート'},{src:'16pro/backside_black.png',lb:'背面+側面 ブラック'},{src:'16pro/bottom_desert.png',lb:'背面下部 デザート'},{src:'16pro/bottom_natural.png',lb:'背面下部 ナチュラル'},{src:'16pro/bottom_black.png',lb:'背面下部 ブラック'},{src:'16pro/bottom_white.png',lb:'背面下部 ホワイト'},{src:'16pro/lineup.png',lb:'全カラー ラインナップ'}],quiz:{q:'iPhone 16 Proのフレーム素材は？',o:['アルミ','ステンレス','チタニウム'],a:2}},
+          {n:'iPhone 16 Pro Max',y:'2024',d:'6.9"',ch:'A18 Pro',cn:'USB-C',bio:'Face ID',col:'デザートチタニウム,ナチュラルチタニウム,ホワイトチタニウム,ブラックチタニウム',w:'227g',sz:'163.0×77.6×8.25mm',mn:'A3293等',tip:'16シリーズ最大。チタニウム。5倍テトラプリズムズーム。最長バッテリー。',imgs:[{src:'16promax/desert_ti.png',lb:'デザートチタニウム'},{src:'16promax/natural_ti.png',lb:'ナチュラルチタニウム'},{src:'16promax/white_ti.png',lb:'ホワイトチタニウム'},{src:'16promax/black_ti.png',lb:'ブラックチタニウム'},{src:'16promax/cam_desert.png',lb:'カメラ部 デザート'},{src:'16promax/cam_natural.png',lb:'カメラ部 ナチュラル'},{src:'16promax/cam_black.png',lb:'カメラ部 ブラック'},{src:'16promax/cam_white.png',lb:'カメラ部 ホワイト'},{src:'16promax/backside_black.png',lb:'背面+側面 ブラック'},{src:'16promax/backside_white.png',lb:'背面+側面 ホワイト'},{src:'16promax/backside_natural.png',lb:'背面+側面 ナチュラル'},{src:'16promax/backside_desert.png',lb:'背面+側面 デザート'},{src:'16promax/bottom_black.png',lb:'背面下部 ブラック'},{src:'16promax/bottom_natural.png',lb:'背面下部 ナチュラル'},{src:'16promax/bottom_desert.png',lb:'背面下部 デザート'},{src:'16promax/bottom_white.png',lb:'背面下部 ホワイト'}],quiz:{q:'iPhone 16 Pro Maxの特徴は？',o:['アルミフレーム','5倍光学ズーム','Lightning'],a:1}},
+          {n:'iPhone 16e',y:'2025',d:'6.1"',ch:'A18',cn:'USB-C',bio:'Face ID',col:'ブラック,ホワイト',w:'167g',sz:'146.7×71.5×7.80mm',mn:'A3295等',tip:'SE後継モデル。Face ID搭載。シングルカメラ（48MP）。USB-C。ノッチ型（Dynamic Islandなし）。Apple C1モデム初搭載。',imgs:[{src:'16e/lineup.png',lb:'ラインナップ'},{src:'16e/black.png',lb:'ブラック'},{src:'16e/white.png',lb:'ホワイト'},{src:'16e/backside_black.png',lb:'背面+側面 ブラック'},{src:'16e/backside_white.png',lb:'背面+側面 ホワイト'},{src:'16e/cam_black.png',lb:'カメラ部 ブラック'},{src:'16e/cam_white.png',lb:'カメラ部 ホワイト'}],quiz:{q:'iPhone 16eの生体認証は？',o:['Touch ID','Face ID','なし'],a:1}}
+        ],
+        '15 シリーズ': [
+          {n:'iPhone 15',y:'2023',d:'6.1"',ch:'A16',cn:'USB-C',bio:'Face ID',col:'ブラック,ブルー,グリーン,イエロー,ピンク',w:'171g',sz:'147.6×71.6×7.8mm',mn:'A2846等',tip:'iPhone初のUSB-C搭載（非Pro含む）。Dynamic Island。斜め配置デュアルカメラ（48MP+12MP）。カラーインフューズドガラス背面。',imgs:[{src:'15/cam_black.png',lb:'カメラ部 ブラック'},{src:'15/cam_blue.png',lb:'カメラ部 ブルー'},{src:'15/cam_green.png',lb:'カメラ部 グリーン'},{src:'15/cam_pink.png',lb:'カメラ部 ピンク'},{src:'15/cam_yellow.png',lb:'カメラ部 イエロー'},{src:'15/back_top_black.png',lb:'背面上部 ブラック'},{src:'15/back_top_blue.png',lb:'背面上部 ブルー'},{src:'15/back_top_green.png',lb:'背面上部 グリーン'},{src:'15/back_top_pink.png',lb:'背面上部 ピンク'},{src:'15/back_top_yellow.png',lb:'背面上部 イエロー'},{src:'15/backside_black.png',lb:'背面+側面 ブラック'},{src:'15/backside_blue.png',lb:'背面+側面 ブルー'},{src:'15/backside_green.png',lb:'背面+側面 グリーン'},{src:'15/backside_pink.png',lb:'背面+側面 ピンク'},{src:'15/backside_yellow.png',lb:'背面+側面 イエロー'},{src:'15/combo_black.png',lb:'コンボ ブラック'},{src:'15/combo_blue.png',lb:'コンボ ブルー'},{src:'15/combo_green.png',lb:'コンボ グリーン'},{src:'15/combo_pink.png',lb:'コンボ ピンク'},{src:'15/combo_yellow.png',lb:'コンボ イエロー'}],quiz:{q:'iPhone 15からの大きな変更点は？',o:['USB-C搭載','ホームボタン復活','5G非対応'],a:0}},
+          {n:'iPhone 15 Plus',y:'2023',d:'6.7"',ch:'A16',cn:'USB-C',bio:'Face ID',col:'ブラック,ブルー,グリーン,イエロー,ピンク',w:'201g',sz:'160.9×77.8×7.8mm',mn:'A2848等',tip:'15の大画面版。USB-C。Dynamic Island。同じカラバリ。',imgs:[{src:'15plus/cam_black.png',lb:'カメラ部 ブラック'},{src:'15plus/cam_pink.png',lb:'カメラ部 ピンク'},{src:'15plus/cam_yellow.png',lb:'カメラ部 イエロー'},{src:'15plus/cam_green.png',lb:'カメラ部 グリーン'},{src:'15plus/cam_blue.png',lb:'カメラ部 ブルー'},{src:'15plus/back_top_black.png',lb:'背面上部 ブラック'},{src:'15plus/back_top_pink.png',lb:'背面上部 ピンク'},{src:'15plus/back_top_yellow.png',lb:'背面上部 イエロー'},{src:'15plus/back_top_green.png',lb:'背面上部 グリーン'},{src:'15plus/back_top_blue.png',lb:'背面上部 ブルー'},{src:'15plus/combo_black.png',lb:'コンボ ブラック'},{src:'15plus/combo_pink.png',lb:'コンボ ピンク'},{src:'15plus/combo_yellow.png',lb:'コンボ イエロー'},{src:'15plus/combo_green.png',lb:'コンボ グリーン'},{src:'15plus/combo_blue.png',lb:'コンボ ブルー'},{src:'15plus/backside_black.png',lb:'背面+側面 ブラック'},{src:'15plus/backside_pink.png',lb:'背面+側面 ピンク'},{src:'15plus/backside_yellow.png',lb:'背面+側面 イエロー'},{src:'15plus/backside_green.png',lb:'背面+側面 グリーン'},{src:'15plus/backside_blue.png',lb:'背面+側面 ブルー'}],quiz:{q:'iPhone 15 Plusの画面サイズは？',o:['6.1"','6.7"','6.9"'],a:1}},
+          {n:'iPhone 15 Pro',y:'2023',d:'6.1"',ch:'A17 Pro',cn:'USB-C',bio:'Face ID',col:'ナチュラルチタニウム,ブルーチタニウム,ホワイトチタニウム,ブラックチタニウム',w:'187g',sz:'146.6×70.6×8.25mm',mn:'A2848等',tip:'初のチタニウムフレーム。アクションボタン初搭載（ミュートスイッチ廃止）。USB-C（USB 3）。',imgs:[{src:'15pro/cam_natural_ti.png',lb:'カメラ部 ナチュラルチタニウム'},{src:'15pro/cam_blue_ti.png',lb:'カメラ部 ブルーチタニウム'},{src:'15pro/cam_white_ti.png',lb:'カメラ部 ホワイトチタニウム'},{src:'15pro/cam_black_ti.png',lb:'カメラ部 ブラックチタニウム'},{src:'15pro/combo_natural_ti.png',lb:'コンボ ナチュラルチタニウム'},{src:'15pro/combo_blue_ti.png',lb:'コンボ ブルーチタニウム'},{src:'15pro/combo_white_ti.png',lb:'コンボ ホワイトチタニウム'},{src:'15pro/combo_black_ti.png',lb:'コンボ ブラックチタニウム'},{src:'15pro/backside_natural_ti.png',lb:'背面+側面 ナチュラルチタニウム'},{src:'15pro/backside_blue_ti.png',lb:'背面+側面 ブルーチタニウム'},{src:'15pro/backside_white_ti.png',lb:'背面+側面 ホワイトチタニウム'},{src:'15pro/backside_black_ti.png',lb:'背面+側面 ブラックチタニウム'},{src:'15pro/back_top_natural_ti.png',lb:'背面上部 ナチュラルチタニウム'},{src:'15pro/back_top_blue_ti.png',lb:'背面上部 ブルーチタニウム'},{src:'15pro/back_top_white_ti.png',lb:'背面上部 ホワイトチタニウム'},{src:'15pro/back_top_black_ti.png',lb:'背面上部 ブラックチタニウム'},{src:'15pro/side_natural_ti.png',lb:'側面 ナチュラルチタニウム'},{src:'15pro/side_blue_ti.png',lb:'側面 ブルーチタニウム'},{src:'15pro/side_white_ti.png',lb:'側面 ホワイトチタニウム'},{src:'15pro/side_black_ti.png',lb:'側面 ブラックチタニウム'}],quiz:{q:'iPhone 15 Proで初搭載されたボタンは？',o:['カメラコントロール','アクションボタン','音量ボタン'],a:1}},
+          {n:'iPhone 15 Pro Max',y:'2023',d:'6.7"',ch:'A17 Pro',cn:'USB-C',bio:'Face ID',col:'ナチュラルチタニウム,ブルーチタニウム,ホワイトチタニウム,ブラックチタニウム',w:'221g',sz:'159.9×76.7×8.25mm',mn:'A2849等',tip:'テトラプリズム5倍光学ズーム初搭載。チタニウム。最大画面。',imgs:[{src:'15promax/cam_black_ti.png',lb:'カメラ部 ブラックチタニウム'},{src:'15promax/cam_blue_ti.png',lb:'カメラ部 ブルーチタニウム'},{src:'15promax/cam_natural_ti.png',lb:'カメラ部 ナチュラルチタニウム'},{src:'15promax/cam_white_ti.png',lb:'カメラ部 ホワイトチタニウム'},{src:'15promax/combo_blue_ti.png',lb:'コンボ ブルーチタニウム'},{src:'15promax/combo_white_ti.png',lb:'コンボ ホワイトチタニウム'},{src:'15promax/combo_black_ti.png',lb:'コンボ ブラックチタニウム'},{src:'15promax/combo_natural_ti.png',lb:'コンボ ナチュラルチタニウム'},{src:'15promax/side_natural_ti.png',lb:'側面 ナチュラルチタニウム'},{src:'15promax/side_blue_ti.png',lb:'側面 ブルーチタニウム'},{src:'15promax/side_white_ti.png',lb:'側面 ホワイトチタニウム'},{src:'15promax/side_black_ti.png',lb:'側面 ブラックチタニウム'},{src:'15promax/backside_natural_ti.png',lb:'背面+側面 ナチュラルチタニウム'},{src:'15promax/backside_blue_ti.png',lb:'背面+側面 ブルーチタニウム'},{src:'15promax/backside_white_ti.png',lb:'背面+側面 ホワイトチタニウム'},{src:'15promax/backside_black_ti.png',lb:'背面+側面 ブラックチタニウム'},{src:'15promax/back_top_natural_ti.png',lb:'背面上部 ナチュラルチタニウム'},{src:'15promax/back_top_blue_ti.png',lb:'背面上部 ブルーチタニウム'},{src:'15promax/back_top_white_ti.png',lb:'背面上部 ホワイトチタニウム'},{src:'15promax/back_top_black_ti.png',lb:'背面上部 ブラックチタニウム'}],quiz:{q:'iPhone 15 Pro Maxで初搭載の光学ズームは？',o:['2倍','3倍','5倍'],a:2}}
+        ],
+        '14 シリーズ': [
+          {n:'iPhone 14',y:'2022',d:'6.1"',ch:'A15',cn:'Lightning',bio:'Face ID',col:'ミッドナイト,スターライト,(PRODUCT)RED,ブルー,パープル,イエロー',w:'172g',sz:'146.7×71.5×7.8mm',mn:'A2649等',tip:'ノッチ型（非Dynamic Island）。Lightning。デュアルカメラ12MP。衝突事故検出搭載。',imgs:[{src:'14/cam_blue.png',lb:'カメラ部 ブルー'},{src:'14/cam_midnight.png',lb:'カメラ部 ミッドナイト'},{src:'14/cam_red.png',lb:'カメラ部 レッド'},{src:'14/cam_starlight.png',lb:'カメラ部 スターライト'},{src:'14/cam_yellow.png',lb:'カメラ部 イエロー'},{src:'14/cam_purple.png',lb:'カメラ部 パープル'},{src:'14/back_top_blue.png',lb:'背面上部 ブルー'},{src:'14/back_top_midnight.png',lb:'背面上部 ミッドナイト'},{src:'14/back_top_red.png',lb:'背面上部 レッド'},{src:'14/back_top_starlight.png',lb:'背面上部 スターライト'},{src:'14/back_top_yellow.png',lb:'背面上部 イエロー'},{src:'14/back_top_purple.png',lb:'背面上部 パープル'},{src:'14/backside_blue.png',lb:'背面+側面 ブルー'},{src:'14/backside_midnight.png',lb:'背面+側面 ミッドナイト'},{src:'14/backside_red.png',lb:'背面+側面 レッド'},{src:'14/backside_starlight.png',lb:'背面+側面 スターライト'},{src:'14/backside_yellow.png',lb:'背面+側面 イエロー'},{src:'14/backside_purple.png',lb:'背面+側面 パープル'},{src:'14/combo_blue.png',lb:'コンボ ブルー'},{src:'14/combo_midnight.png',lb:'コンボ ミッドナイト'},{src:'14/combo_red.png',lb:'コンボ レッド'},{src:'14/combo_starlight.png',lb:'コンボ スターライト'},{src:'14/combo_yellow.png',lb:'コンボ イエロー'},{src:'14/combo_purple.png',lb:'コンボ パープル'},{src:'14/cam_yellow_2.png',lb:'カメラ部 イエロー'}],quiz:{q:'iPhone 14のコネクタは？',o:['USB-C','Lightning','Micro USB'],a:1}},
+          {n:'iPhone 14 Plus',y:'2022',d:'6.7"',ch:'A15',cn:'Lightning',bio:'Face ID',col:'ミッドナイト,スターライト,(PRODUCT)RED,ブルー,パープル,イエロー',w:'203g',sz:'160.8×78.1×7.8mm',mn:'A2632等',tip:'mini廃止後の大画面モデル。ノッチ。Lightning。14と同じデザイン。',imgs:[{src:'14plus/cam_blue.png',lb:'カメラ部 ブルー'},{src:'14plus/cam_midnight.png',lb:'カメラ部 ミッドナイト'},{src:'14plus/cam_purple.png',lb:'カメラ部 パープル'},{src:'14plus/cam_red.png',lb:'カメラ部 レッド'},{src:'14plus/cam_starlight.png',lb:'カメラ部 スターライト'},{src:'14plus/cam_yellow.png',lb:'カメラ部 イエロー'},{src:'14plus/back_top_blue.png',lb:'背面上部 ブルー'},{src:'14plus/back_top_midnight.png',lb:'背面上部 ミッドナイト'},{src:'14plus/back_top_purple.png',lb:'背面上部 パープル'},{src:'14plus/back_top_red.png',lb:'背面上部 レッド'},{src:'14plus/cam_starlight_2.png',lb:'カメラ部 スターライト'},{src:'14plus/cam_yellow_2.png',lb:'カメラ部 イエロー'},{src:'14plus/backside_blue.png',lb:'背面+側面 ブルー'},{src:'14plus/backside_midnight.png',lb:'背面+側面 ミッドナイト'},{src:'14plus/backside_purple.png',lb:'背面+側面 パープル'},{src:'14plus/backside_red.png',lb:'背面+側面 レッド'},{src:'14plus/backside_starlight.png',lb:'背面+側面 スターライト'},{src:'14plus/backside_yellow.png',lb:'背面+側面 イエロー'},{src:'14plus/combo_blue.png',lb:'コンボ ブルー'},{src:'14plus/combo_midnight.png',lb:'コンボ ミッドナイト'},{src:'14plus/combo_purple.png',lb:'コンボ パープル'},{src:'14plus/combo_red.png',lb:'コンボ レッド'},{src:'14plus/combo_starlight.png',lb:'コンボ スターライト'},{src:'14plus/combo_yellow.png',lb:'コンボ イエロー'}],quiz:{q:'iPhone 14 Plusの画面サイズは？',o:['6.1"','6.7"','6.9"'],a:1}},
+          {n:'iPhone 14 Pro',y:'2022',d:'6.1"',ch:'A16',cn:'Lightning',bio:'Face ID',col:'スペースブラック,シルバー,ゴールド,ディープパープル',w:'206g',sz:'147.5×71.5×7.85mm',mn:'A2650等',tip:'Dynamic Island初搭載。常時表示ディスプレイ。48MPメインカメラ。ステンレススチールフレーム。Lightning。',imgs:[{src:'14pro/cam_gold.png',lb:'カメラ部 ゴールド'},{src:'14pro/cam_silver.png',lb:'カメラ部 シルバー'},{src:'14pro/cam_deeppurple.png',lb:'カメラ部 ディープパープル'},{src:'14pro/cam_spaceblack.png',lb:'カメラ部 スペースブラック'},{src:'14pro/combo_deeppurple.png',lb:'コンボ ディープパープル'},{src:'14pro/combo_silver.png',lb:'コンボ シルバー'},{src:'14pro/combo_spaceblack.png',lb:'コンボ スペースブラック'},{src:'14pro/combo_gold.png',lb:'コンボ ゴールド'},{src:'14pro/back_top_gold.png',lb:'背面上部 ゴールド'},{src:'14pro/back_top_silver.png',lb:'背面上部 シルバー'},{src:'14pro/back_top_deeppurple.png',lb:'背面上部 ディープパープル'},{src:'14pro/back_top_spaceblack.png',lb:'背面上部 スペースブラック'},{src:'14pro/side_all.png',lb:'側面 全色'}],quiz:{q:'iPhone 14 Proのフレーム素材は？',o:['アルミ','ステンレス','チタニウム'],a:1}},
+          {n:'iPhone 14 Pro Max',y:'2022',d:'6.7"',ch:'A16',cn:'Lightning',bio:'Face ID',col:'スペースブラック,シルバー,ゴールド,ディープパープル',w:'240g',sz:'160.7×77.6×7.85mm',mn:'A2651等',tip:'14 Proの大画面版。Dynamic Island。常時表示。48MP。ステンレス。Lightning。',imgs:[{src:'14promax/combo_gold.png',lb:'コンボ ゴールド'},{src:'14promax/combo_deeppurple.png',lb:'コンボ ディープパープル'},{src:'14promax/combo_spaceblack.png',lb:'コンボ スペースブラック'},{src:'14promax/combo_silver.png',lb:'コンボ シルバー'},{src:'14promax/back_top_gold.png',lb:'背面上部 ゴールド'},{src:'14promax/back_top_spaceblack.png',lb:'背面上部 スペースブラック'},{src:'14promax/back_top_deeppurple.png',lb:'背面上部 ディープパープル'},{src:'14promax/back_top_silver.png',lb:'背面上部 シルバー'},{src:'14promax/cam_gold.png',lb:'カメラ部 ゴールド'},{src:'14promax/cam_deeppurple.png',lb:'カメラ部 ディープパープル'},{src:'14promax/cam_spaceblack.png',lb:'カメラ部 スペースブラック'},{src:'14promax/cam_silver.png',lb:'カメラ部 シルバー'},{src:'14promax/side_all.png',lb:'側面 全色'}],quiz:{q:'iPhone 14 Pro Maxの重量は約？',o:['200g','220g','240g'],a:2}}
+        ],
+        '13 シリーズ': [
+          {n:'iPhone 13',y:'2021',d:'6.1"',ch:'A15',cn:'Lightning',bio:'Face ID',col:'スターライト,ミッドナイト,ブルー,ピンク,(PRODUCT)RED,グリーン',w:'173g',sz:'146.7×71.5×7.7mm',mn:'A2631等',tip:'斜め配置デュアルカメラ（12と区別するポイント）。ノッチが小型化。Lightning。',imgs:[{src:'13/cam_blue.png',lb:'カメラ部 ブルー'},{src:'13/cam_green.png',lb:'カメラ部 グリーン'},{src:'13/cam_midnight.png',lb:'カメラ部 ミッドナイト'},{src:'13/cam_pink.png',lb:'カメラ部 ピンク'},{src:'13/cam_red.png',lb:'カメラ部 RED'},{src:'13/cam_starlight.png',lb:'カメラ部 スターライト'},{src:'13/back_top_blue.png',lb:'背面上部 ブルー'},{src:'13/back_top_green.png',lb:'背面上部 グリーン'},{src:'13/back_top_midnight.png',lb:'背面上部 ミッドナイト'},{src:'13/back_top_pink.png',lb:'背面上部 ピンク'},{src:'13/cam_red_2.png',lb:'カメラ部 レッド'},{src:'13/cam_starlight_2.png',lb:'カメラ部 スターライト'},{src:'13/backside_blue.png',lb:'背面+側面 ブルー'},{src:'13/backside_green.png',lb:'背面+側面 グリーン'},{src:'13/backside_midnight.png',lb:'背面+側面 ミッドナイト'},{src:'13/backside_pink.png',lb:'背面+側面 ピンク'},{src:'13/backside_red.png',lb:'背面+側面 レッド'},{src:'13/backside_starlight.png',lb:'背面+側面 スターライト'},{src:'13/combo_blue.png',lb:'コンボ ブルー'},{src:'13/combo_green.png',lb:'コンボ グリーン'},{src:'13/combo_midnight.png',lb:'コンボ ミッドナイト'},{src:'13/combo_pink.png',lb:'コンボ ピンク'},{src:'13/combo_red.png',lb:'コンボ レッド'},{src:'13/combo_starlight.png',lb:'コンボ スターライト'}],quiz:{q:'iPhone 13のカメラ配置は？',o:['縦並び','斜め配置','横並び'],a:1}},
+          {n:'iPhone 13 mini',y:'2021',d:'5.4"',ch:'A15',cn:'Lightning',bio:'Face ID',col:'スターライト,ミッドナイト,ブルー,ピンク,(PRODUCT)RED,グリーン',w:'140g',sz:'131.5×64.2×7.7mm',mn:'A2626等',tip:'最後のminiモデル。5.4インチ。斜めカメラ。コンパクトサイズ。',imgs:[{src:'13mini/combo_green.png',lb:'コンボ グリーン'},{src:'13mini/combo_pink.png',lb:'コンボ ピンク'},{src:'13mini/combo_midnight.png',lb:'コンボ ミッドナイト'},{src:'13mini/combo_red.png',lb:'コンボ レッド'},{src:'13mini/combo_starlight.png',lb:'コンボ スターライト'},{src:'13mini/combo_blue.png',lb:'コンボ ブルー'},{src:'13mini/cam_green.png',lb:'カメラ部 グリーン'},{src:'13mini/cam_pink.png',lb:'カメラ部 ピンク'},{src:'13mini/cam_midnight.png',lb:'カメラ部 ミッドナイト'},{src:'13mini/cam_red.png',lb:'カメラ部 レッド'},{src:'13mini/cam_starlight.png',lb:'カメラ部 スターライト'},{src:'13mini/cam_blue.png',lb:'カメラ部 ブルー'},{src:'13mini/side_all.png',lb:'側面 全色'},{src:'13mini/combo_angle_pink.png',lb:'コンボ斜め ピンク'},{src:'13mini/combo_angle_midnight.png',lb:'コンボ斜め ミッドナイト'},{src:'13mini/combo_angle_red.png',lb:'コンボ斜め レッド'},{src:'13mini/combo_angle_starlight.png',lb:'コンボ斜め スターライト'},{src:'13mini/combo_angle_blue.png',lb:'コンボ斜め ブルー'}],quiz:{q:'初代miniモデルは？',o:['iPhone 12 mini','iPhone 13 mini','iPhone SE'],a:0}},
+          {n:'iPhone 13 Pro',y:'2021',d:'6.1"',ch:'A15',cn:'Lightning',bio:'Face ID',col:'グラファイト,ゴールド,シルバー,シエラブルー,アルパイングリーン',w:'203g',sz:'146.7×71.5×7.7mm',mn:'A2636等',tip:'トリプルカメラ+LiDAR。ステンレスフレーム（光沢）。ProMotion 120Hz初搭載。',imgs:[{src:'13pro/cam_gold.png',lb:'カメラ部 ゴールド'},{src:'13pro/cam_sierrablue.png',lb:'カメラ部 シエラブルー'},{src:'13pro/cam_alpinegreen.png',lb:'カメラ部 アルパイングリーン'},{src:'13pro/cam_graphite.png',lb:'カメラ部 グラファイト'},{src:'13pro/cam_silver.png',lb:'カメラ部 シルバー'},{src:'13pro/combo_gold.png',lb:'コンボ ゴールド'},{src:'13pro/combo_silver.png',lb:'コンボ シルバー'},{src:'13pro/combo_graphite.png',lb:'コンボ グラファイト'},{src:'13pro/combo_sierrablue.png',lb:'コンボ シエラブルー'},{src:'13pro/combo_alpinegreen.png',lb:'コンボ アルパイングリーン'},{src:'13pro/combo_angle_sierrablue.png',lb:'コンボ斜め シエラブルー'},{src:'13pro/combo_angle_alpinegreen.png',lb:'コンボ斜め アルパイングリーン'},{src:'13pro/combo_angle_graphite.png',lb:'コンボ斜め グラファイト'},{src:'13pro/combo_angle_silver.png',lb:'コンボ斜め シルバー'},{src:'13pro/combo_angle_gold.png',lb:'コンボ斜め ゴールド'},{src:'13pro/side_all.png',lb:'側面 全色'}],quiz:{q:'iPhone 13 Proで初搭載のディスプレイ技術は？',o:['OLED','ProMotion 120Hz','常時表示'],a:1}},
+          {n:'iPhone 13 Pro Max',y:'2021',d:'6.7"',ch:'A15',cn:'Lightning',bio:'Face ID',col:'グラファイト,ゴールド,シルバー,シエラブルー,アルパイングリーン',w:'238g',sz:'160.8×78.1×7.7mm',mn:'A2641等',tip:'13シリーズ最大。トリプルカメラ+LiDAR。ステンレス。ProMotion。',imgs:[{src:'13promax/cam_alpinegreen.png',lb:'カメラ部 アルパイングリーン'},{src:'13promax/cam_graphite.png',lb:'カメラ部 グラファイト'},{src:'13promax/cam_silver.png',lb:'カメラ部 シルバー'},{src:'13promax/cam_gold.png',lb:'カメラ部 ゴールド'},{src:'13promax/cam_sierrablue.png',lb:'カメラ部 シエラブルー'},{src:'13promax/combo_graphite.png',lb:'コンボ グラファイト'},{src:'13promax/combo_gold.png',lb:'コンボ ゴールド'},{src:'13promax/combo_alpinegreen.png',lb:'コンボ アルパイングリーン'},{src:'13promax/combo_silver.png',lb:'コンボ シルバー'},{src:'13promax/combo_sierrablue.png',lb:'コンボ シエラブルー'},{src:'13promax/combo_angle_gold.png',lb:'コンボ斜め ゴールド'},{src:'13promax/combo_angle_alpinegreen.png',lb:'コンボ斜め アルパイングリーン'},{src:'13promax/combo_angle_silver.png',lb:'コンボ斜め シルバー'},{src:'13promax/combo_angle_sierrablue.png',lb:'コンボ斜め シエラブルー'},{src:'13promax/combo_angle_graphite.png',lb:'コンボ斜め グラファイト'},{src:'13promax/side_all.png',lb:'側面 全色'}],quiz:{q:'iPhone 13 Pro Maxの画面サイズは？',o:['6.1"','6.5"','6.7"'],a:2}}
+        ],
+        '12 シリーズ': [
+          {n:'iPhone 12',y:'2020',d:'6.1"',ch:'A14',cn:'Lightning',bio:'Face ID',col:'ブラック,ホワイト,(PRODUCT)RED,グリーン,ブルー,パープル',w:'162g',sz:'146.7×71.5×7.4mm',mn:'A2403等',tip:'フラットエッジデザイン復活。縦並びデュアルカメラ。MagSafe対応。5G初搭載。',imgs:[{src:'12/combo_red.png',lb:'コンボ RED'},{src:'12/combo_black.png',lb:'コンボ ブラック'},{src:'12/combo_white.png',lb:'コンボ ホワイト'},{src:'12/combo_purple.png',lb:'コンボ パープル'},{src:'12/combo_blue.png',lb:'コンボ ブルー'},{src:'12/combo_green.png',lb:'コンボ グリーン'},{src:'12/cam_white.png',lb:'カメラ部 ホワイト'},{src:'12/cam_green.png',lb:'カメラ部 グリーン'},{src:'12/cam_black.png',lb:'カメラ部 ブラック'},{src:'12/cam_blue.png',lb:'カメラ部 ブルー'},{src:'12/cam_red.png',lb:'カメラ部 RED'}],quiz:{q:'iPhone 12で復活したデザインは？',o:['丸みエッジ','フラットエッジ','ノッチレス'],a:1}},
+          {n:'iPhone 12 mini',y:'2020',d:'5.4"',ch:'A14',cn:'Lightning',bio:'Face ID',col:'ブラック,ホワイト,(PRODUCT)RED,グリーン,ブルー,パープル',w:'133g',sz:'131.5×64.2×7.4mm',mn:'A2398等',tip:'初のminiモデル。5.4インチ。フラットエッジ。12と同じデザインのコンパクト版。',imgs:[{src:'12mini/combo_black.png',lb:'コンボ ブラック'},{src:'12mini/combo_blue.png',lb:'コンボ ブルー'},{src:'12mini/combo_white.png',lb:'コンボ ホワイト'},{src:'12mini/combo_red.png',lb:'コンボ RED'},{src:'12mini/combo_green.png',lb:'コンボ グリーン'},{src:'12mini/combo_purple.png',lb:'コンボ パープル'},{src:'12mini/cam_purple.png',lb:'カメラ部 パープル'},{src:'12mini/cam_green.png',lb:'カメラ部 グリーン'},{src:'12mini/cam_white.png',lb:'カメラ部 ホワイト'},{src:'12mini/cam_red.png',lb:'カメラ部 RED'},{src:'12mini/cam_black.png',lb:'カメラ部 ブラック'},{src:'12mini/cam_blue.png',lb:'カメラ部 ブルー'}],quiz:{q:'iPhone 12 miniの画面サイズは？',o:['4.7"','5.4"','5.8"'],a:1}},
+          {n:'iPhone 12 Pro',y:'2020',d:'6.1"',ch:'A14',cn:'Lightning',bio:'Face ID',col:'グラファイト,シルバー,ゴールド,パシフィックブルー',w:'187g',sz:'146.7×71.5×7.4mm',mn:'A2407等',tip:'トリプルカメラ+LiDAR。ステンレスフレーム（光沢）。フラットエッジ。MagSafe。',imgs:[{src:'12pro/combo_silver.png',lb:'コンボ シルバー'},{src:'12pro/combo_pacificblue.png',lb:'コンボ パシフィックブルー'},{src:'12pro/combo_gold.png',lb:'コンボ ゴールド'},{src:'12pro/combo_graphite.png',lb:'コンボ グラファイト'},{src:'12pro/cam_silver.png',lb:'カメラ部 シルバー'},{src:'12pro/cam_pacificblue.png',lb:'カメラ部 パシフィックブルー'},{src:'12pro/cam_gold.png',lb:'カメラ部 ゴールド'},{src:'12pro/cam_graphite.png',lb:'カメラ部 グラファイト'}],quiz:{q:'iPhone 12 Proのフレーム素材は？',o:['アルミ','ステンレス','チタニウム'],a:1}},
+          {n:'iPhone 12 Pro Max',y:'2020',d:'6.7"',ch:'A14',cn:'Lightning',bio:'Face ID',col:'グラファイト,シルバー,ゴールド,パシフィックブルー',w:'226g',sz:'160.8×78.1×7.4mm',mn:'A2411等',tip:'12シリーズ最大。センサーシフトOIS搭載。トリプル+LiDAR。ステンレス。',imgs:[{src:'12promax/combo_pacificblue.png',lb:'コンボ パシフィックブルー'},{src:'12promax/combo_graphite.png',lb:'コンボ グラファイト'},{src:'12promax/combo_silver.png',lb:'コンボ シルバー'},{src:'12promax/combo_gold.png',lb:'コンボ ゴールド'},{src:'12promax/cam_pacificblue.png',lb:'カメラ部 パシフィックブルー'},{src:'12promax/cam_silver.png',lb:'カメラ部 シルバー'},{src:'12promax/cam_gold.png',lb:'カメラ部 ゴールド'},{src:'12promax/cam_graphite.png',lb:'カメラ部 グラファイト'}],quiz:{q:'iPhone 12 Pro Maxの画面サイズは？',o:['6.5"','6.7"','6.9"'],a:1}}
+        ],
+        '11 シリーズ': [
+          {n:'iPhone 11',y:'2019',d:'6.1"',ch:'A13',cn:'Lightning',bio:'Face ID',col:'ブラック,グリーン,イエロー,パープル,(PRODUCT)RED,ホワイト',w:'194g',sz:'150.9×75.7×8.3mm',mn:'A2221等',tip:'正方形カメラバンプにデュアルカメラ。丸みエッジ。LCD（Liquid Retina）。カラフルな6色展開。',imgs:[{src:'11/purple.png',lb:'前面+側面 パープル'},{src:'11/black.png',lb:'前面+側面 ブラック'},{src:'11/green.png',lb:'前面+側面 グリーン'},{src:'11/yellow.png',lb:'前面+側面 イエロー'},{src:'11/red.png',lb:'前面+側面 RED'},{src:'11/white.png',lb:'前面+側面 ホワイト'},{src:'11/combo_black.png',lb:'コンボ ブラック'},{src:'11/combo_purple.png',lb:'コンボ パープル'},{src:'11/combo_yellow.png',lb:'コンボ イエロー'},{src:'11/combo_green.png',lb:'コンボ グリーン'},{src:'11/combo_white.png',lb:'コンボ ホワイト'},{src:'11/combo_red.png',lb:'コンボ RED'},{src:'11/cam_black.png',lb:'カメラ部 ブラック'},{src:'11/cam_yellow.png',lb:'カメラ部 イエロー'},{src:'11/cam_green.png',lb:'カメラ部 グリーン'},{src:'11/cam_purple.png',lb:'カメラ部 パープル'},{src:'11/cam_red.png',lb:'カメラ部 RED'},{src:'11/cam_white.png',lb:'カメラ部 ホワイト'}],quiz:{q:'iPhone 11のディスプレイ種類は？',o:['OLED','LCD（Liquid Retina）','Mini LED'],a:1}},
+          {n:'iPhone 11 Pro',y:'2019',d:'5.8"',ch:'A13',cn:'Lightning',bio:'Face ID',col:'ミッドナイトグリーン,スペースグレイ,シルバー,ゴールド',w:'188g',sz:'144.0×71.4×8.1mm',mn:'A2215等',tip:'初のトリプルカメラ（正方形バンプ）。ステンレスフレーム。テクスチャードマットガラス背面。Super Retina XDR（OLED）。',imgs:[{src:'11pro/combo_gold.png',lb:'コンボ ゴールド'},{src:'11pro/combo_green.png',lb:'コンボ ミッドナイトグリーン'},{src:'11pro/combo_silver.png',lb:'コンボ シルバー'},{src:'11pro/combo_spacegray.png',lb:'コンボ スペースグレイ'},{src:'11pro/gold.png',lb:'前面+側面 ゴールド'},{src:'11pro/green.png',lb:'前面+側面 ミッドナイトグリーン'},{src:'11pro/silver.png',lb:'前面+側面 シルバー'},{src:'11pro/spacegray.png',lb:'前面+側面 スペースグレイ'}],quiz:{q:'iPhone 11 Proのカメラ数は？',o:['1つ','2つ','3つ'],a:2}},
+          {n:'iPhone 11 Pro Max',y:'2019',d:'6.5"',ch:'A13',cn:'Lightning',bio:'Face ID',col:'ミッドナイトグリーン,スペースグレイ,シルバー,ゴールド',w:'226g',sz:'158.0×77.8×8.1mm',mn:'A2218等',tip:'11 Proの大画面版。トリプルカメラ。ステンレス。マットガラス。OLED 6.5インチ。',imgs:[{src:'11promax/combo_gold.png',lb:'コンボ ゴールド'},{src:'11promax/combo_silver.png',lb:'コンボ シルバー'},{src:'11promax/combo_green.png',lb:'コンボ ミッドナイトグリーン'},{src:'11promax/combo_spacegray.png',lb:'コンボ スペースグレイ'},{src:'11promax/cam_gold.png',lb:'カメラ部 ゴールド'},{src:'11promax/cam_silver.png',lb:'カメラ部 シルバー'},{src:'11promax/cam_green.png',lb:'カメラ部 ミッドナイトグリーン'},{src:'11promax/cam_spacegray.png',lb:'カメラ部 スペースグレイ'},{src:'11promax/gold.png',lb:'前面+側面 ゴールド'},{src:'11promax/silver.png',lb:'前面+側面 シルバー'},{src:'11promax/spacegray.png',lb:'前面+側面 スペースグレイ'},{src:'11promax/green.png',lb:'前面+側面 ミッドナイトグリーン'}],quiz:{q:'iPhone 11 Pro Maxの画面サイズは？',o:['6.1"','6.5"','6.7"'],a:1}}
+        ],
+        'X / XS / XR': [
+          {n:'iPhone X',y:'2017',d:'5.8"',ch:'A11',cn:'Lightning',bio:'Face ID',col:'シルバー,スペースグレイ',w:'174g',sz:'143.6×70.9×7.7mm',mn:'A1901等',tip:'初のFace ID・ノッチ・全画面デザイン。ホームボタン廃止。ステンレスフレーム。デュアルカメラ縦並び。',imgs:[{src:'x/front.png',lb:'前面'},{src:'x/silver.png',lb:'背面 シルバー'},{src:'x/spacegray.png',lb:'背面 スペースグレイ'},{src:'x/side_silver.png',lb:'側面 シルバー'},{src:'x/side_spacegray.png',lb:'側面 スペースグレイ'}],quiz:{q:'iPhone Xで初搭載された機能は？',o:['Touch ID','Face ID','MagSafe'],a:1}},
+          {n:'iPhone XS',y:'2018',d:'5.8"',ch:'A12',cn:'Lightning',bio:'Face ID',col:'ゴールド,シルバー,スペースグレイ',w:'177g',sz:'143.6×70.9×7.7mm',mn:'A2097等',tip:'Xとほぼ同サイズ。ゴールド追加。アンテナラインで区別（XSは目立ちにくい）。IP68防水。',imgs:[{src:'xs/spacegray.png',lb:'スペースグレイ'},{src:'xs/silver.png',lb:'シルバー'},{src:'xs/gold.png',lb:'前面 ゴールド'},{src:'xs/spacegray_2.png',lb:'前面 スペースグレイ'},{src:'xs/silver_2.png',lb:'前面 シルバー'},{src:'xs/gold_2.png',lb:'背面 ゴールド'},{src:'xs/spacegray_3.png',lb:'背面 スペースグレイ'},{src:'xs/silver_3.png',lb:'背面 シルバー'},{src:'xs/side_spacegray.png',lb:'側面 スペースグレイ'},{src:'xs/side_gold.png',lb:'側面 ゴールド'},{src:'xs/side_silver.png',lb:'側面 シルバー'}],quiz:{q:'iPhone XSとXを区別する主なポイントは？',o:['サイズ','アンテナライン・ゴールド色','カメラ数'],a:1}},
+          {n:'iPhone XS Max',y:'2018',d:'6.5"',ch:'A12',cn:'Lightning',bio:'Face ID',col:'ゴールド,シルバー,スペースグレイ',w:'208g',sz:'157.5×77.4×7.7mm',mn:'A2101等',tip:'XSの大画面版。6.5インチOLED。ステンレスフレーム。Plus系統の後継大画面モデル。',imgs:[{src:'xsmax/gold.png',lb:'ゴールド'},{src:'xsmax/silver.png',lb:'シルバー'},{src:'xsmax/spacegray.png',lb:'スペースグレイ'},{src:'xsmax/gold_2.png',lb:'前面 ゴールド'},{src:'xsmax/silver_2.png',lb:'前面 シルバー'},{src:'xsmax/spacegray_2.png',lb:'前面 スペースグレイ'},{src:'xsmax/gold_3.png',lb:'背面 ゴールド'},{src:'xsmax/silver_3.png',lb:'背面 シルバー'},{src:'xsmax/spacegray_3.png',lb:'背面 スペースグレイ'},{src:'xsmax/side_gold.png',lb:'側面 ゴールド'},{src:'xsmax/side_silver.png',lb:'側面 シルバー'},{src:'xsmax/side_spacegray.png',lb:'側面 スペースグレイ'}],quiz:{q:'iPhone XS Maxの画面サイズは？',o:['5.8"','6.1"','6.5"'],a:2}},
+          {n:'iPhone XR',y:'2018',d:'6.1"',ch:'A12',cn:'Lightning',bio:'Face ID',col:'ブルー,ホワイト,ブラック,イエロー,コーラル,(PRODUCT)RED',w:'194g',sz:'150.9×75.7×8.3mm',mn:'A2105等',tip:'LCD搭載の廉価モデル。アルミフレーム。シングルカメラ。6色のカラバリ。ベゼルがやや太い。',imgs:[{src:'xr/yellow.png',lb:'イエロー'},{src:'xr/coral.png',lb:'コーラル'},{src:'xr/red.png',lb:'RED'},{src:'xr/white.png',lb:'ホワイト'},{src:'xr/black.png',lb:'ブラック'},{src:'xr/blue.png',lb:'ブルー'},{src:'xr/yellow_2.png',lb:'前面 イエロー'},{src:'xr/coral_2.png',lb:'前面 コーラル'},{src:'xr/white_2.png',lb:'前面 ホワイト'},{src:'xr/black_2.png',lb:'前面 ブラック'},{src:'xr/red_2.png',lb:'前面 RED'},{src:'xr/blue_2.png',lb:'前面 ブルー'},{src:'xr/blue_3.png',lb:'背面 ブルー'},{src:'xr/white_3.png',lb:'背面 ホワイト'},{src:'xr/yellow_3.png',lb:'背面 イエロー'},{src:'xr/coral_3.png',lb:'背面 コーラル'},{src:'xr/black_3.png',lb:'背面 ブラック'},{src:'xr/red_3.png',lb:'背面 RED'},{src:'xr/side_black.png',lb:'側面 ブラック'},{src:'xr/side_white.png',lb:'側面 ホワイト'},{src:'xr/side_yellow.png',lb:'側面 イエロー'},{src:'xr/side_blue.png',lb:'側面 ブルー'},{src:'xr/side_red.png',lb:'側面 RED'},{src:'xr/side_coral.png',lb:'側面 コーラル'}],quiz:{q:'iPhone XRのフレーム素材は？',o:['ステンレス','アルミ','チタニウム'],a:1}}
+        ],
+        'SE シリーズ': [
+          {n:'iPhone SE（第1世代）',y:'2016',d:'4.0"',ch:'A9',cn:'Lightning',bio:'Touch ID',col:'シルバー,スペースグレイ,ゴールド,ローズゴールド',w:'113g',sz:'123.8×58.6×7.6mm',mn:'A1723等',tip:'iPhone 5sとほぼ同じ外観。4インチ。ホームボタン+Touch ID。エッジが面取り加工。超コンパクト。',imgs:[{src:'se1/gold.png',lb:'ゴールド'},{src:'se1/silver.png',lb:'シルバー'},{src:'se1/rosegold.png',lb:'ローズゴールド'},{src:'se1/spacegray.png',lb:'スペースグレイ'}],quiz:{q:'iPhone SE 第1世代の画面サイズは？',o:['4.0"','4.7"','5.4"'],a:0}},
+          {n:'iPhone SE（第2世代）',y:'2020',d:'4.7"',ch:'A13',cn:'Lightning',bio:'Touch ID',col:'ブラック,ホワイト,(PRODUCT)RED',w:'148g',sz:'138.4×67.3×7.3mm',mn:'A2296等',tip:'iPhone 8と同じ外観。4.7インチ。ホームボタン+Touch ID。シングルカメラ。丸みエッジ。',imgs:[{src:'se2/white.png',lb:'ホワイト'},{src:'se2/black.png',lb:'ブラック'},{src:'se2/red.png',lb:'(PRODUCT)RED'},{src:'se2/white_2.png',lb:'前面 ホワイト'},{src:'se2/black_2.png',lb:'前面 ブラック'},{src:'se2/red_2.png',lb:'前面 RED'},{src:'se2/black_3.png',lb:'背面 ブラック'},{src:'se2/red_3.png',lb:'背面 RED'},{src:'se2/cam_black.png',lb:'カメラ部 ブラック'},{src:'se2/cam_white.png',lb:'カメラ部 ホワイト'},{src:'se2/cam_red.png',lb:'カメラ部 RED'}],quiz:{q:'iPhone SE 第2世代は何と同じ外観？',o:['iPhone 7','iPhone 8','iPhone X'],a:1}},
+          {n:'iPhone SE（第3世代）',y:'2022',d:'4.7"',ch:'A15',cn:'Lightning',bio:'Touch ID',col:'ミッドナイト,スターライト,(PRODUCT)RED',w:'144g',sz:'138.4×67.3×7.3mm',mn:'A2783等',tip:'SE2と同じ外観だがチップがA15に。5G対応。ホームボタン+Touch ID。SE2/8と見た目ほぼ同じ。',imgs:[{src:'se3/starlight.png',lb:'スターライト'},{src:'se3/red.png',lb:'(PRODUCT)RED'},{src:'se3/midnight.png',lb:'ミッドナイト'},{src:'se3/starlight_2.png',lb:'背面 スターライト'},{src:'se3/red_2.png',lb:'背面 RED'},{src:'se3/midnight_2.png',lb:'背面 ミッドナイト'},{src:'se3/side_starlight.png',lb:'側面 スターライト'},{src:'se3/side_red.png',lb:'側面 RED'},{src:'se3/side_midnight.png',lb:'側面 ミッドナイト'}],quiz:{q:'iPhone SE 第3世代と第2世代の外観上の違いは？',o:['ほぼ同じ','カメラが2つ','ノッチ搭載'],a:0}}
+        ],
+        '8 / 8 Plus': [
+          {n:'iPhone 8',y:'2017',d:'4.7"',ch:'A11',cn:'Lightning',bio:'Touch ID',col:'ゴールド,シルバー,スペースグレイ,(PRODUCT)RED',w:'148g',sz:'138.4×67.3×7.3mm',mn:'A1863等',tip:'ガラス背面（Qi充電対応）。ホームボタン。丸みエッジ。7と見た目似るが背面素材で区別。',imgs:[{src:'8/gold.png',lb:'前面 ゴールド'},{src:'8/red.png',lb:'前面 (PRODUCT)RED'},{src:'8/silver.png',lb:'前面 シルバー'},{src:'8/spacegray.png',lb:'前面 スペースグレイ'},{src:'8/gold_2.png',lb:'背面 ゴールド'},{src:'8/red_2.png',lb:'背面 (PRODUCT)RED'},{src:'8/silver_2.png',lb:'背面 シルバー'},{src:'8/spacegray_2.png',lb:'背面 スペースグレイ'},{src:'8/side_gold.png',lb:'側面 ゴールド'},{src:'8/side_red.png',lb:'側面 (PRODUCT)RED'},{src:'8/side_silver.png',lb:'側面 シルバー'},{src:'8/side_spacegray.png',lb:'側面 スペースグレイ'}],quiz:{q:'iPhone 8の背面素材は？',o:['アルミ','ガラス','プラスチック'],a:1}},
+          {n:'iPhone 8 Plus',y:'2017',d:'5.5"',ch:'A11',cn:'Lightning',bio:'Touch ID',col:'ゴールド,シルバー,スペースグレイ,(PRODUCT)RED',w:'202g',sz:'158.4×78.1×7.5mm',mn:'A1864等',tip:'8の大画面版。ガラス背面。横並びデュアルカメラ。ホームボタン。',imgs:[{src:'8plus/gold.png',lb:'前面 ゴールド'},{src:'8plus/red.png',lb:'前面 (PRODUCT)RED'},{src:'8plus/silver.png',lb:'前面 シルバー'},{src:'8plus/spacegray.png',lb:'前面 スペースグレイ'},{src:'8plus/gold_2.png',lb:'背面 ゴールド'},{src:'8plus/red_2.png',lb:'背面 (PRODUCT)RED'},{src:'8plus/silver_2.png',lb:'背面 シルバー'},{src:'8plus/spacegray_2.png',lb:'背面 スペースグレイ'},{src:'8plus/side_gold.png',lb:'側面 ゴールド'},{src:'8plus/side_red.png',lb:'側面 (PRODUCT)RED'},{src:'8plus/side_silver.png',lb:'側面 シルバー'},{src:'8plus/side_spacegray.png',lb:'側面 スペースグレイ'}],quiz:{q:'iPhone 8 Plusのカメラ配置は？',o:['縦並び','横並び','単眼'],a:1}}
+        ],
+        '7 / 7 Plus': [
+          {n:'iPhone 7',y:'2016',d:'4.7"',ch:'A10',cn:'Lightning',bio:'Touch ID',col:'ブラック,シルバー,ゴールド,ローズゴールド,ジェットブラック,(PRODUCT)RED',w:'138g',sz:'138.3×67.1×7.1mm',mn:'A1778等',tip:'イヤホンジャック廃止。ホームボタン感圧式（押し込めない）。アルミ背面。防水IP67。',imgs:[{src:'7/black.png',lb:'背面 ブラック'},{src:'7/gold.png',lb:'背面 ゴールド'},{src:'7/jetblack.png',lb:'背面 ジェットブラック'},{src:'7/red.png',lb:'背面 (PRODUCT)RED'},{src:'7/rosegold.png',lb:'背面 ローズゴールド'},{src:'7/silver.png',lb:'背面 シルバー'}],quiz:{q:'iPhone 7で廃止されたものは？',o:['ホームボタン','イヤホンジャック','Lightning'],a:1}},
+          {n:'iPhone 7 Plus',y:'2016',d:'5.5"',ch:'A10',cn:'Lightning',bio:'Touch ID',col:'ブラック,シルバー,ゴールド,ローズゴールド,ジェットブラック,(PRODUCT)RED',w:'188g',sz:'158.2×77.9×7.3mm',mn:'A1784等',tip:'iPhone初のデュアルカメラ。横並び配置。アルミ背面。感圧ホームボタン。',imgs:[{src:'7plus/black.png',lb:'背面 ブラック'},{src:'7plus/gold.png',lb:'背面 ゴールド'},{src:'7plus/jetblack.png',lb:'背面 ジェットブラック'},{src:'7plus/red.png',lb:'背面 (PRODUCT)RED'},{src:'7plus/rosegold.png',lb:'背面 ローズゴールド'},{src:'7plus/silver.png',lb:'背面 シルバー'}],quiz:{q:'iPhone 7 Plusの最大の特徴は？',o:['Face ID','初のデュアルカメラ','USB-C'],a:1}}
+        ],
+        '6s / 6s Plus': [
+          {n:'iPhone 6s',y:'2015',d:'4.7"',ch:'A9',cn:'Lightning',bio:'Touch ID',col:'シルバー,スペースグレイ,ゴールド,ローズゴールド',w:'143g',sz:'138.3×67.1×7.1mm',mn:'A1688等',tip:'3D Touch搭載。ローズゴールド追加。7000番台アルミ（6より頑丈）。6とほぼ同じ外観だが「S」刻印で区別。',imgs:[{src:'6s/gold.png',lb:'ゴールド'},{src:'6s/rosegold.png',lb:'ローズゴールド'},{src:'6s/silver.png',lb:'シルバー'},{src:'6s/spacegray.png',lb:'スペースグレイ'}],quiz:{q:'iPhone 6sで追加されたカラーは？',o:['ジェットブラック','ローズゴールド','パープル'],a:1}},
+          {n:'iPhone 6s Plus',y:'2015',d:'5.5"',ch:'A9',cn:'Lightning',bio:'Touch ID',col:'シルバー,スペースグレイ,ゴールド,ローズゴールド',w:'192g',sz:'158.2×77.9×7.3mm',mn:'A1687等',tip:'6sの大画面版。3D Touch。ローズゴールド。背面「S」刻印。',imgs:[{src:'6splus/gold.png',lb:'ゴールド'},{src:'6splus/rosegold.png',lb:'ローズゴールド'},{src:'6splus/silver.png',lb:'シルバー'},{src:'6splus/spacegray.png',lb:'スペースグレイ'}],quiz:{q:'iPhone 6s Plusの画面サイズは？',o:['4.7"','5.5"','6.1"'],a:1}}
+        ],
+        '6 / 6 Plus': [
+          {n:'iPhone 6',y:'2014',d:'4.7"',ch:'A8',cn:'Lightning',bio:'Touch ID',col:'シルバー,スペースグレイ,ゴールド',w:'129g',sz:'138.1×67.0×6.9mm',mn:'A1586等',tip:'初の4.7インチ大画面化。丸みエッジデザイン。アルミ背面。カメラ出っ張りあり。',imgs:[{src:'6/gold.png',lb:'ゴールド'},{src:'6/silver.png',lb:'シルバー'},{src:'6/spacegray.png',lb:'スペースグレイ'}],quiz:{q:'iPhone 6の画面サイズは？',o:['4.0"','4.7"','5.5"'],a:1}},
+          {n:'iPhone 6 Plus',y:'2014',d:'5.5"',ch:'A8',cn:'Lightning',bio:'Touch ID',col:'シルバー,スペースグレイ,ゴールド',w:'172g',sz:'158.1×77.8×7.1mm',mn:'A1524等',tip:'iPhone初の5.5インチ。光学手ブレ補正。6と同じデザインの大画面版。',imgs:[{src:'6plus/gold.png',lb:'ゴールド'},{src:'6plus/silver.png',lb:'シルバー'},{src:'6plus/spacegray.png',lb:'スペースグレイ'}],quiz:{q:'iPhone 6 Plusは初の何インチ？',o:['4.7"','5.5"','6.1"'],a:1}}
+        ],
+        '5 / 5c / 5s': [
+          {n:'iPhone 5',y:'2012',d:'4.0"',ch:'A6',cn:'Lightning',bio:'なし',col:'ブラック&スレート,ホワイト&シルバー',w:'112g',sz:'123.8×58.6×7.6mm',mn:'A1429等',tip:'初のLightning搭載。4インチ。アルミ&ガラスの2トーン背面。面取りダイヤモンドカットエッジ。',imgs:[{src:'5/lineup.png',lb:'ラインナップ'}],quiz:{q:'iPhone 5で初搭載されたコネクタは？',o:['30ピン','Lightning','USB-C'],a:1}},
+          {n:'iPhone 5c',y:'2013',d:'4.0"',ch:'A6',cn:'Lightning',bio:'なし',col:'ホワイト,ピンク,イエロー,ブルー,グリーン',w:'132g',sz:'124.4×59.2×8.97mm',mn:'A1507等',tip:'ポリカーボネート（プラスチック）筐体。カラフル5色。丸みのあるデザイン。ホームボタン指紋なし。',imgs:[{src:'5c/lineup_back.png',lb:'全カラー 背面'},{src:'5c/lineup_front.png',lb:'全カラー 前面'},{src:'5c/lineup_front2.png',lb:'全カラー 前面2'},{src:'5c/lineup_front3.png',lb:'全カラー 前面3'},{src:'5c/lineup_side.png',lb:'全カラー 側面'},{src:'5c/blue.png',lb:'ブルー'},{src:'5c/green.png',lb:'グリーン'},{src:'5c/pink.png',lb:'ピンク'},{src:'5c/white.png',lb:'ホワイト'},{src:'5c/yellow.png',lb:'イエロー'}],quiz:{q:'iPhone 5cの背面素材は？',o:['アルミ','ガラス','ポリカーボネート'],a:2}},
+          {n:'iPhone 5s',y:'2013',d:'4.0"',ch:'A7',cn:'Lightning',bio:'Touch ID',col:'シルバー,スペースグレイ,ゴールド',w:'112g',sz:'123.8×58.6×7.6mm',mn:'A1457等',tip:'初のTouch ID搭載。ゴールド追加。5と外観似るがホームボタンのリング（Touch IDリング）で区別。',imgs:[{src:'5s/hero.png',lb:'ヒーロー'},{src:'5s/lineup.png',lb:'ラインナップ'}],quiz:{q:'iPhone 5sで初搭載された機能は？',o:['Face ID','Touch ID','Siri'],a:1}}
+        ]
+      },
+      ipad: {
+        'iPad（無印）シリーズ': [
+          {n:'iPad（第11世代/A16）',y:'2025',d:'10.9"',ch:'A16',cn:'USB-C',bio:'Touch ID（トップ）',col:'ブルー,パープル,シルバー,イエロー,ピンク',w:'477g',sz:'248.6×179.5×7.0mm',mn:'A3354等',tip:'A16チップ搭載。横向きフロントカメラ。USB-C。フラットエッジデザイン継続。',imgs:[],quiz:{q:'iPad 第11世代のチップは？',o:['A14','A15','A16'],a:2}},
+          {n:'iPad（第10世代）',y:'2022',d:'10.9"',ch:'A14',cn:'USB-C',bio:'Touch ID（トップ）',col:'シルバー,ブルー,ピンク,イエロー',w:'477g',sz:'248.6×179.5×7.0mm',mn:'A2696等',tip:'ホームボタン廃止。USB-C。横向きカメラ。フラットエッジ。カラフル4色。',imgs:[],quiz:{q:'iPad 第10世代のコネクタは？',o:['Lightning','USB-C','30ピン'],a:1}},
+          {n:'iPad（第9世代）',y:'2021',d:'10.2"',ch:'A13',cn:'Lightning',bio:'Touch ID（ホーム）',col:'シルバー,スペースグレイ',w:'487g',sz:'250.6×174.1×7.5mm',mn:'A2602等',tip:'最後のホームボタン搭載iPad。Lightning。10.2インチ。クラシックデザイン。',imgs:[],quiz:{q:'iPad 第9世代の特徴は？',o:['USB-C','最後のホームボタンiPad','Face ID'],a:1}},
+          {n:'iPad（第8世代）',y:'2020',d:'10.2"',ch:'A12',cn:'Lightning',bio:'Touch ID（ホーム）',col:'シルバー,スペースグレイ,ゴールド',w:'490g',sz:'250.6×174.1×7.5mm',mn:'A2270等',tip:'A12チップ。10.2インチ。ホームボタン。Lightning。第7世代と外観同じ。',imgs:[],quiz:{q:'iPad 第8世代のチップは？',o:['A10','A12','A14'],a:1}},
+          {n:'iPad（第7世代）',y:'2019',d:'10.2"',ch:'A10',cn:'Lightning',bio:'Touch ID（ホーム）',col:'シルバー,スペースグレイ,ゴールド',w:'483g',sz:'250.6×174.1×7.5mm',mn:'A2197等',tip:'初の10.2インチ。Smart Connector搭載。A10チップ。',imgs:[],quiz:{q:'iPad 第7世代の画面サイズは？',o:['9.7"','10.2"','10.9"'],a:1}},
+          {n:'iPad（第6世代）',y:'2018',d:'9.7"',ch:'A10',cn:'Lightning',bio:'Touch ID（ホーム）',col:'シルバー,スペースグレイ,ゴールド',w:'469g',sz:'240×169.5×7.5mm',mn:'A1893等',tip:'初のApple Pencil（第1世代）対応iPad。9.7インチ。A10チップ。',imgs:[],quiz:{q:'iPad 第6世代で初対応したアクセサリは？',o:['Smart Keyboard','Apple Pencil','Magic Keyboard'],a:1}},
+          {n:'iPad（第5世代）',y:'2017',d:'9.7"',ch:'A9',cn:'Lightning',bio:'Touch ID（ホーム）',col:'シルバー,スペースグレイ,ゴールド',w:'469g',sz:'240×169.5×7.5mm',mn:'A1822等',tip:'iPad Airの後継。A9チップ。9.7インチ。低価格iPad路線の始まり。',imgs:[],quiz:{q:'iPad 第5世代のチップは？',o:['A8','A9','A10'],a:1}},
+          {n:'iPad（第4世代）',y:'2012',d:'9.7"',ch:'A6X',cn:'Lightning',bio:'なし',col:'ブラック,ホワイト',w:'652g',sz:'241.2×185.7×9.4mm',mn:'A1458等',tip:'初のLightningコネクタiPad。A6Xチップ。Retinaディスプレイ。',imgs:[],quiz:{q:'iPad 第4世代で初採用されたコネクタは？',o:['30ピン','Lightning','USB-C'],a:1}},
+          {n:'iPad（第3世代）',y:'2012',d:'9.7"',ch:'A5X',cn:'30ピン',bio:'なし',col:'ブラック,ホワイト',w:'652g',sz:'241.2×185.7×9.4mm',mn:'A1416等',tip:'初のRetinaディスプレイiPad。A5Xチップ。30ピンコネクタ。',imgs:[],quiz:{q:'iPad 第3世代の最大の特徴は？',o:['Retina対応','Lightning','Touch ID'],a:0}},
+          {n:'iPad 2',y:'2011',d:'9.7"',ch:'A5',cn:'30ピン',bio:'なし',col:'ブラック,ホワイト',w:'601g',sz:'241.2×185.7×8.8mm',mn:'A1395等',tip:'初のカメラ搭載iPad。A5チップ。薄型化。Smart Cover対応。',imgs:[],quiz:{q:'iPad 2で初搭載されたものは？',o:['Retina','カメラ','Touch ID'],a:1}},
+          {n:'iPad（初代）',y:'2010',d:'9.7"',ch:'A4',cn:'30ピン',bio:'なし',col:'ブラック（背面シルバー）',w:'680g',sz:'242.8×189.7×13.4mm',mn:'A1219等',tip:'初代iPad。A4チップ。カメラなし。ホームボタンのみ。歴史的モデル。',imgs:[],quiz:{q:'初代iPadにないものは？',o:['ホームボタン','カメラ','Wi-Fi'],a:1}}
+        ],
+        'iPad mini シリーズ': [
+          {n:'iPad mini（A17 Pro）',y:'2024',d:'8.3"',ch:'A17 Pro',cn:'USB-C',bio:'Touch ID（トップ）',col:'スペースグレイ,スターライト,パープル,ブルー',w:'293g',sz:'195.4×134.8×6.3mm',mn:'A2993等',tip:'A17 Proチップ。8.3インチ。Apple Pencil Pro対応。Apple Intelligence対応。',imgs:[],quiz:{q:'iPad mini A17 Proの画面サイズは？',o:['7.9"','8.3"','10.2"'],a:1}},
+          {n:'iPad mini（第6世代）',y:'2021',d:'8.3"',ch:'A15',cn:'USB-C',bio:'Touch ID（トップ）',col:'スペースグレイ,スターライト,ピンク,パープル',w:'293g',sz:'195.4×134.8×6.3mm',mn:'A2567等',tip:'フルモデルチェンジ。ホームボタン廃止。USB-C。フラットエッジ。8.3インチ。',imgs:[],quiz:{q:'iPad mini 第6世代で廃止されたものは？',o:['Touch ID','ホームボタン','カメラ'],a:1}},
+          {n:'iPad mini（第5世代）',y:'2019',d:'7.9"',ch:'A12',cn:'Lightning',bio:'Touch ID（ホーム）',col:'シルバー,スペースグレイ,ゴールド',w:'300.5g',sz:'203.2×134.8×6.1mm',mn:'A2133等',tip:'A12チップ。Apple Pencil（第1世代）対応。7.9インチ。ホームボタン。',imgs:[],quiz:{q:'iPad mini 第5世代のチップは？',o:['A10','A12','A15'],a:1}},
+          {n:'iPad mini 4',y:'2015',d:'7.9"',ch:'A8',cn:'Lightning',bio:'Touch ID（ホーム）',col:'シルバー,スペースグレイ,ゴールド',w:'298.8g',sz:'203.2×134.8×6.1mm',mn:'A1538等',tip:'薄型化（6.1mm）。フルラミネーションディスプレイ。Touch ID。',imgs:[],quiz:{q:'iPad mini 4の厚さは？',o:['6.1mm','7.5mm','8.8mm'],a:0}},
+          {n:'iPad mini 3',y:'2014',d:'7.9"',ch:'A7',cn:'Lightning',bio:'Touch ID（ホーム）',col:'シルバー,スペースグレイ,ゴールド',w:'331g',sz:'200×134.7×7.5mm',mn:'A1599等',tip:'mini初のTouch ID。A7チップ。外観はmini 2とほぼ同じ。',imgs:[],quiz:{q:'iPad mini 3で初搭載されたものは？',o:['Retina','Touch ID','A8チップ'],a:1}},
+          {n:'iPad mini 2',y:'2013',d:'7.9"',ch:'A7',cn:'Lightning',bio:'なし',col:'シルバー,スペースグレイ',w:'331g',sz:'200×134.7×7.5mm',mn:'A1489等',tip:'mini初のRetinaディスプレイ。A7チップ。64bit。',imgs:[],quiz:{q:'iPad mini 2の最大の特徴は？',o:['Touch ID','Retina対応','USB-C'],a:1}},
+          {n:'iPad mini（初代）',y:'2012',d:'7.9"',ch:'A5',cn:'Lightning',bio:'なし',col:'ブラック&スレート,ホワイト&シルバー',w:'308g',sz:'200×134.7×7.2mm',mn:'A1432等',tip:'初のmini。7.9インチ。軽量コンパクト。非Retina。',imgs:[],quiz:{q:'初代iPad miniの画面サイズは？',o:['7.9"','8.3"','9.7"'],a:0}}
+        ],
+        'iPad Air シリーズ': [
+          {n:'iPad Air 13インチ（M3）',y:'2025',d:'13"',ch:'M3',cn:'USB-C',bio:'Touch ID（トップ）',col:'スペースグレイ,スターライト,パープル,ブルー',w:'616g',sz:'280.6×214.9×6.1mm',mn:'A3268等',tip:'13インチ大画面Air。M3チップ。横向きカメラ。トップボタンTouch ID。',imgs:[],quiz:{q:'iPad Air 13インチ M3の生体認証は？',o:['Face ID','Touch ID（トップ）','なし'],a:1}},
+          {n:'iPad Air 11インチ（M3）',y:'2025',d:'11"',ch:'M3',cn:'USB-C',bio:'Touch ID（トップ）',col:'スペースグレイ,スターライト,パープル,ブルー',w:'460g',sz:'247.6×178.5×6.1mm',mn:'A3266等',tip:'M3チップ搭載Air。11インチ。USB-C。Apple Pencil Pro対応。',imgs:[],quiz:{q:'iPad Air 11インチ M3のチップは？',o:['M1','M2','M3'],a:2}},
+          {n:'iPad Air 13インチ（M2）',y:'2024',d:'13"',ch:'M2',cn:'USB-C',bio:'Touch ID（トップ）',col:'スペースグレイ,スターライト,パープル,ブルー',w:'617g',sz:'281.6×215.5×6.1mm',mn:'A2898等',tip:'初の13インチAir。M2チップ。横向きフロントカメラ。',imgs:[],quiz:{q:'iPad Air 13インチ M2で初の変更点は？',o:['13インチサイズ','Face ID','OLED'],a:0}},
+          {n:'iPad Air 11インチ（M2）',y:'2024',d:'11"',ch:'M2',cn:'USB-C',bio:'Touch ID（トップ）',col:'スペースグレイ,スターライト,パープル,ブルー',w:'462g',sz:'247.6×178.5×6.1mm',mn:'A2902等',tip:'M2チップ。横向きフロントカメラ。Apple Pencilホバー対応。',imgs:[],quiz:{q:'iPad Air M2のフロントカメラの位置は？',o:['縦向き','横向き','なし'],a:1}},
+          {n:'iPad Air（第5世代/M1）',y:'2022',d:'10.9"',ch:'M1',cn:'USB-C',bio:'Touch ID（トップ）',col:'スペースグレイ,スターライト,ピンク,パープル,ブルー',w:'461g',sz:'247.6×178.5×6.1mm',mn:'A2588等',tip:'M1チップ搭載。5G対応。Center Stage。10.9インチ。',imgs:[],quiz:{q:'iPad Air 第5世代のチップは？',o:['A15','M1','M2'],a:1}},
+          {n:'iPad Air（第4世代）',y:'2020',d:'10.9"',ch:'A14',cn:'USB-C',bio:'Touch ID（トップ）',col:'シルバー,スペースグレイ,ローズゴールド,グリーン,スカイブルー',w:'458g',sz:'247.6×178.5×6.1mm',mn:'A2316等',tip:'フルモデルチェンジ。ホームボタン廃止。USB-C。トップボタンTouch ID。フラットエッジ。',imgs:[],quiz:{q:'iPad Air 第4世代のコネクタは？',o:['Lightning','USB-C','Thunderbolt'],a:1}},
+          {n:'iPad Air（第3世代）',y:'2019',d:'10.5"',ch:'A12',cn:'Lightning',bio:'Touch ID（ホーム）',col:'シルバー,スペースグレイ,ゴールド',w:'456g',sz:'250.6×174.1×6.1mm',mn:'A2152等',tip:'10.5インチ。A12チップ。Smart Connector。Apple Pencil第1世代対応。',imgs:[],quiz:{q:'iPad Air 第3世代の画面サイズは？',o:['9.7"','10.5"','10.9"'],a:1}},
+          {n:'iPad Air 2',y:'2014',d:'9.7"',ch:'A8X',cn:'Lightning',bio:'Touch ID（ホーム）',col:'シルバー,スペースグレイ,ゴールド',w:'437g',sz:'240×169.5×6.1mm',mn:'A1566等',tip:'当時世界最薄タブレット（6.1mm）。Touch ID搭載。フルラミネーション。',imgs:[],quiz:{q:'iPad Air 2の厚さは？',o:['6.1mm','7.5mm','9.4mm'],a:0}},
+          {n:'iPad Air（初代）',y:'2013',d:'9.7"',ch:'A7',cn:'Lightning',bio:'なし',col:'シルバー,スペースグレイ',w:'469g',sz:'240×169.5×7.5mm',mn:'A1474等',tip:'初代Air。大幅軽量化（iPad 4比 -28%）。A7チップ。64bit。狭額縁デザイン。',imgs:[],quiz:{q:'初代iPad Airの最大の特徴は？',o:['Touch ID','大幅軽量化','Retina'],a:1}}
+        ],
+        'iPad Pro 12.9/13インチ': [
+          {n:'iPad Pro 13インチ（M5）',y:'2025',d:'13"',ch:'M5',cn:'USB-C/Thunderbolt',bio:'Face ID',col:'スペースブラック,シルバー',w:'579g',sz:'281.6×215.5×5.1mm',mn:'A3360等',tip:'M5チップ。タンデムOLED。Thunderbolt 5。Apple Pencil Pro対応。',imgs:[],quiz:{q:'iPad Pro 13インチ M5のチップは？',o:['M4','M5','A17 Pro'],a:1}},
+          {n:'iPad Pro 13インチ（M4）',y:'2024',d:'13"',ch:'M4',cn:'USB-C/Thunderbolt',bio:'Face ID',col:'スペースブラック,シルバー',w:'579g',sz:'281.6×215.5×5.1mm',mn:'A2925等',tip:'歴代最薄iPad（5.1mm）。タンデムOLED。M4チップ。Apple Pencil Pro対応。横向きカメラ。',imgs:[],quiz:{q:'iPad Pro M4の最大の特徴は？',o:['LCD搭載','歴代最薄5.1mm','Lightning'],a:1}},
+          {n:'iPad Pro 12.9インチ（第6世代/M2）',y:'2022',d:'12.9"',ch:'M2',cn:'USB-C/Thunderbolt',bio:'Face ID',col:'スペースグレイ,シルバー',w:'682g',sz:'280.6×214.9×6.4mm',mn:'A2436等',tip:'Mini LEDディスプレイ（Liquid Retina XDR）。M2チップ。Apple Pencilホバー対応。',imgs:[],quiz:{q:'iPad Pro 12.9 M2のバックライト技術は？',o:['OLED','Mini LED','通常LED'],a:1}},
+          {n:'iPad Pro 12.9インチ（第5世代/M1）',y:'2021',d:'12.9"',ch:'M1',cn:'USB-C/Thunderbolt',bio:'Face ID',col:'スペースグレイ,シルバー',w:'682g',sz:'280.6×214.9×6.4mm',mn:'A2378等',tip:'初のMini LED（Liquid Retina XDR）。M1チップ。Thunderbolt対応。Center Stage。',imgs:[],quiz:{q:'iPad Pro 12.9 M1で初採用の技術は？',o:['OLED','Mini LED','ProMotion'],a:1}},
+          {n:'iPad Pro 12.9インチ（第4世代）',y:'2020',d:'12.9"',ch:'A12Z',cn:'USB-C',bio:'Face ID',col:'スペースグレイ,シルバー',w:'641g',sz:'280.6×214.9×5.9mm',mn:'A2229等',tip:'LiDARスキャナ初搭載。A12Zチップ。Magic Keyboard対応。',imgs:[],quiz:{q:'iPad Pro 第4世代で初搭載されたセンサーは？',o:['LiDAR','Face ID','ProMotion'],a:0}},
+          {n:'iPad Pro 12.9インチ（第3世代）',y:'2018',d:'12.9"',ch:'A12X',cn:'USB-C',bio:'Face ID',col:'スペースグレイ,シルバー',w:'631g',sz:'280.6×214.9×5.9mm',mn:'A1876等',tip:'フルモデルチェンジ。Face ID。USB-C。ホームボタン廃止。フラットエッジ。Apple Pencil第2世代対応。',imgs:[],quiz:{q:'iPad Pro 12.9 第3世代で廃止されたものは？',o:['カメラ','ホームボタン','スピーカー'],a:1}},
+          {n:'iPad Pro 12.9インチ（第2世代）',y:'2017',d:'12.9"',ch:'A10X',cn:'Lightning',bio:'Touch ID（ホーム）',col:'スペースグレイ,シルバー,ゴールド',w:'677g',sz:'305.7×220.6×6.9mm',mn:'A1670等',tip:'ProMotionディスプレイ（120Hz）初搭載。A10Xチップ。Lightning。',imgs:[],quiz:{q:'iPad Pro 12.9 第2世代で初搭載の技術は？',o:['Face ID','ProMotion 120Hz','USB-C'],a:1}},
+          {n:'iPad Pro 12.9インチ（第1世代）',y:'2015',d:'12.9"',ch:'A9X',cn:'Lightning',bio:'Touch ID（ホーム）',col:'スペースグレイ,シルバー,ゴールド',w:'713g',sz:'305.7×220.6×6.9mm',mn:'A1584等',tip:'初のiPad Pro。12.9インチ大画面。Apple Pencil初対応。Smart Connector。',imgs:[],quiz:{q:'初代iPad Pro 12.9で初対応したアクセサリは？',o:['AirPods','Apple Pencil','MagSafe'],a:1}}
+        ],
+        'iPad Pro 11インチ': [
+          {n:'iPad Pro 11インチ（M5）',y:'2025',d:'11"',ch:'M5',cn:'USB-C/Thunderbolt',bio:'Face ID',col:'スペースブラック,シルバー',w:'444g',sz:'249.7×177.5×5.3mm',mn:'A3357等',tip:'M5チップ。タンデムOLED。Thunderbolt 5。',imgs:[],quiz:{q:'iPad Pro 11インチ M5のディスプレイは？',o:['LCD','Mini LED','タンデムOLED'],a:2}},
+          {n:'iPad Pro 11インチ（M4）',y:'2024',d:'11"',ch:'M4',cn:'USB-C/Thunderbolt',bio:'Face ID',col:'スペースブラック,シルバー',w:'444g',sz:'249.7×177.5×5.3mm',mn:'A2836等',tip:'タンデムOLED。M4。Apple Pencil Pro対応。ProMotionディスプレイ。',imgs:[],quiz:{q:'iPad Pro 11インチ M4のディスプレイ技術は？',o:['LCD','Mini LED','タンデムOLED'],a:2}},
+          {n:'iPad Pro 11インチ（第4世代/M2）',y:'2022',d:'11"',ch:'M2',cn:'USB-C/Thunderbolt',bio:'Face ID',col:'スペースグレイ,シルバー',w:'466g',sz:'247.6×178.5×5.9mm',mn:'A2759等',tip:'M2チップ。ProMotion。LCDディスプレイ。Pencilホバー対応。',imgs:[],quiz:{q:'iPad Pro 11 M2のチップは？',o:['A15','M1','M2'],a:2}},
+          {n:'iPad Pro 11インチ（第3世代/M1）',y:'2021',d:'11"',ch:'M1',cn:'USB-C/Thunderbolt',bio:'Face ID',col:'スペースグレイ,シルバー',w:'466g',sz:'247.6×178.5×5.9mm',mn:'A2377等',tip:'M1チップ。Thunderbolt対応。Center Stage。5G対応。',imgs:[],quiz:{q:'iPad Pro 11 M1のコネクタ規格は？',o:['USB-C','Thunderbolt','Lightning'],a:1}},
+          {n:'iPad Pro 11インチ（第2世代）',y:'2020',d:'11"',ch:'A12Z',cn:'USB-C',bio:'Face ID',col:'スペースグレイ,シルバー',w:'471g',sz:'247.6×178.5×5.9mm',mn:'A2228等',tip:'LiDARスキャナ搭載。A12Zチップ。Magic Keyboard対応。',imgs:[],quiz:{q:'iPad Pro 11 第2世代で追加されたセンサーは？',o:['LiDAR','ToF','赤外線'],a:0}},
+          {n:'iPad Pro 11インチ（第1世代）',y:'2018',d:'11"',ch:'A12X',cn:'USB-C',bio:'Face ID',col:'スペースグレイ,シルバー',w:'468g',sz:'247.6×178.5×5.9mm',mn:'A1980等',tip:'初の11インチiPad。Face ID。USB-C。ホームボタンなし。Apple Pencil第2世代対応。',imgs:[],quiz:{q:'iPad Pro 11 第1世代の画面サイズは？',o:['10.5"','11"','12.9"'],a:1}}
+        ],
+        'iPad Pro 9.7/10.5インチ': [
+          {n:'iPad Pro 10.5インチ',y:'2017',d:'10.5"',ch:'A10X',cn:'Lightning',bio:'Touch ID（ホーム）',col:'スペースグレイ,シルバー,ゴールド,ローズゴールド',w:'469g',sz:'250.6×174.1×6.1mm',mn:'A1701等',tip:'ProMotion（120Hz）対応。10.5インチ。A10Xチップ。狭額縁。',imgs:[],quiz:{q:'iPad Pro 10.5のリフレッシュレートは？',o:['60Hz','90Hz','120Hz'],a:2}},
+          {n:'iPad Pro 9.7インチ',y:'2016',d:'9.7"',ch:'A9X',cn:'Lightning',bio:'Touch ID（ホーム）',col:'スペースグレイ,シルバー,ゴールド,ローズゴールド',w:'437g',sz:'240×169.5×6.1mm',mn:'A1673等',tip:'初のTrue Toneディスプレイ。9.7インチPro。ローズゴールド追加。',imgs:[],quiz:{q:'iPad Pro 9.7で初搭載されたディスプレイ技術は？',o:['ProMotion','True Tone','OLED'],a:1}}
+        ]
+      },
+      applewatch: {
+        'Apple Watch Ultra': [
+          {n:'Apple Watch Ultra 2',y:'2023',d:'49mm',ch:'S9 SIP',cn:'磁気充電',bio:'なし',col:'ナチュラルチタニウム',w:'61.4g',sz:'49×44×14.4mm',mn:'A2684等',tip:'最大・最頑丈モデル。チタニウムケース。オレンジのアクションボタン。フラットサファイアクリスタル。3つのマイク。サイレン機能。ダイバー対応。',quiz:{q:'Apple Watch Ultra 2のケースサイズは？',o:['41mm','45mm','49mm'],a:2}},
+          {n:'Apple Watch Ultra',y:'2022',d:'49mm',ch:'S8 SIP',cn:'磁気充電',bio:'なし',col:'ナチュラルチタニウム',w:'61.3g',sz:'49×44×14.4mm',mn:'A2622等',tip:'初代Ultra。チタニウム。オレンジアクションボタン。Ultra 2と外観ほぼ同じ。S8チップで区別。',quiz:{q:'Apple Watch Ultraのフレーム素材は？',o:['アルミ','ステンレス','チタニウム'],a:2}}
+        ],
+        'Apple Watch Series': [
+          {n:'Apple Watch Series 10',y:'2024',d:'42mm/46mm',ch:'S10 SIP',cn:'磁気充電',bio:'なし',col:'ジェットブラック,ローズゴールド,シルバー（アルミ）/ ゴールド,スレート,シルバー（チタニウム）',w:'36.4g/41.7g',sz:'42×36×9.7mm / 46×39×9.7mm',mn:'A2978等',tip:'歴代最薄（9.7mm）。広角OLEDディスプレイ。スピーカーで音楽再生可能。水深計・水温計。サイズが42mm/46mmに変更。',quiz:{q:'Apple Watch Series 10のケースサイズは？',o:['41mm/45mm','42mm/46mm','44mm/49mm'],a:1}},
+          {n:'Apple Watch Series 9',y:'2023',d:'41mm/45mm',ch:'S9 SIP',cn:'磁気充電',bio:'なし',col:'ミッドナイト,スターライト,(PRODUCT)RED,シルバー,ピンク（アルミ）/ ゴールド,シルバー,グラファイト（ステンレス）',w:'32.1g/38.7g',sz:'41×35×10.7mm / 45×38×10.7mm',mn:'A2978等',tip:'ダブルタップジェスチャー搭載。UWBチップ（第2世代）。明るさ2000ニト。S9チップ。',quiz:{q:'Series 9の新ジェスチャー機能は？',o:['ピンチ','ダブルタップ','握りしめ'],a:1}},
+          {n:'Apple Watch Series 8',y:'2022',d:'41mm/45mm',ch:'S8 SIP',cn:'磁気充電',bio:'なし',col:'ミッドナイト,スターライト,(PRODUCT)RED,シルバー（アルミ）/ ゴールド,シルバー,グラファイト（ステンレス）',w:'32.0g/38.8g',sz:'41×35×10.7mm / 45×38×10.7mm',mn:'A2770等',tip:'皮膚温センサー搭載。衝突事故検出。常時表示ディスプレイ。Series 7と外観ほぼ同じ。',quiz:{q:'Series 8で追加されたセンサーは？',o:['血圧','皮膚温','血糖値'],a:1}},
+          {n:'Apple Watch Series 7',y:'2021',d:'41mm/45mm',ch:'S7 SIP',cn:'磁気充電',bio:'なし',col:'ミッドナイト,スターライト,グリーン,ブルー,(PRODUCT)RED（アルミ）',w:'32.0g/38.8g',sz:'41×35×10.7mm / 45×38×10.7mm',mn:'A2473等',tip:'画面サイズ拡大（従来40/44mm→41/45mm）。丸みを帯びたディスプレイエッジ。IP6X防塵。充電速度向上。',quiz:{q:'Series 7でケースサイズはどう変わった？',o:['40/44→41/45mm','38/42→40/44mm','変化なし'],a:0}},
+          {n:'Apple Watch Series 6',y:'2020',d:'40mm/44mm',ch:'S6 SIP',cn:'磁気充電',bio:'なし',col:'ブルー,(PRODUCT)RED,ゴールド,シルバー,スペースグレイ（アルミ）',w:'30.5g/36.2g',sz:'40×34×10.7mm / 44×38×10.7mm',mn:'A2291等',tip:'血中酸素濃度センサー搭載。常時表示2.5倍明るく。U1チップ。ソロループバンド対応。',quiz:{q:'Series 6で搭載された健康センサーは？',o:['心電図','血中酸素濃度','皮膚温'],a:1}},
+          {n:'Apple Watch Series 5',y:'2019',d:'40mm/44mm',ch:'S5 SIP',cn:'磁気充電',bio:'なし',col:'ゴールド,シルバー,スペースグレイ（アルミ）',w:'30.8g/36.5g',sz:'40×34×10.7mm / 44×38×10.7mm',mn:'A2092等',tip:'常時表示ディスプレイ初搭載。コンパス内蔵。チタニウム/セラミックケース選択可。',quiz:{q:'Series 5で初搭載された機能は？',o:['血中酸素','常時表示ディスプレイ','衝突検出'],a:1}},
+          {n:'Apple Watch Series 4',y:'2018',d:'40mm/44mm',ch:'S4 SIP',cn:'磁気充電',bio:'なし',col:'ゴールド,シルバー,スペースグレイ（アルミ）',w:'30.1g/36.7g',sz:'40×34×10.7mm / 44×38×10.7mm',mn:'A1977等',tip:'大画面化（38/42→40/44mm）。心電図（ECG）アプリ初搭載。転倒検出。デジタルクラウン触覚フィードバック。',quiz:{q:'Series 4で初搭載された健康機能は？',o:['心電図（ECG）','血中酸素','皮膚温'],a:0}},
+          {n:'Apple Watch Series 3',y:'2017',d:'38mm/42mm',ch:'S3 SIP',cn:'磁気充電',bio:'なし',col:'ゴールド,シルバー,スペースグレイ（アルミ）',w:'26.7g/32.3g',sz:'38.6×33.3×11.4mm / 42.5×36.4×11.4mm',mn:'A1858等',tip:'セルラーモデル初搭載（赤いデジタルクラウンで区別）。気圧高度計。38/42mmサイズ。',quiz:{q:'Series 3のセルラーモデルの見分け方は？',o:['背面の色','赤いデジタルクラウン','サイドボタン'],a:1}}
+        ],
+        'Apple Watch SE': [
+          {n:'Apple Watch SE（第2世代）',y:'2022',d:'40mm/44mm',ch:'S8 SIP',cn:'磁気充電',bio:'なし',col:'ミッドナイト,スターライト,シルバー',w:'26.8g/33.0g',sz:'40×34×10.7mm / 44×38×10.7mm',mn:'A2722等',tip:'廉価版。衝突事故検出搭載。常時表示なし。背面がナイロン複合素材（軽量）。Series 8と同じS8チップ。',quiz:{q:'Apple Watch SE 第2世代にないSeries 8の機能は？',o:['衝突検出','常時表示ディスプレイ','転倒検出'],a:1}},
+          {n:'Apple Watch SE（第1世代）',y:'2020',d:'40mm/44mm',ch:'S5 SIP',cn:'磁気充電',bio:'なし',col:'ゴールド,シルバー,スペースグレイ',w:'30.5g/36.2g',sz:'40×34×10.7mm / 44×38×10.7mm',mn:'A2351等',tip:'初の廉価版Watch。常時表示なし。血中酸素センサーなし。S5チップ。アルミケースのみ。',quiz:{q:'Apple Watch SE 第1世代のチップは？',o:['S4','S5','S6'],a:1}}
+        ]
+      },
+      ipod: {
+        'iPod touch': [
+          {n:'iPod touch（第7世代）',y:'2019',d:'4.0"',ch:'A10',cn:'Lightning',bio:'なし',col:'スペースグレイ,ゴールド,シルバー,ピンク,ブルー,(PRODUCT)RED',w:'88g',sz:'123.4×58.6×6.1mm',mn:'A2178',tip:'最後のiPod touch。4インチディスプレイ。ホームボタン（Touch IDなし）。超軽量88g。カメラ搭載。2022年販売終了。',quiz:{q:'iPod touch 第7世代のチップは？',o:['A8','A10','A12'],a:1}},
+          {n:'iPod touch（第6世代）',y:'2015',d:'4.0"',ch:'A8',cn:'Lightning',bio:'なし',col:'スペースグレイ,ゴールド,シルバー,ピンク,ブルー,(PRODUCT)RED',w:'88g',sz:'123.4×58.6×6.1mm',mn:'A1574',tip:'第7世代と外観同じ。A8チップ。8MPカメラ。6色展開。',quiz:{q:'iPod touch 第6世代と第7世代の外観の違いは？',o:['ほぼ同じ','サイズが違う','カメラ数が違う'],a:0}},
+          {n:'iPod touch（第5世代）',y:'2012',d:'4.0"',ch:'A5',cn:'Lightning',bio:'なし',col:'スレート,シルバー,ピンク,イエロー,ブルー,(PRODUCT)RED',w:'88g',sz:'123.4×58.6×6.1mm',mn:'A1421',tip:'初の4インチ・Lightning搭載touch。背面にストラップループ付き（後に廃止）。iSightカメラ5MP。6色のカラフル展開。第6世代以降と外観ほぼ同じだがストラップループで区別可能。',quiz:{q:'iPod touch 第5世代の特徴的な付属品は？',o:['ストラップループ','クリップ','スタンド'],a:0}}
+        ],
+        'iPod nano': [
+          {n:'iPod nano（第7世代）',y:'2012',d:'2.5"',ch:'専用',cn:'Lightning',bio:'なし',col:'スレート,シルバー,パープル,ピンク,イエロー,グリーン,ブルー,(PRODUCT)RED',w:'31g',sz:'76.5×39.6×5.4mm',mn:'A1446',tip:'最後のiPod nano。2.5インチマルチタッチ。Bluetooth搭載。Lightning初対応nano。細長い形状。8色展開。2017年販売終了。',quiz:{q:'iPod nano 第7世代のコネクタは？',o:['30ピン','Lightning','USB-C'],a:1}},
+          {n:'iPod nano（第6世代）',y:'2010',d:'1.54"',ch:'専用',cn:'30ピン',bio:'なし',col:'グラファイト,シルバー,ブルー,グリーン,オレンジ,ピンク,(PRODUCT)RED',w:'21.1g',sz:'37.5×40.9×8.78mm',mn:'A1366',tip:'正方形デザイン。クリップ付き。1.54インチマルチタッチ。腕時計バンドアクセサリが人気に。時計の文字盤表示可能。',quiz:{q:'iPod nano 第6世代の特徴的な形状は？',o:['細長い','正方形','丸型'],a:1}}
+        ],
+        'iPod shuffle': [
+          {n:'iPod shuffle（第4世代）',y:'2010',d:'なし',ch:'専用',cn:'3.5mmジャック',bio:'なし',col:'シルバー,ブルー,グリーン,オレンジ,ピンク,パープル,(PRODUCT)RED',w:'12.5g',sz:'29×31.6×8.7mm',mn:'A1373',tip:'最後のshuffle。画面なし。クリップ型。VoiceOver機能で曲名読み上げ。2GBストレージ。超小型・超軽量。2017年販売終了。',quiz:{q:'iPod shuffleの特徴は？',o:['タッチ画面','画面なし・クリップ型','カメラ搭載'],a:1}}
+        ],
+        'iPod classic': [
+          {n:'iPod classic（第6世代/160GB）',y:'2009',d:'2.5"',ch:'専用',cn:'30ピン',bio:'なし',col:'ブラック,シルバー',w:'140g',sz:'103.5×61.8×10.5mm',mn:'A1238',tip:'最後のiPod classic。HDD搭載（160GB）。クリックホイール操作。金属ボディ。2014年販売終了。大容量音楽プレーヤーの最終形。',quiz:{q:'iPod classicのストレージ媒体は？',o:['フラッシュメモリ','HDD','SD カード'],a:1}}
+        ]
+      },
+      android: {
+        'Galaxy S': [
+          {n:'Galaxy S25 Ultra',y:'2025',d:'6.9"',ch:'Snapdragon 8 Elite',cn:'USB-C',bio:'超音波指紋+顔認証',col:'チタニウムブラック,チタニウムグレー,チタニウムシルバーブルー,チタニウムウィスターパープル',w:'218g',sz:'162.8×77.6×8.2mm',mn:'SM-S938等',tip:'チタニウムフレーム。Sペン内蔵。角張ったデザイン。クアッドカメラ。Galaxy AI搭載。',quiz:{q:'Galaxy S25 UltraのSペンは？',o:['別売り','内蔵','非対応'],a:1}},
+          {n:'Galaxy S25',y:'2025',d:'6.2"',ch:'Snapdragon 8 Elite',cn:'USB-C',bio:'超音波指紋+顔認証',col:'ネイビー,アイシーブルー,ミント,シルバーシャドウ',w:'162g',sz:'146.9×70.1×7.2mm',mn:'SM-S931等',tip:'コンパクトサイズ。フラットディスプレイ。アルミフレーム。トリプルカメラ。',quiz:{q:'Galaxy S25の画面サイズは？',o:['6.2"','6.7"','6.9"'],a:0}},
+          {n:'Galaxy S24 Ultra',y:'2024',d:'6.8"',ch:'Snapdragon 8 Gen 3',cn:'USB-C',bio:'超音波指紋+顔認証',col:'チタニウムブラック,チタニウムグレー,チタニウムバイオレット,チタニウムイエロー',w:'232g',sz:'162.3×79.0×8.6mm',mn:'SM-S928等',tip:'チタニウムフレーム。Sペン内蔵。フラットディスプレイ（S24世代から変更）。Galaxy AI初搭載。',quiz:{q:'Galaxy S24 UltraのAI機能名は？',o:['Bixby AI','Galaxy AI','Google AI'],a:1}}
+        ],
+        'Galaxy Z': [
+          {n:'Galaxy Z Fold6',y:'2024',d:'7.6"/6.3"',ch:'Snapdragon 8 Gen 3',cn:'USB-C',bio:'側面指紋+顔認証',col:'シルバーシャドウ,ネイビー,ピンク',w:'239g',sz:'折時:153.5×68.1×12.1mm',mn:'SM-F956等',tip:'内折り式フォルダブル。開くと7.6インチタブレット。閉じると6.3インチスマホ。Sペン対応（別売）。',quiz:{q:'Galaxy Z Fold6を開いた時の画面サイズは？',o:['6.3"','6.7"','7.6"'],a:2}},
+          {n:'Galaxy Z Flip6',y:'2024',d:'6.7"/3.4"',ch:'Snapdragon 8 Gen 3',cn:'USB-C',bio:'側面指紋+顔認証',col:'ブルー,シルバーシャドウ,イエロー,ミント',w:'187g',sz:'折時:85.1×71.9×14.9mm',mn:'SM-F741等',tip:'縦折り式コンパクト。閉じると手のひらサイズ。3.4インチカバーディスプレイ。',quiz:{q:'Galaxy Z Flip6の折り方は？',o:['横折り','縦折り','三つ折り'],a:1}}
+        ],
+        'Google Pixel': [
+          {n:'Pixel 9 Pro',y:'2024',d:'6.3"',ch:'Tensor G4',cn:'USB-C',bio:'画面内指紋+顔認証',col:'Obsidian,Porcelain,Hazel,Rose Quartz',w:'199g',sz:'152.8×72.0×8.5mm',mn:'GK9B等',tip:'特徴的なカメラバー（横長バンプ）。フラットエッジ。マットアルミフレーム。トリプルカメラ。Google AI搭載。',quiz:{q:'Pixel 9 Proの背面カメラの特徴は？',o:['丸型バンプ','横長カメラバー','正方形バンプ'],a:1}},
+          {n:'Pixel 9',y:'2024',d:'6.3"',ch:'Tensor G4',cn:'USB-C',bio:'画面内指紋+顔認証',col:'Obsidian,Porcelain,Wintergreen,Peony',w:'198g',sz:'152.8×72.0×8.5mm',mn:'GK9A等',tip:'デュアルカメラ。カメラバー。Proと同サイズだがカメラ数と望遠で区別。',quiz:{q:'Pixel 9とPixel 9 Proの主な違いは？',o:['サイズ','カメラ数','充電方式'],a:1}},
+          {n:'Pixel 8a',y:'2024',d:'6.1"',ch:'Tensor G3',cn:'USB-C',bio:'画面内指紋+顔認証',col:'Aloe,Bay,Obsidian,Porcelain',w:'188g',sz:'152.1×72.7×8.9mm',mn:'G6GPR等',tip:'aシリーズ（廉価版）。デュアルカメラ。やや丸みのあるデザイン。カメラバーは健在。',quiz:{q:'Pixel 8aの位置づけは？',o:['フラグシップ','廉価版','折りたたみ'],a:1}}
+        ],
+        'Xperia': [
+          {n:'Xperia 1 VI',y:'2024',d:'6.5"',ch:'Snapdragon 8 Gen 3',cn:'USB-C',bio:'側面指紋',col:'ブラック,プラチナシルバー,カーキグリーン,スカーレット',w:'192g',sz:'162×74×8.2mm',mn:'XQ-EC等',tip:'21:9→19.5:9に変更。トリプルカメラ。3.5mmイヤホンジャック搭載。ソニーのカメラ技術。',quiz:{q:'Xperia 1 VIに搭載されているものは？',o:['Sペン','3.5mmイヤホンジャック','Lightningport'],a:1}}
+        ],
+        'AQUOS': [
+          {n:'AQUOS R9',y:'2024',d:'6.5"',ch:'Snapdragon 7+ Gen 3',cn:'USB-C',bio:'画面内指紋+顔認証',col:'グリーン,ホワイト',w:'195g',sz:'156×75×8.9mm',mn:'SH-51E等',tip:'IGZO OLEDディスプレイ。ライカ監修カメラ。独特の丸みデザイン。MIL規格準拠の耐衝撃。',quiz:{q:'AQUOS R9のカメラ監修ブランドは？',o:['ツァイス','ライカ','ハッセルブラッド'],a:1}},
+          {n:'AQUOS sense9',y:'2024',d:'6.1"',ch:'Snapdragon 7s Gen 2',cn:'USB-C',bio:'側面指紋+顔認証',col:'グリーン,ホワイト,ブラック,ブルー',w:'166g',sz:'149×73×8.9mm',mn:'SH-53E等',tip:'IGZO OLED。MIL規格。おサイフケータイ対応。防水防塵IP68。軽量コンパクト。',quiz:{q:'AQUOS sense9の防水規格は？',o:['IP65','IP67','IP68'],a:2}}
+        ],
+        'OPPO': [
+          {n:'OPPO Find X8',y:'2024',d:'6.59"',ch:'Dimensity 9400',cn:'USB-C',bio:'画面内指紋+顔認証',col:'スターグレー,スペースブラック',w:'193g',sz:'157.4×74.0×7.9mm',mn:'CPH2651',tip:'ハッセルブラッド監修カメラ。大型センサー。ColorOS 15。急速充電80W。',quiz:{q:'OPPO Find X8のカメラ監修は？',o:['ライカ','ツァイス','ハッセルブラッド'],a:2}},
+          {n:'OPPO Reno11 A',y:'2024',d:'6.7"',ch:'Dimensity 7050',cn:'USB-C',bio:'画面内指紋+顔認証',col:'コーラルパープル,ダークグリーン',w:'177g',sz:'162×75×7.6mm',mn:'CPH2603',tip:'Reno Aシリーズ。おサイフケータイ対応。防水IP65。薄型軽量。',quiz:{q:'OPPO Reno11 Aの特徴は？',o:['Sペン対応','おサイフケータイ対応','折りたたみ'],a:1}},
+          {n:'OPPO Reno9 A',y:'2023',d:'6.4"',ch:'Snapdragon 695',cn:'USB-C',bio:'画面内指紋+顔認証',col:'ムーンホワイト,ナイトブラック',w:'183g',sz:'160×74×7.8mm',mn:'CPH2523',tip:'おサイフ・防水。薄型軽量。有機EL。コスパモデル。',quiz:{q:'OPPO Reno9 Aのチップは？',o:['Dimensity 7050','Snapdragon 695','Snapdragon 8 Gen 1'],a:1}}
+        ],
+        'Xiaomi': [
+          {n:'Xiaomi 14T Pro',y:'2024',d:'6.67"',ch:'Dimensity 9300+',cn:'USB-C',bio:'画面内指紋+顔認証',col:'ブラック,グレー,ブルー',w:'209g',sz:'160.4×75.1×8.4mm',mn:'24069RA21G',tip:'ライカ監修カメラ。120W急速充電。144Hzディスプレイ。',quiz:{q:'Xiaomi 14T Proの急速充電ワット数は？',o:['67W','120W','200W'],a:1}},
+          {n:'Redmi Note 13 Pro+ 5G',y:'2024',d:'6.67"',ch:'Dimensity 7200',cn:'USB-C',bio:'画面内指紋+顔認証',col:'ミッドナイトブラック,オーシャンティール',w:'204.5g',sz:'161.4×74.2×8.9mm',mn:'23090RA98G',tip:'2億画素カメラ搭載。120W急速充電。IP68防水。有機EL 120Hz。',quiz:{q:'Redmi Note 13 Pro+のメインカメラ画素数は？',o:['1億画素','1.5億画素','2億画素'],a:2}}
+        ],
+        'MOTOROLA': [
+          {n:'motorola razr 50 ultra',y:'2024',d:'6.9"/4.0"',ch:'Snapdragon 8s Gen 3',cn:'USB-C',bio:'側面指紋+顔認証',col:'ピーチファズ,ミッドナイトブルー',w:'189g',sz:'折時:88.1×73.99×15.32mm',mn:'XT2451',tip:'縦折り式。4.0インチ大型外部ディスプレイ。おサイフケータイ対応。',quiz:{q:'razr 50 ultraの外部ディスプレイサイズは？',o:['1.9"','3.4"','4.0"'],a:2}},
+          {n:'moto g64 5G',y:'2024',d:'6.5"',ch:'Dimensity 7025',cn:'USB-C',bio:'側面指紋+顔認証',col:'シルバーブルー,スペースブラック',w:'177g',sz:'161.6×73.8×7.99mm',mn:'XT2417',tip:'大容量5000mAhバッテリー。おサイフケータイ。防水IP52。コスパ機。',quiz:{q:'moto g64 5Gのバッテリー容量は？',o:['4000mAh','5000mAh','6000mAh'],a:1}}
+        ],
+        'HUAWEI': [
+          {n:'HUAWEI P30 lite',y:'2019',d:'6.15"',ch:'Kirin 710',cn:'USB-C',bio:'背面指紋+顔認証',col:'ピーコックブルー,パールホワイト,ミッドナイトブラック',w:'159g',sz:'152.9×72.7×7.4mm',mn:'MAR-LX2J',tip:'トリプルカメラ搭載。しずく型ノッチ。大人気コスパモデル。Google Play対応。',quiz:{q:'HUAWEI P30 liteの指紋認証位置は？',o:['画面内','背面','側面'],a:1}}
+        ],
+        'Zenfone': [
+          {n:'Zenfone 11 Ultra',y:'2024',d:'6.78"',ch:'Snapdragon 8 Gen 3',cn:'USB-C',bio:'画面内指紋+顔認証',col:'ブルー,グレー',w:'225g',sz:'163.8×76.8×8.9mm',mn:'AI2401',tip:'ASUSフラグシップ。大画面。AI機能搭載。120Hz AMOLED。',quiz:{q:'Zenfone 11 Ultraのメーカーは？',o:['Xiaomi','ASUS','Motorola'],a:1}},
+          {n:'ROG Phone 8 Pro',y:'2024',d:'6.78"',ch:'Snapdragon 8 Gen 3',cn:'USB-C',bio:'画面内指紋+顔認証',col:'ファントムブラック',w:'225g',sz:'163.8×76.8×8.9mm',mn:'AI2401',tip:'ゲーミングスマホ。AirTrigger。冷却システム。165Hzリフレッシュレート。',quiz:{q:'ROG Phoneの用途は？',o:['カメラ特化','ゲーミング','ビジネス'],a:1}}
+        ],
+        'arrows': [
+          {n:'arrows We2 Plus',y:'2024',d:'6.6"',ch:'Snapdragon 7s Gen 2',cn:'USB-C',bio:'側面指紋+顔認証',col:'ブラック,ホワイト',w:'182g',sz:'162×76×8.5mm',mn:'F-52E',tip:'日本製スマホ。MIL規格23項目準拠。泡ハンドソープ洗浄可能。シニア向けUIも。',quiz:{q:'arrowsの製造国は？',o:['韓国','中国','日本'],a:2}}
+        ],
+        'Nothing Phone': [
+          {n:'Nothing Phone (2a)',y:'2024',d:'6.7"',ch:'Dimensity 7200 Pro',cn:'USB-C',bio:'画面内指紋+顔認証',col:'ブラック,ホワイト,ブルー',w:'190g',sz:'161.74×76.32×8.55mm',mn:'A142',tip:'Glyph Interface（背面LED）。透明デザイン。Nothing OS。独特の光る背面が特徴。',quiz:{q:'Nothing Phoneの背面LED機能名は？',o:['Light Strip','Glyph Interface','Dynamic Island'],a:1}}
+        ],
+        'OnePlus': [
+          {n:'OnePlus 12',y:'2024',d:'6.82"',ch:'Snapdragon 8 Gen 3',cn:'USB-C',bio:'画面内指紋+顔認証',col:'シルキーブラック,フローリーグリーン',w:'220g',sz:'164.3×75.8×9.15mm',mn:'CPH2583',tip:'ハッセルブラッド監修カメラ。100W急速充電。2K 120Hz LTPO有機EL。',quiz:{q:'OnePlus 12のカメラ監修は？',o:['ライカ','ハッセルブラッド','ツァイス'],a:1}}
+        ],
+        'Rakuten': [
+          {n:'Rakuten Hand 5G',y:'2022',d:'5.1"',ch:'Snapdragon 480',cn:'USB-C',bio:'画面内指紋+顔認証',col:'ブラック,ホワイト,クリムゾンレッド',w:'134g',sz:'138×63×9.5mm',mn:'P780',tip:'超軽量134g。おサイフケータイ対応。eSIM専用。片手操作に最適なコンパクトサイズ。',quiz:{q:'Rakuten Hand 5Gの特徴は？',o:['大画面','超軽量・コンパクト','折りたたみ'],a:1}}
+        ],
+        'その他Android': [
+          {n:'KYOCERA TORQUE G06',y:'2023',d:'5.4"',ch:'Snapdragon 7 Gen 1',cn:'USB-C',bio:'側面指紋+顔認証',col:'ブラック,レッド',w:'234g',sz:'153×75×14.6mm',mn:'KYG03',tip:'超タフネス。MIL規格28項目準拠。水中撮影可能。耐海水。アウトドア向け。',quiz:{q:'TORQUE G06の特徴は？',o:['薄型軽量','超タフネス耐衝撃','折りたたみ'],a:1}},
+          {n:'ZTE Libero 5G IV',y:'2024',d:'6.67"',ch:'Dimensity 700',cn:'USB-C',bio:'側面指紋+顔認証',col:'ブラック,ホワイト,パープル',w:'190g',sz:'164.2×75.4×8.6mm',mn:'A302ZT',tip:'Y!mobile専売。大画面エントリーモデル。おサイフケータイ。防水IP57。',quiz:{q:'ZTE Libero 5G IVの販売キャリアは？',o:['docomo','au','Y!mobile'],a:2}},
+          {n:'REDMAGIC 9 Pro',y:'2024',d:'6.8"',ch:'Snapdragon 8 Gen 3',cn:'USB-C',bio:'画面内指紋',col:'ブラック,トランスペアレント',w:'229g',sz:'163.98×76.35×8.9mm',mn:'NX769J',tip:'ゲーミングスマホ。内蔵冷却ファン。ショルダートリガー。120Hz AMOLED。',quiz:{q:'REDMAGIC 9 Proの冷却方式は？',o:['ヒートパイプのみ','内蔵ファン','外付けクーラー'],a:1}},
+          {n:'vivo X200 Pro',y:'2024',d:'6.78"',ch:'Dimensity 9400',cn:'USB-C',bio:'画面内指紋+顔認証',col:'ブラック,ブルー',w:'223g',sz:'162.4×75.9×8.3mm',mn:'V2426',tip:'ツァイス監修カメラ。APO望遠。大型バッテリー5800mAh。',quiz:{q:'vivo X200 Proのカメラ監修は？',o:['ライカ','ハッセルブラッド','ツァイス'],a:2}},
+          {n:'HTC U23 Pro',y:'2023',d:'6.7"',ch:'Snapdragon 7 Gen 1',cn:'USB-C',bio:'画面内指紋+顔認証',col:'ブラック,コーヒーブラック',w:'199g',sz:'162.5×76.0×8.5mm',mn:'2QC6100',tip:'HTC復帰モデル。VIVERSE VR対応。IP67防水。1億画素カメラ。',quiz:{q:'HTC U23 Proのメインカメラ画素数は？',o:['5000万画素','1億画素','2億画素'],a:1}},
+          {n:'Realme GT 5 Pro',y:'2024',d:'6.78"',ch:'Snapdragon 8 Gen 3',cn:'USB-C',bio:'画面内指紋+顔認証',col:'ブルー,ホワイト',w:'218.5g',sz:'161.7×75.6×8.7mm',mn:'RMX3888',tip:'高コスパフラグシップ。100W急速充電。2K 144Hz AMOLED。',quiz:{q:'Realmeはどこの国のブランド？',o:['日本','韓国','中国'],a:2}},
+          {n:'LG VELVET',y:'2020',d:'6.8"',ch:'Snapdragon 765G',cn:'USB-C',bio:'画面内指紋',col:'オーロラグレー,オーロラホワイト,イリュージョンサンセット',w:'180g',sz:'167.2×74.1×7.9mm',mn:'LM-G900等',tip:'LG最後期のスマホ。しずく型デザイン。デュアルスクリーン対応（別売ケース）。',quiz:{q:'LGのスマホ事業は？',o:['現在も継続','2021年撤退','2023年撤退'],a:1}}
+        ]
+      },
+      switch: {
+        'Nintendo Switch': [
+          {n:'Nintendo Switch 2',y:'2025',d:'7.9"',ch:'NVIDIA T239',cn:'USB-C',bio:'なし',col:'ブラック/ネイビーブルー',w:'約420g',sz:'約270×115×14mm（Joy-Con装着時）',mn:'HAC-001(-02)等',tip:'大型化した7.9インチ画面。マグネット式Joy-Con 2。光マウス機能搭載。旧Switchソフト互換。USB-C充電。',quiz:{q:'Switch 2のJoy-Con接続方式は？',o:['スライド式','マグネット式','Bluetooth のみ'],a:1}},
+          {n:'Nintendo Switch（有機ELモデル）',y:'2021',d:'7.0"',ch:'NVIDIA Tegra X1+',cn:'USB-C',bio:'なし',col:'ホワイト,ネオンブルー/ネオンレッド',w:'420g',sz:'242×102×13.9mm',mn:'HEG-001',tip:'7.0インチ有機EL。幅広の調整スタンド。有線LAN搭載ドック。スピーカー強化。',quiz:{q:'Switch有機ELモデルの画面サイズは？',o:['6.2"','7.0"','7.9"'],a:1}},
+          {n:'Nintendo Switch',y:'2017',d:'6.2"',ch:'NVIDIA Tegra X1',cn:'USB-C',bio:'なし',col:'グレー,ネオンブルー/ネオンレッド',w:'398g',sz:'239×102×13.9mm',mn:'HAC-001',tip:'初代Switch。6.2インチLCD。細いスタンド。ドックでTV出力可能。取り外し可能Joy-Con。',quiz:{q:'初代Switchの画面サイズは？',o:['6.2"','7.0"','7.9"'],a:0}},
+          {n:'Nintendo Switch Lite',y:'2019',d:'5.5"',ch:'NVIDIA Tegra X1',cn:'USB-C',bio:'なし',col:'イエロー,グレー,ターコイズ,コーラル,ブルー',w:'275g',sz:'208×91.1×13.9mm',mn:'HDH-001',tip:'携帯専用。Joy-Con一体型（取り外し不可）。TV出力不可。コンパクト・軽量。5色展開。',quiz:{q:'Switch Liteの特徴は？',o:['TV出力可能','Joy-Con取り外し可能','携帯専用'],a:2}}
+        ]
+      }
+    };
+
+    var currentIdCat = 'iphone';
+
+    function switchIdCat(cat, btn) {
+        currentIdCat = cat;
+        document.querySelectorAll('#idCatTabs button').forEach(function(b){ b.style.background='var(--bg-card)'; b.style.color='var(--text)'; });
+        btn.style.background='var(--accent)'; btn.style.color='#fff';
+        closeIdDetail();
+        renderIdList(cat);
+    }
+
+    function renderIdList(cat) {
+        var data = idData[cat];
+        var html = '';
+        for (var group in data) {
+            html += '<div class="device-category"><div class="category-header"><div class="category-icon iphone">' +
+                (cat==='iphone'?'📱':cat==='ipad'?'📱':cat==='applewatch'?'⌚':cat==='ipod'?'🎵':cat==='android'?'🤖':'🎮') +
+                '</div><div class="category-name">' + group + '</div></div><div class="device-grid">';
+            data[group].forEach(function(d, i){
+                html += '<a href="#" class="device-card" onclick="event.preventDefault();openIdDetail(\'' + cat + '\',\'' + group.replace(/'/g,"\\'") + '\',' + i + ')"><span class="device-dot"></span>' + d.n + '</a>';
+            });
+            html += '</div></div>';
+        }
+        document.getElementById('idDeviceList').innerHTML = html;
+    }
+
+    function openIdDetail(cat, group, idx) {
+        var d = idData[cat][group][idx];
+        var colors = d.col.split(',');
+        var colorBadges = colors.map(function(c){ return '<span style="display:inline-block;padding:3px 10px;border-radius:12px;background:var(--bg-hover);font-size:12px;margin:2px;">' + c.trim() + '</span>'; }).join('');
+
+        var html = '<div style="margin-bottom:24px;">' +
+            '<h2 style="margin:0 0 4px 0;font-size:1.4rem;">' + d.n + '</h2>' +
+            '<p style="margin:0;color:var(--text-secondary);font-size:0.9rem;">' + d.y + '年発売</p></div>';
+
+        // 画像表示
+        if (d.imgs && d.imgs.length > 0) {
+            html += '<div style="margin-bottom:24px;">' +
+                '<div style="position:relative;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center;overflow:hidden;">' +
+                '<img id="idMainImg" src="' + d.imgs[0].src + '" style="max-height:320px;max-width:100%;object-fit:contain;border-radius:8px;" alt="' + d.n + '">' +
+                '<p id="idMainImgLabel" style="margin:10px 0 0;font-size:0.85rem;color:var(--text-secondary);font-weight:600;">' + d.imgs[0].lb + '</p></div>' +
+                '<div style="display:flex;gap:6px;overflow-x:auto;padding:10px 0;-webkit-overflow-scrolling:touch;">';
+            d.imgs.forEach(function(img, ii){
+                html += '<img src="' + img.src + '" onclick="document.getElementById(\'idMainImg\').src=\'' + img.src + '\';document.getElementById(\'idMainImgLabel\').textContent=\'' + img.lb.replace(/'/g,"\\'") + '\';this.parentElement.querySelectorAll(\'img\').forEach(function(t){t.style.border=\'2px solid transparent\';});this.style.border=\'2px solid var(--accent)\';" style="height:56px;width:56px;object-fit:cover;border-radius:8px;cursor:pointer;flex-shrink:0;border:2px solid ' + (ii===0?'var(--accent)':'transparent') + ';" alt="' + img.lb + '">';
+            });
+            html += '</div></div>';
+        } else {
+            html += '<div style="background:var(--bg-hover);border-radius:12px;padding:32px;text-align:center;margin-bottom:24px;border:2px dashed var(--border);">' +
+                '<div style="font-size:48px;margin-bottom:8px;">📷</div>' +
+                '<p style="margin:0;color:var(--text-secondary);font-size:0.9rem;">画像は準備中です</p></div>';
+        }
+
+        // スペック表
+        html += '<div style="background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:20px;">' +
+            '<h3 style="margin:0 0 14px 0;font-size:1rem;">📋 基本スペック</h3>' +
+            '<table style="width:100%;border-collapse:collapse;font-size:0.9rem;">';
+        var specs = [
+            ['画面サイズ', d.d], ['チップ', d.ch], ['コネクタ', d.cn],
+            ['生体認証', d.bio], ['重量', d.w], ['サイズ', d.sz], ['型番', d.mn]
+        ];
+        specs.forEach(function(s){
+            html += '<tr><td style="padding:8px 12px;border-bottom:1px solid var(--border);font-weight:600;white-space:nowrap;width:100px;color:var(--text-secondary);">' + s[0] + '</td><td style="padding:8px 12px;border-bottom:1px solid var(--border);">' + s[1] + '</td></tr>';
+        });
+        html += '<tr><td style="padding:8px 12px;font-weight:600;white-space:nowrap;color:var(--text-secondary);">カラー</td><td style="padding:8px 12px;">' + colorBadges + '</td></tr>';
+        html += '</table></div>';
+
+        // 見分け方ポイント
+        html += '<div style="background:linear-gradient(135deg,rgba(59,130,246,0.08),rgba(139,92,246,0.08));border:1px solid var(--border-accent);border-radius:12px;padding:20px;margin-bottom:20px;">' +
+            '<h3 style="margin:0 0 10px 0;font-size:1rem;">🔍 見分けポイント</h3>' +
+            '<p style="margin:0;line-height:1.7;font-size:0.92rem;">' + d.tip + '</p></div>';
+
+        // ミニクイズ
+        if (d.quiz) {
+            html += '<div style="background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:20px;" id="idQuizBox">' +
+                '<h3 style="margin:0 0 14px 0;font-size:1rem;">🧩 確認クイズ</h3>' +
+                '<p style="margin:0 0 14px 0;font-weight:600;">' + d.quiz.q + '</p>';
+            d.quiz.o.forEach(function(opt, oi){
+                html += '<button onclick="checkIdQuiz(' + oi + ',' + d.quiz.a + ',this)" style="display:block;width:100%;text-align:left;padding:10px 16px;margin-bottom:8px;border:1px solid var(--border);border-radius:8px;background:var(--bg-card);cursor:pointer;font-size:0.9rem;color:var(--text);transition:all 0.2s;">' + opt + '</button>';
+            });
+            html += '<div id="idQuizResult" style="margin-top:10px;font-weight:600;display:none;"></div></div>';
+        }
+
+        document.getElementById('idDetailContent').innerHTML = html;
+        document.getElementById('idDeviceList').style.display = 'none';
+        document.getElementById('idCatTabs').style.display = 'none';
+        document.getElementById('idDetailWrap').classList.add('active');
+        window.scrollTo({ top: document.getElementById('idDetailWrap').offsetTop - 80, behavior: 'smooth' });
+    }
+
+    function closeIdDetail() {
+        document.getElementById('idDetailWrap').classList.remove('active');
+        document.getElementById('idDeviceList').style.display = '';
+        document.getElementById('idCatTabs').style.display = '';
+    }
+
+    function checkIdQuiz(selected, correct, btn) {
+        var buttons = btn.parentElement.querySelectorAll('button');
+        buttons.forEach(function(b, i){
+            b.disabled = true;
+            b.style.cursor = 'default';
+            if (i === correct) { b.style.background = 'rgba(34,197,94,0.15)'; b.style.borderColor = '#22c55e'; b.style.color = '#16a34a'; }
+            if (i === selected && selected !== correct) { b.style.background = 'rgba(239,68,68,0.15)'; b.style.borderColor = '#ef4444'; b.style.color = '#dc2626'; }
+        });
+        var res = document.getElementById('idQuizResult');
+        res.style.display = 'block';
+        res.textContent = selected === correct ? '✅ 正解！' : '❌ 不正解… 正しい答えを確認してください';
+        res.style.color = selected === correct ? '#16a34a' : '#dc2626';
+    }
+
+    // 初期描画
+    renderIdList('iphone');
+
+
+
+    // Collapsible device categories
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.device-category').forEach(function(cat) {
+            cat.classList.add('collapsed');
+            var header = cat.querySelector('.category-header');
+            var grid = cat.querySelector('.device-grid');
+            var count = grid ? grid.querySelectorAll('.device-card').length : 0;
+            var nameEl = header.querySelector('.category-name');
+            if (nameEl && count > 0) {
+                var badge = document.createElement('span');
+                badge.className = 'category-count';
+                badge.textContent = count + '機種';
+                nameEl.appendChild(badge);
+            }
+            var toggle = document.createElement('div');
+            toggle.className = 'category-toggle';
+            toggle.innerHTML = '<svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>';
+            header.appendChild(toggle);
+            header.addEventListener('click', function() {
+                cat.classList.toggle('collapsed');
+            });
+        });
+    });
+</script>
+</body>
+</html>

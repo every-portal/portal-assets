@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0f172a">
+<title>週末月末事務クイズ</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:'Noto Sans JP',system-ui,sans-serif;background:#f1f5f9;overflow-x:hidden}
+.app{max-width:430px;margin:0 auto;min-height:100dvh;background:#f1f5f9}
+.header{background:linear-gradient(135deg,#0f172a,#1b2a4a,#1e3a5f);padding:52px 24px 32px}
+.body{padding:16px 16px 32px}
+.card{background:#fff;border-radius:14px;padding:16px;margin-bottom:12px;border:1px solid #e2e8f0;box-shadow:0 1px 3px rgba(0,0,0,0.04)}
+.card-dark{background:#1b2a4a;border:none}
+.card-title{font-size:13px;font-weight:700;color:#1b2a4a;margin-bottom:12px}
+.ni{width:100%;padding:12px 14px;border-radius:10px;border:2px solid #e2e8f0;font-size:15px;font-family:inherit;font-weight:600;color:#1b2a4a;outline:none}
+.ni:focus{border-color:#0891B2}
+.ns{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;background:#f0fdf4;border:1px solid #bbf7d0;font-size:13px;font-weight:600;color:#166534}
+.ne{background:none;border:none;color:#0891B2;font-size:12px;font-weight:600;cursor:pointer;margin-left:8px;font-family:inherit}
+.db{display:flex;align-items:center;justify-content:space-between;width:100%;padding:14px;border-radius:10px;border:2px solid;margin-bottom:8px;cursor:pointer;font-size:14px;font-weight:500;font-family:inherit}
+.db:active{transform:scale(0.98)}.db.off{opacity:0.35;pointer-events:none}
+.dg{padding:3px 10px;border-radius:6px;color:#fff;font-size:12px;font-weight:700}
+.lb{background:none;border:none;color:#0891B2;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit}
+.mr{display:flex;gap:8px}.mi{flex:1;text-align:center;padding:8px 4px;border-radius:10px;border:1px solid}
+.qt{display:flex;align-items:center;gap:10px;padding:12px 16px;background:#fff;border-bottom:1px solid #e2e8f0}
+.cb{background:none;border:none;font-size:20px;color:#94a3b8;cursor:pointer}
+.pw{flex:1;height:6px;background:#e2e8f0;border-radius:3px;overflow:hidden}
+.pb{height:100%;background:linear-gradient(90deg,#0891B2,#06B6D4);border-radius:3px;transition:width 0.3s}
+.qc{font-size:13px;font-weight:700;color:#1b2a4a}
+.tr{display:flex;justify-content:center;padding:10px 16px 0}
+.tb{font-size:13px;font-weight:700;padding:4px 14px;border-radius:20px}
+.qa{padding:16px 20px 8px}
+.tt{display:inline-block;font-size:10px;font-weight:700;color:#0891B2;background:#0891B215;padding:3px 10px;border-radius:20px;margin-bottom:10px}
+.qx{font-size:17px;font-weight:700;color:#1b2a4a;line-height:1.6}
+.os{padding:8px 16px 16px;display:flex;flex-direction:column;gap:8px}
+.ob{display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:12px;border:2px solid #e2e8f0;background:#fff;font-size:14px;font-weight:600;color:#1b2a4a;cursor:pointer;text-align:left;font-family:inherit}
+.ob.off{pointer-events:none}.ob.ok{border-color:#16a34a;background:#f0fdf4;color:#166534}
+.ob.ng{border-color:#dc2626;background:#fef2f2;color:#991b1b}.ob.fd{opacity:0.35}
+.ol{width:28px;height:28px;border-radius:8px;background:#f1f5f9;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#64748b;flex-shrink:0}
+.fb{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:#fff;border-top:2px solid #fecaca;padding:12px 20px;display:flex;justify-content:space-between;align-items:center;z-index:10}
+.rh{padding:40px 24px 28px;text-align:center}
+.rh.ps{background:linear-gradient(135deg,#065f46,#0d9488)}
+.rh.fl{background:linear-gradient(135deg,#991b1b,#dc2626)}
+.ss{margin-top:12px;padding:6px 16px;border-radius:20px;font-size:12px;font-weight:600;display:inline-block}
+.so{background:rgba(255,255,255,0.15);color:rgba(255,255,255,0.9)}
+.sf{background:rgba(255,0,0,0.15);color:#fecaca}
+.sn{background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.6)}
+.wr{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f1f5f9}
+.wi{padding:10px 0;border-bottom:1px solid #f1f5f9}
+.br{display:flex;gap:8px;margin-bottom:20px}
+.p1{flex:1;padding:14px;border-radius:12px;border:none;background:linear-gradient(135deg,#0891B2,#06B6D4);color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
+.p2{flex:1;padding:14px;border-radius:12px;border:2px solid #e2e8f0;background:#fff;color:#475569;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
+.hh{display:flex;align-items:center;gap:12px;padding:16px;background:#fff;border-bottom:1px solid #e2e8f0}
+.bb{background:none;border:none;font-size:13px;font-weight:600;color:#0891B2;cursor:pointer;font-family:inherit}
+.hi{display:flex;align-items:center;gap:12px;padding:12px 16px}
+.hs{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pg{font-size:10px;font-weight:800;padding:4px 8px;border-radius:6px;letter-spacing:1px}
+.rb{background:none;border:none;color:#dc2626;font-size:12px;cursor:pointer;display:block;margin:16px auto;font-family:inherit}
+.cn{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;padding:3px 10px;border-radius:20px;margin-top:10px}
+.co{background:#f0fdf4;color:#166534;border:1px solid #bbf7d0}
+.cf{background:rgba(255,255,255,0.1);color:#94a3b8;border:1px solid rgba(255,255,255,0.1)}
+</style>
+</head>
+<body>
+<div class="app" id="app"></div>
+<script>
+var SCRIPT_URL="";
+var TITLE="週末月末事務クイズ";
+var TAG="WEEKEND & MONTHLY";
+var PASS=80;
+var CM="#d97706";
+var SK="weekend-quiz-v2";
+
+// lv: 1=研修, 2=初級, 3=中級, 4=上級, 5=超級
+var QS=[{"q": "月末の棚卸しで確認するのは？", "o": ["店内の清掃状態", "部品の実在庫数とシステム在庫の照合", "来月のシフト", "スタッフの制服"], "a": "部品の実在庫数とシステム在庫の照合", "cat": "月次基本", "lv": 1}, {"q": "週末に確認すべき作業として正しいものは？", "o": ["来週のキャンペーン準備確認", "棚卸し", "全店舗への連絡", "全部品の発注"], "a": "来週のキャンペーン準備確認", "cat": "月次基本", "lv": 1}, {"q": "月次売上報告の提出期限は？", "o": ["翌月1日", "翌月5日まで", "月末当日", "翌月10日まで"], "a": "翌月5日まで", "cat": "月次基本", "lv": 1}, {"q": "入金確認作業で照合するものは？", "o": ["レジ金と銀行残高", "POS売上とカード会社入金明細", "発注書と納品書", "シフト表と実勤務"], "a": "POS売上とカード会社入金明細", "cat": "月次基本", "lv": 1}, {"q": "原価率の計算式として正しいものは？", "o": ["売上÷原価×100", "原価÷売上×100", "利益÷売上×100", "原価÷利益×100"], "a": "原価÷売上×100", "cat": "月次基本", "lv": 1}, {"q": "原価率の計算式は？", "o": ["売上÷原価×100", "原価÷売上×100", "利益÷売上×100", "原価÷利益×100"], "a": "原価÷売上×100", "cat": "数値管理", "lv": 3}, {"q": "売上目標の達成率を計算する式は？", "o": ["目標÷実績×100", "実績÷目標×100", "実績−目標", "目標−実績÷100"], "a": "実績÷目標×100", "cat": "数値管理", "lv": 3}, {"q": "棚卸しで差異が発生した場合の対応は？", "o": ["無視する", "原因を調査し記録・報告する", "在庫データを書き換える", "発注で補填"], "a": "原因を調査し記録・報告する", "cat": "数値管理", "lv": 3}, {"q": "月次報告書に特記事項として記載すべきものは？", "o": ["天気", "大きなクレーム・機器故障・特別なキャンペーン結果", "スタッフの感想", "近隣店舗情報"], "a": "大きなクレーム・機器故障・特別なキャンペーン結果", "cat": "数値管理", "lv": 3}, {"q": "週末にキャンペーン準備で確認すべきことは？", "o": ["販促物・在庫・料金設定・スタッフへの周知", "販促物のみ", "在庫のみ", "何もしない"], "a": "販促物・在庫・料金設定・スタッフへの周知", "cat": "数値管理", "lv": 3}, {"q": "カード会社入金の照合で差異があった場合は？", "o": ["放置", "差異内容を記録しカード会社に問い合わせる", "自腹で補填", "POS記録を修正"], "a": "差異内容を記録しカード会社に問い合わせる", "cat": "数値管理", "lv": 3}, {"q": "月末の在庫発注で考慮すべきことは？", "o": ["全部品を大量発注", "翌月の予測需要と現在庫のバランス", "安い部品だけ", "何も考えず同量発注"], "a": "翌月の予測需要と現在庫のバランス", "cat": "数値管理", "lv": 3}, {"q": "前月比で売上が下がった場合にまず確認すべきことは？", "o": ["スタッフを叱る", "問い合わせ数・来店率・客単価の変動を分析", "天気のせい", "目標を下げる"], "a": "問い合わせ数・来店率・客単価の変動を分析", "cat": "数値管理", "lv": 3}, {"q": "年末年始の繁忙期に向けた事前準備として重要なのは？", "o": ["何もしない", "在庫積み増し・シフト調整・キャンペーン企画", "通常通り", "休みを増やす"], "a": "在庫積み増し・シフト調整・キャンペーン企画", "cat": "数値管理", "lv": 3}, {"q": "棚卸し差異の主な原因として考えられるものは？", "o": ["天候", "入力ミス・破損廃棄の未記録・盗難", "お客様の増減", "特にない"], "a": "入力ミス・破損廃棄の未記録・盗難", "cat": "経営分析", "lv": 4}, {"q": "月次報告で前年同月比を見る意義は？", "o": ["義務だから", "季節要因を排除して実力値を把握するため", "データが多い方がいい", "特にない"], "a": "季節要因を排除して実力値を把握するため", "cat": "経営分析", "lv": 4}, {"q": "客単価を上げるための施策として最も効果的なのは？", "o": ["値引きする", "フィルムやケースなどのアクセサリー提案", "チラシを配る", "営業時間を延長する"], "a": "フィルムやケースなどのアクセサリー提案", "cat": "経営分析", "lv": 4}, {"q": "リピート率が重要な理由は？", "o": ["新規獲得より低コストで売上につながる", "リピーターはクレームが少ない", "在庫管理が楽", "スタッフが楽"], "a": "新規獲得より低コストで売上につながる", "cat": "経営分析", "lv": 4}, {"q": "修理件数と売上が伸び悩む時、まず確認すべき指標は？", "o": ["天気", "問い合わせ数と来店率（コンバージョン率）", "競合店の数", "スタッフの人数"], "a": "問い合わせ数と来店率（コンバージョン率）", "cat": "経営分析", "lv": 4}, {"q": "Googleレビューの星評価がMEOに影響する理由は？", "o": ["広告費のため", "Map検索のランキング要因だから", "社内報告", "影響しない"], "a": "Map検索のランキング要因だから", "cat": "経営分析", "lv": 4}, {"q": "粗利益率が低下傾向にある場合の原因分析として適切なのは？", "o": ["何もしない", "原価上昇・値引き増加・修理ミックスの変化を確認", "売上を増やすだけ", "人件費を削る"], "a": "原価上昇・値引き増加・修理ミックスの変化を確認", "cat": "経営分析", "lv": 4}, {"q": "新規顧客の獲得コストを下げる最も効果的な方法は？", "o": ["広告費を増やす", "MEO対策とGoogleレビュー強化で自然流入を増やす", "チラシ配布", "値下げ"], "a": "MEO対策とGoogleレビュー強化で自然流入を増やす", "cat": "経営分析", "lv": 4}, {"q": "月次分析で「修理単価は上がったが修理件数が減った」場合の解釈は？", "o": ["問題ない", "高額修理は取れているが来店数・軽修理が減少している可能性", "良い傾向", "単価を下げる"], "a": "高額修理は取れているが来店数・軽修理が減少している可能性", "cat": "経営分析", "lv": 5}, {"q": "在庫回転率を改善するために有効な施策は？", "o": ["全部品を大量発注", "売れ筋分析に基づく発注量最適化とデッドストック削減", "在庫を持たない", "安い部品だけ発注"], "a": "売れ筋分析に基づく発注量最適化とデッドストック削減", "cat": "経営分析", "lv": 5}, {"q": "スタッフ1人あたりの生産性を測る指標として適切なのは？", "o": ["出勤日数", "スタッフ1人あたり売上・修理件数", "勤務時間のみ", "年齢"], "a": "スタッフ1人あたり売上・修理件数", "cat": "経営分析", "lv": 5}, {"q": "キャンペーンの効果測定で見るべき指標は？", "o": ["実施したかどうか", "キャンペーン期間の来店数・売上・客単価の前期比較", "お客様の感想", "SNSいいね数のみ"], "a": "キャンペーン期間の来店数・売上・客単価の前期比較", "cat": "経営分析", "lv": 5}, {"q": "複数店舗間で売上に大きな差がある場合のアプローチは？", "o": ["低い店舗を閉鎖", "高実績店舗のベストプラクティスを分析し横展開する", "何もしない", "スタッフを入れ替え"], "a": "高実績店舗のベストプラクティスを分析し横展開する", "cat": "経営分析", "lv": 5}, {"q": "廃棄部品のコスト管理で重要なことは？", "o": ["記録しない", "廃棄理由・数量・金額を記録し、削減施策を検討する", "全て経費", "気にしない"], "a": "廃棄理由・数量・金額を記録し、削減施策を検討する", "cat": "経営分析", "lv": 5}, {"q": "年間予算策定時に考慮すべき最も重要な要素は？", "o": ["前年実績のみ", "市場トレンド・新機種発売・季節要因・店舗計画の総合分析", "希望的観測", "本社指示のみ"], "a": "市場トレンド・新機種発売・季節要因・店舗計画の総合分析", "cat": "経営分析", "lv": 5}, {"q": "損益分岐点売上の算出が重要な理由は？", "o": ["意味がない", "最低限必要な売上を把握し、日次の営業目標に落とし込める", "経理の仕事", "年1回確認すればよい"], "a": "最低限必要な売上を把握し、日次の営業目標に落とし込める", "cat": "経営分析", "lv": 5}, {"q": "四半期ごとの戦略見直しで最も重視すべきことは？", "o": ["前四半期の反省のみ", "実績vs計画の乖離分析と次四半期の具体的アクションプラン", "特に必要ない", "人事異動"], "a": "実績vs計画の乖離分析と次四半期の具体的アクションプラン", "cat": "経営分析", "lv": 5}, {"q": "店舗の収益性を最も正確に評価する指標は？", "o": ["売上高のみ", "営業利益率（売上から全コストを引いた利益の割合）", "修理件数", "来客数"], "a": "営業利益率（売上から全コストを引いた利益の割合）", "cat": "経営分析", "lv": 5}, {"q": "月末棚卸しの目的は？", "o": ["掃除", "在庫の正確な数量把握と帳簿との照合", "趣味", "上司の指示"], "a": "在庫の正確な数量把握と帳簿との照合", "cat": "棚卸し", "lv": 1}, {"q": "売上報告書に必ず含めるべき項目は？", "o": ["天気", "売上金額・修理件数・客単価", "個人の感想", "来店者の服装"], "a": "売上金額・修理件数・客単価", "cat": "月次報告", "lv": 1}, {"q": "在庫差異が発生した場合の対応は？", "o": ["無視する", "原因を調査し上長に報告する", "自分で調整", "隠す"], "a": "原因を調査し上長に報告する", "cat": "棚卸し", "lv": 1}, {"q": "月次報告の提出期限は？", "o": ["翌月末", "月末締め翌営業日まで", "いつでも", "半年後"], "a": "月末締め翌営業日まで", "cat": "月次報告", "lv": 1}, {"q": "週末の棚卸しで確認すべきことは？", "o": ["売れ筋商品のみ", "全パーツの在庫数と発注残の照合", "人気商品だけ", "確認不要"], "a": "全パーツの在庫数と発注残の照合", "cat": "棚卸し", "lv": 1}, {"q": "KPIとは何の略？", "o": ["Keep Performance Index", "Key Performance Indicator", "Kind Person Information", "Knowledge Process Integration"], "a": "Key Performance Indicator", "cat": "数値管理", "lv": 1}, {"q": "粗利率の計算方法は？", "o": ["売上÷仕入", "（売上−仕入）÷売上×100", "仕入÷売上", "売上×仕入"], "a": "（売上−仕入）÷売上×100", "cat": "数値管理", "lv": 2}, {"q": "前月比で売上が下がった場合に最初にすべきことは？", "o": ["何もしない", "原因分析（修理件数・客単価・来店数の内訳確認）", "スタッフを叱る", "値下げ"], "a": "原因分析（修理件数・客単価・来店数の内訳確認）", "cat": "数値管理", "lv": 2}, {"q": "客単価を上げるための施策として効果的なのは？", "o": ["値上げ", "同時修理割引やアクセサリー提案", "値下げ", "何もしない"], "a": "同時修理割引やアクセサリー提案", "cat": "数値管理", "lv": 2}, {"q": "月間目標売上100万円の場合、日次目標の計算方法は？", "o": ["100万÷30日", "100万÷営業日数", "適当", "100万÷12"], "a": "100万÷営業日数", "cat": "数値管理", "lv": 2}, {"q": "在庫回転率とは？", "o": ["在庫の移動距離", "一定期間に在庫が何回入れ替わったかの指標", "在庫の重さ", "在庫の色"], "a": "一定期間に在庫が何回入れ替わったかの指標", "cat": "在庫管理", "lv": 2}]];
+
+var DIFF_CFG=[
+  {key:"training",label:"研修",n:10,color:"#6b7280",bg:"#f9fafb"},
+  {key:"beginner",label:"初級",n:10,color:"#16a34a",bg:"#f0fdf4"},
+  {key:"intermediate",label:"中級",n:15,color:"#2563eb",bg:"#eff6ff"},
+  {key:"advanced",label:"上級",n:20,color:"#dc2626",bg:"#fef2f2"},
+  {key:"expert",label:"超級",n:20,color:"#7c3aed",bg:"#faf5ff"}
+];
+
+var S={screen:"home",qs:[],cur:0,ans:[],sel:null,fb:false,tm:0,hist:[],diff:0,name:"",ss:""};
+var ti=null;
+
+function lh(){try{return JSON.parse(localStorage.getItem(SK+"-h"))||[];}catch(e){return[];}}
+function sh(h){try{localStorage.setItem(SK+"-h",JSON.stringify(h));}catch(e){}}
+function _ln(){try{return localStorage.getItem(SK+"-n")||"";}catch(e){return"";}}
+function _sn(n){try{localStorage.setItem(SK+"-n",n);}catch(e){}}
+
+function sub(r){
+  if(!SCRIPT_URL){S.ss="no-url";R();return;}
+  S.ss="sending";R();
+  var dc=DIFF_CFG[r.diff];
+  var p={name:S.name,date:r.date,score:r.score,correct:r.correct,total:r.total,passed:r.passed,quiz:TITLE,
+    difficulty:dc?dc.label:"",
+    answers:r.ans.map(function(a){return{category:a.q.cat||"",question:a.q.q,selected:a.sel,answer:a.q.a,correct:a.ok,time:a.tm};})
+  };
+  fetch(SCRIPT_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain"},body:JSON.stringify(p)})
+    .then(function(){S.ss="ok";R();})
+    .catch(function(){S.ss="fail";R();});
+}
+
+// Filter by level, shuffle, pick n. Answers also shuffled.
+function gq(diffIdx){
+  var cfg=DIFF_CFG[diffIdx];
+  var lv=diffIdx+1;
+  // For higher levels, include questions from lower levels too
+  var pool=QS.filter(function(q){return q.lv<=lv;});
+  pool.sort(function(){return Math.random()-0.5;});
+  // Prioritize current level questions
+  var thisLv=pool.filter(function(q){return q.lv===lv;});
+  var lowerLv=pool.filter(function(q){return q.lv<lv;});
+  thisLv.sort(function(){return Math.random()-0.5;});
+  lowerLv.sort(function(){return Math.random()-0.5;});
+  var merged=thisLv.concat(lowerLv).slice(0,cfg.n);
+  merged.sort(function(){return Math.random()-0.5;});
+  // Shuffle answer options for each question
+  return merged.map(function(q){
+    var oidx=q.o.map(function(o,i){return{o:o,i:i};});
+    oidx.sort(function(){return Math.random()-0.5;});
+    return{q:q.q,o:oidx.map(function(x){return x.o;}),a:q.a,cat:q.cat,lv:q.lv};
+  });
+}
+
+function stm(){clearInterval(ti);S.tm=0;ti=setInterval(function(){S.tm++;var e=document.getElementById("tm");if(e){var t=S.tm;e.style.background=t>20?"#fef2f2":t>10?"#fffbeb":"#f0fdf4";e.style.color=t>20?"#dc2626":t>10?"#d97706":"#16a34a";e.textContent="⏱ "+t+"秒";}},1000);}
+function st(){clearInterval(ti);}
+
+function setN(){var e=document.getElementById("ni");if(e&&e.value.trim()){S.name=e.value.trim();_sn(S.name);R();}}
+function edN(){S.name="";R();setTimeout(function(){var e=document.getElementById("ni");if(e)e.focus();},50);}
+
+function go(di){
+  if(!S.name){alert("名前を入力してください");return;}
+  S.diff=di;S.qs=gq(di);S.cur=0;S.ans=[];S.sel=null;S.fb=false;S.tm=0;S.ss="";S.screen="quiz";R();stm();
+}
+
+function ans(idx){if(S.fb)return;var q=S.qs[S.cur];var o=q.o[idx];S.sel=o;S.fb=true;st();var ok=(o===q.a);S.ans.push({q:q,sel:o,ok:ok,tm:S.tm});R();setTimeout(function(){if(S.cur<S.qs.length-1){S.cur++;S.sel=null;S.fb=false;S.tm=0;R();stm();}else{fin();}},ok?800:2200);}
+function fin(){st();var c=S.ans.filter(function(a){return a.ok;}).length;var s=Math.round(c/S.ans.length*100);var rec={date:new Date().toLocaleString("ja-JP"),score:s,total:S.ans.length,correct:c,passed:s>=PASS,diff:S.diff,ans:S.ans,name:S.name};S.hist=[rec].concat(S.hist).slice(0,50);sh(S.hist);S.screen="result";R();sub(rec);}
+function hm(){st();S.screen="home";R();}
+function hs(){S.screen="history";R();}
+function rs(){if(confirm("全履歴を削除しますか？")){S.hist=[];sh([]);R();}}
+function qt(){if(confirm("テストを中断しますか？"))hm();}
+
+function R(){
+  var a=document.getElementById("app");
+  switch(S.screen){
+    case "home":a.innerHTML=rH();break;
+    case "quiz":a.innerHTML=rQ();break;
+    case "result":a.innerHTML=rR();break;
+    case "history":a.innerHTML=rHi();break;
+  }
+}
+
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+
+function rH(){
+  var cn=SCRIPT_URL?'<div class="cn co">● Spreadsheet連携ON</div>':'<div class="cn cf">● オフライン</div>';
+  var nm;
+  if(S.name){
+    nm='<div class="ns">👤 '+esc(S.name)+' さん<button class="ne" onclick="edN()">変更</button></div>';
+  } else {
+    nm='<div style="display:flex;gap:8px"><input class="ni" id="ni" placeholder="名前を入力"><button style="padding:8px 16px;border-radius:10px;border:none;background:'+CM+';color:#fff;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap" onclick="setN()">決定</button></div>';
+  }
+  var dc=S.name?"":"off";
+  var btns="";
+  for(var i=0;i<DIFF_CFG.length;i++){
+    var d=DIFF_CFG[i];
+    btns+='<button class="db '+dc+'" style="border-color:'+d.color+';background:'+d.bg+'" onclick="go('+i+')"><div style="display:flex;align-items:center"><span class="dg" style="background:'+d.color+'">'+d.label+'</span><span style="font-size:13px;color:#475569;margin-left:10px">'+d.n+'問</span></div><span style="font-size:18px;color:'+d.color+'">→</span></button>';
+  }
+  var mi="";
+  if(S.hist.length>0){
+    var ms="";
+    for(var i=0;i<Math.min(5,S.hist.length);i++){
+      var r=S.hist[i];var bg=r.passed?"#f0fdf4":"#fef2f2";var bc=r.passed?"#bbf7d0":"#fecaca";var sc=r.passed?"#16a34a":"#dc2626";
+      var ds=(r.date.split(" ")[0]||"").split("/").slice(1).join("/");
+      ms+='<div class="mi" style="background:'+bg+';border-color:'+bc+'"><div style="font-size:18px;font-weight:800;color:'+sc+'">'+r.score+'%</div><div style="font-size:9px;color:#94a3b8">'+ds+'</div></div>';
+    }
+    mi='<div class="card"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><span style="font-size:13px;font-weight:700;color:#1b2a4a">最近の結果</span><button class="lb" onclick="hs()">履歴 →</button></div><div class="mr">'+ms+'</div></div>';
+  }
+  return '<div class="header"><div style="font-size:11px;font-weight:700;color:'+CM+';letter-spacing:2px">'+TAG+'</div>'
+    +'<h1 style="font-size:34px;font-weight:900;color:#fff;margin:8px 0 0;line-height:1.2">'+TITLE+'</h1>'
+    +'<div style="font-size:13px;color:#94a3b8;margin-top:8px">全'+QS.length+'問から出題</div>'+cn+'</div>'
+    +'<div class="body"><div class="card"><div class="card-title">受験者名</div>'+nm+'</div>'
+    +'<div class="card"><div class="card-title">難易度を選択</div>'+btns+'</div>'+mi
+    +'<div class="card card-dark"><div style="font-size:12px;font-weight:700;color:'+CM+';margin-bottom:6px">合格ライン</div>'
+    +'<div style="font-size:28px;font-weight:800;color:#fff">'+PASS+'%<span style="font-size:14px;color:#94a3b8;margin-left:8px">以上で合格</span></div></div></div>';
+}
+
+function rQ(){
+  var q=S.qs[S.cur];var pr=(S.cur/S.qs.length*100).toFixed(0);
+  var op="";
+  for(var i=0;i<q.o.length;i++){
+    var o=q.o[i];var c="ob";var r="";
+    if(S.fb){
+      if(o===q.a){c+=" ok";r='<span style="font-size:18px;margin-left:auto">✓</span>';}
+      else if(o===S.sel){c+=" ng";r='<span style="font-size:18px;margin-left:auto">✗</span>';}
+      else{c+=" fd";}
+      c+=" off";
+    }
+    op+='<button class="'+c+'" onclick="ans('+i+')"><span class="ol">'+String.fromCharCode(65+i)+'</span><span style="flex:1;text-align:left">'+esc(o)+'</span>'+r+'</button>';
+  }
+  var fb="";
+  if(S.fb&&S.sel!==q.a){fb='<div class="fb"><div style="font-weight:700;color:#dc2626;font-size:13px">不正解</div><div style="font-size:12px;color:#64748b">正解：'+esc(q.a)+'</div></div>';}
+  return '<div class="qt"><button class="cb" onclick="qt()">✕</button><div class="pw"><div class="pb" style="width:'+pr+'%"></div></div><div class="qc">'+(S.cur+1)+'/'+S.qs.length+'</div></div>'
+    +'<div class="tr"><div class="tb" id="tm" style="background:#f0fdf4;color:#16a34a">⏱ 0秒</div></div>'
+    +'<div class="qa"><div class="tt">'+(q.cat||"")+'</div><h2 class="qx">'+esc(q.q)+'</h2></div>'
+    +'<div class="os">'+op+'</div>'+fb;
+}
+
+function rR(){
+  var r=S.hist[0];if(!r)return"";
+  var ss="";
+  if(S.ss==="sending")ss='<div class="ss sn">📡 送信中...</div>';
+  else if(S.ss==="ok")ss='<div class="ss so">✅ 記録済み</div>';
+  else if(S.ss==="fail")ss='<div class="ss sf">⚠ 送信失敗</div>';
+  else if(S.ss==="no-url")ss='<div class="ss sf">未接続</div>';
+
+  var wt={};
+  for(var i=0;i<r.ans.length;i++){var a=r.ans[i];var t=a.q.cat||"その他";if(!wt[t])wt[t]={t:0,w:0};wt[t].t++;if(!a.ok)wt[t].w++;}
+  var wl=Object.keys(wt).filter(function(k){return wt[k].w>0;}).sort(function(a,b){return wt[b].w-wt[a].w;});
+  var wh="";
+  if(wl.length>0){
+    wh='<div class="card"><div class="card-title">苦手分野</div>';
+    for(var i=0;i<wl.length;i++){var t=wl[i];wh+='<div class="wr"><span style="font-size:12px;color:#475569">'+esc(t)+'</span><span style="font-size:12px;font-weight:700;color:#dc2626">'+wt[t].w+'問ミス/'+wt[t].t+'問</span></div>';}
+    wh+='</div>';
+  }
+  var wr=r.ans.filter(function(a){return!a.ok;});
+  var wrh="";
+  if(wr.length===0){wrh='<div style="font-size:12px;color:#16a34a;font-weight:600">全問正解！ 🎉</div>';}
+  else{for(var i=0;i<wr.length;i++){var a=wr[i];wrh+='<div class="wi"><div style="font-size:11px;color:#dc2626;font-weight:700">Q. '+esc(a.q.q)+'</div><div style="font-size:11px;color:#64748b;margin-top:2px">回答：<span style="color:#dc2626;font-weight:600">'+esc(a.sel)+'</span>　正解：<span style="color:#16a34a;font-weight:600">'+esc(a.q.a)+'</span></div></div>';}}
+  var dc=DIFF_CFG[r.diff];var dl=dc?dc.label:"";
+  return '<div class="rh '+(r.passed?"ps":"fl")+'">'
+    +'<div style="font-size:48px">'+(r.passed?"🎉":"📝")+'</div>'
+    +'<div style="font-size:14px;color:rgba(255,255,255,0.8);font-weight:600">'+(r.passed?"合格！":"不合格")+'</div>'
+    +'<div style="font-size:56px;font-weight:800;color:#fff;line-height:1">'+r.score+'%</div>'
+    +'<div style="font-size:13px;color:rgba(255,255,255,0.7);margin-top:4px">'+r.correct+'/'+r.total+'問（'+dl+'）- '+esc(r.name)+'</div>'+ss+'</div>'
+    +'<div class="body" style="padding-top:16px">'+wh
+    +'<div class="card"><div class="card-title">'+(wr.length>0?"間違えた問題":"結果")+'</div>'+wrh+'</div>'
+    +'<div class="br"><button class="p1" onclick="go('+r.diff+')">もう一度</button><button class="p2" onclick="hm()">ホーム</button></div></div>';
+}
+
+function rHi(){
+  var h=S.hist;
+  if(!h.length)return '<div class="hh"><button class="bb" onclick="hm()">← 戻る</button><h2 style="font-size:18px;font-weight:800;color:#1b2a4a">履歴</h2></div><div class="body" style="text-align:center;padding:40px;color:#94a3b8">記録なし</div>';
+  var mx=0;var pc=0;
+  for(var i=0;i<h.length;i++){if(h[i].score>mx)mx=h[i].score;if(h[i].passed)pc++;}
+  var items="";
+  for(var i=0;i<h.length;i++){
+    var r=h[i];var dc=DIFF_CFG[r.diff];var dl=dc?dc.label:"";
+    items+='<div class="card" style="padding:0"><div class="hi"><div class="hs" style="background:'+(r.passed?"#f0fdf4":"#fef2f2")+'"><span style="font-size:20px;font-weight:800;color:'+(r.passed?"#16a34a":"#dc2626")+'">'+r.score+'</span></div>'
+      +'<div style="flex:1"><div style="font-size:13px;font-weight:700;color:#1b2a4a">'+(r.passed?"合格":"不合格")+' '+r.correct+'/'+r.total+' ('+dl+')'+(r.name?" - "+esc(r.name):"")+'</div>'
+      +'<div style="font-size:11px;color:#94a3b8">'+r.date+'</div></div>'
+      +'<div class="pg" style="background:'+(r.passed?"#dcfce7":"#fecaca")+';color:'+(r.passed?"#166534":"#991b1b")+'">'+(r.passed?"PASS":"FAIL")+'</div></div></div>';
+  }
+  return '<div class="hh"><button class="bb" onclick="hm()">← 戻る</button><h2 style="font-size:18px;font-weight:800;color:#1b2a4a">履歴</h2></div>'
+    +'<div class="body"><div class="card card-dark"><div style="display:flex;justify-content:space-around;text-align:center">'
+    +'<div><div style="font-size:24px;font-weight:800;color:'+CM+'">'+h.length+'</div><div style="font-size:10px;color:#94a3b8">受験</div></div>'
+    +'<div><div style="font-size:24px;font-weight:800;color:#16a34a">'+pc+'</div><div style="font-size:10px;color:#94a3b8">合格</div></div>'
+    +'<div><div style="font-size:24px;font-weight:800;color:#fff">'+mx+'%</div><div style="font-size:10px;color:#94a3b8">最高</div></div>'
+    +'</div></div>'+items+'<button class="rb" onclick="rs()">履歴リセット</button></div>';
+}
+
+document.addEventListener("keydown",function(e){if(e.key==="Enter"){var ni=document.getElementById("ni");if(ni&&document.activeElement===ni)setN();}});
+S.hist=lh();S.name=_ln();R();
+</script>
+</body>
+</html>

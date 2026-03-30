@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>iPhone 14 修理マニュアル（全体）</title>
+<style>
+:root{--bg:#f5f7fa;--surface:#ffffff;--card:#ffffff;--card-hover:#f0f4ff;--border:#e2e8f0;--border-accent:rgba(5,150,105,.3);--accent:#059669;--accent-dim:rgba(5,150,105,.06);--text:#0f172a;--text-mid:#475569;--text-dim:#94a3b8;--orange:#c2410c;--blue:#2563eb;--amber:#d97706;--rose:#e11d48;--radius:14px;--radius-sm:10px;--shadow:0 1px 3px rgba(0,0,0,.06)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased}
+body::before{content:'';position:fixed;top:-30%;right:-20%;width:800px;height:800px;background:radial-gradient(circle,rgba(5,150,105,.03) 0%,transparent 70%);pointer-events:none}
+.container{max-width:920px;margin:0 auto;padding:24px 20px 60px}
+.hero{background:linear-gradient(135deg,#ffffff 0%,rgba(5,150,105,.04) 100%);border:1px solid var(--border-accent);border-radius:var(--radius);padding:44px;margin-bottom:28px;position:relative;overflow:hidden;box-shadow:var(--shadow)}
+.hero::after{content:'';position:absolute;right:-80px;top:-80px;width:300px;height:300px;background:radial-gradient(circle,rgba(5,150,105,.06),transparent 70%);pointer-events:none}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;background:var(--accent-dim);border:1px solid var(--border-accent);border-radius:20px;font-size:11px;font-weight:600;color:var(--accent);margin-bottom:14px;letter-spacing:1px;text-transform:uppercase}
+.hero h1{font-size:32px;font-weight:800;margin-bottom:8px;letter-spacing:-0.02em}
+.hero-sub{color:var(--text-mid);font-size:14px;margin-bottom:24px;line-height:1.6}
+.hero-stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px}
+.hero-stat{background:rgba(0,0,0,.02);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;text-align:center}
+.hero-stat-val{font-size:20px;font-weight:800;margin-bottom:2px}
+.hero-stat-val.green{color:var(--accent)}.hero-stat-val.blue{color:var(--blue)}.hero-stat-val.amber{color:var(--amber)}.hero-stat-val.rose{color:var(--rose)}
+.hero-stat-label{font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px}
+.section{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:20px;overflow:hidden;box-shadow:var(--shadow)}
+.section-head{padding:22px 28px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
+.section-head h2{font-size:17px;font-weight:700;flex:1}
+.section-icon{font-size:20px}
+.section-body{padding:24px 28px}
+.spec-table{width:100%;border-collapse:collapse}
+.spec-table tr{border-bottom:1px solid #f1f5f9}.spec-table tr:last-child{border-bottom:none}
+.spec-table th{text-align:left;padding:10px 14px;font-size:12px;font-weight:600;color:var(--text-dim);text-transform:uppercase;letter-spacing:.5px;width:160px;vertical-align:top;background:rgba(0,0,0,.02)}
+.spec-table td{padding:10px 14px;font-size:13px;color:var(--text-mid)}
+.spec-table td strong{color:var(--text);font-weight:600}
+.model-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+.model-chip{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;text-align:center}
+.model-chip .region{font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.model-chip .code{font-size:16px;font-weight:700;font-family:monospace;color:var(--accent)}
+.repair-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.repair-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:20px;cursor:pointer;transition:all .25s;text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:10px}
+.repair-card:hover{border-color:var(--accent);background:var(--card-hover);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.08)}
+.rc-top{display:flex;align-items:center;gap:10px}.rc-icon{font-size:24px}.rc-name{font-size:14px;font-weight:700;flex:1}
+.rc-meta{display:flex;align-items:center;gap:12px}.rc-diff{display:flex;gap:3px}
+.rc-dot{width:7px;height:7px;border-radius:50%;background:var(--border)}.rc-dot.active{background:var(--accent)}
+.rc-time{font-size:11px;color:var(--text-dim)}.rc-link{font-size:11px;color:var(--accent);font-weight:600;margin-top:auto}
+.ts-list{display:flex;flex-direction:column;gap:8px}
+.ts-item{display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);transition:all .2s}
+.ts-item:hover{border-color:var(--border-accent);background:var(--card-hover)}
+.ts-icon{font-size:18px;flex-shrink:0}.ts-text{flex:1}.ts-title{font-size:13px;font-weight:600}.ts-desc{font-size:11px;color:var(--text-dim);margin-top:2px}
+.warning{background:rgba(194,65,12,.04);border:1px solid rgba(194,65,12,.2);border-radius:var(--radius-sm);padding:18px 22px;margin-bottom:20px;display:flex;gap:12px;align-items:flex-start}
+.warning-icon{font-size:20px;flex-shrink:0}.warning-body{font-size:13px;color:var(--orange);line-height:1.6}.warning-body strong{color:#9a3412}
+.tool-grid{display:flex;flex-wrap:wrap;gap:8px}
+.tool-chip{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:var(--surface);border:1px solid var(--border);border-radius:20px;font-size:12px;color:var(--text-mid);font-weight:500}
+.tip-box{background:rgba(37,99,235,.04);border:1px solid rgba(37,99,235,.15);border-radius:var(--radius-sm);padding:16px 20px;margin-top:16px}
+.tip-box .tip-title{font-size:12px;font-weight:700;color:var(--blue);margin-bottom:6px}
+.tip-box p{font-size:12px;color:var(--text-mid);line-height:1.6}
+.overall-footer{text-align:center;padding:32px 0;color:var(--text-dim);font-size:11px;border-top:1px solid var(--border);margin-top:12px}
+@media print{body{background:#fff;color:#000}.section{break-inside:avoid}.repair-card:hover{transform:none;box-shadow:none}}
+@media(max-width:768px){.container{padding:14px 12px}.hero{padding:28px 22px}.hero h1{font-size:24px}.hero-stats{grid-template-columns:repeat(2,1fr)}.section-body{padding:18px}.spec-table th{width:110px}.repair-grid{grid-template-columns:1fr}.model-grid{grid-template-columns:repeat(2,1fr)}}
+
+.id-method{margin-bottom:24px}.id-method:last-child{margin-bottom:0}
+.id-method-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.id-method-title .num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;font-size:11px;font-weight:800;flex-shrink:0}
+.id-features{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:16px}
+.id-feat{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm)}
+.id-feat-icon{font-size:18px;flex-shrink:0;margin-top:1px}.id-feat-text{flex:1}
+.id-feat-label{font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px}
+.id-feat-val{font-size:13px;font-weight:600;color:var(--text)}
+.compare-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:12px}
+.compare-table th{padding:10px 12px;background:rgba(0,0,0,.03);font-weight:700;text-align:left;border-bottom:2px solid var(--border);color:var(--text-dim);text-transform:uppercase;letter-spacing:.5px;font-size:10px}
+.compare-table td{padding:8px 12px;border-bottom:1px solid #f1f5f9;color:var(--text-mid);vertical-align:top}
+.compare-table tr:last-child td{border-bottom:none}
+.compare-table .highlight{background:rgba(5,150,105,.04)}
+.compare-table .highlight td{color:var(--text);font-weight:600}
+.id-flow{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.id-flow-step{display:flex;align-items:stretch;gap:0}
+.id-flow-q{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm) 0 0 var(--radius-sm);padding:10px 16px;font-size:12px;font-weight:600;min-width:220px;display:flex;align-items:center}
+.id-flow-a{display:flex;flex:1;gap:0}
+.id-flow-opt{padding:10px 14px;font-size:11px;border:1px solid var(--border);border-left:none;flex:1;display:flex;flex-direction:column;justify-content:center}
+.id-flow-opt:last-child{border-radius:0 var(--radius-sm) var(--radius-sm) 0}
+.id-flow-opt.yes{background:rgba(5,150,105,.04);color:var(--accent);font-weight:600}
+.id-flow-opt.no{background:rgba(239,68,68,.03);color:var(--text-dim)}
+.id-flow-opt .opt-label{font-size:10px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px;opacity:.7}
+.id-flow-opt .opt-result{font-weight:600;font-size:12px}
+.internal-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.internal-item{padding:14px;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm)}
+.internal-item .item-label{font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.internal-item .item-val{font-size:13px;font-weight:600;color:var(--text)}
+.internal-item .item-note{font-size:11px;color:var(--text-mid);margin-top:4px}
+.warn-box{background:rgba(194,65,12,.04);border:1px solid rgba(194,65,12,.2);border-radius:var(--radius-sm);padding:14px 18px;margin-top:12px}
+.warn-box p{font-size:12px;color:var(--orange);line-height:1.5}.warn-box strong{color:#9a3412}
+
+@media(max-width:768px){.id-features{grid-template-columns:1fr}.id-flow-step{flex-direction:column}.id-flow-q{min-width:unset;border-radius:var(--radius-sm) var(--radius-sm) 0 0}.id-flow-a{flex-direction:column}.id-flow-opt{border-left:1px solid var(--border)}.id-flow-opt:last-child{border-radius:0 0 var(--radius-sm) var(--radius-sm)}.internal-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="hero">
+<div class="hero-badge">📱 全体修理マニュアル</div>
+<h1>iPhone 14</h1>
+<p class="hero-sub">2022年発売 ｜ A15 Bionic ｜ 6.1" Super Retina XDR OLED ｜ Lightning ｜ 8種類の修理手順</p>
+<div class="hero-stats">
+<div class="hero-stat"><div class="hero-stat-val green">5/10</div><div class="hero-stat-label">修理容易性</div></div>
+<div class="hero-stat"><div class="hero-stat-val blue">8</div><div class="hero-stat-label">修理ガイド数</div></div>
+<div class="hero-stat"><div class="hero-stat-val amber">2022</div><div class="hero-stat-label">発売年</div></div>
+<div class="hero-stat"><div class="hero-stat-val rose">IP68</div><div class="hero-stat-label">防水等級</div></div>
+</div></div>
+
+<div class="warning"><div class="warning-icon">⚠</div><div class="warning-body">
+修理前にバッテリー残量を<strong>25%以下</strong>に放電。ディスプレイは<strong>左辺ヒンジ式</strong>で開きます。ピックは<strong>3mm以上</strong>挿入しないでください。防水シール交換にはディスプレイ用接着剤が必要です。Face ID — センサーアセンブリ移植必須。</div></div>
+
+<div class="section">
+<div class="section-head"><span class="section-icon">🔍</span><h2>モデル識別ガイド</h2></div>
+<div class="section-body">
+
+<div class="id-method">
+<div class="id-method-title"><span class="num">1</span>外観による識別</div>
+<p style="font-size:13px;color:var(--text-mid);margin-bottom:14px">以下の外観的特徴の組み合わせで識別できます。</p>
+<div class="id-features"><div class="id-feat"><div class="id-feat-icon">📐</div><div class="id-feat-text"><div class="id-feat-label">エッジ形状</div><div class="id-feat-val">フラット（角張り）</div></div></div>
+<div class="id-feat"><div class="id-feat-icon">📷</div><div class="id-feat-text"><div class="id-feat-label">カメラ配置</div><div class="id-feat-val">デュアル 12MP</div></div></div>
+<div class="id-feat"><div class="id-feat-icon">📱</div><div class="id-feat-text"><div class="id-feat-label">画面上部</div><div class="id-feat-val">ノッチ（小型）</div></div></div>
+<div class="id-feat"><div class="id-feat-icon">🔘</div><div class="id-feat-text"><div class="id-feat-label">ホームボタン</div><div class="id-feat-val">なし（Face ID）</div></div></div>
+<div class="id-feat"><div class="id-feat-icon">🔌</div><div class="id-feat-text"><div class="id-feat-label">充電ポート</div><div class="id-feat-val">Lightning</div></div></div>
+<div class="id-feat"><div class="id-feat-icon">🪨</div><div class="id-feat-text"><div class="id-feat-label">フレーム素材</div><div class="id-feat-val">アルミニウム</div></div></div>
+<div class="id-feat"><div class="id-feat-icon">📏</div><div class="id-feat-text"><div class="id-feat-label">画面サイズ</div><div class="id-feat-val">6.1インチ</div></div></div>
+<div class="id-feat"><div class="id-feat-icon">🎨</div><div class="id-feat-text"><div class="id-feat-label">カラー展開</div><div class="id-feat-val">ミッドナイト / スターライト / ブルー / パープル / (PRODUCT)RED / イエロー</div></div></div>
+<div class="id-feat"><div class="id-feat-icon">🔇</div><div class="id-feat-text"><div class="id-feat-label">左側面</div><div class="id-feat-val">消音スイッチ + 音量ボタン</div></div></div>
+<div class="id-feat"><div class="id-feat-icon">🧲</div><div class="id-feat-text"><div class="id-feat-label">MagSafe</div><div class="id-feat-val">対応</div></div></div>
+<div class="id-feat"><div class="id-feat-icon">🚨</div><div class="id-feat-text"><div class="id-feat-label">衝突検出</div><div class="id-feat-val">初搭載</div></div></div>
+<div class="id-feat"><div class="id-feat-icon">🛰</div><div class="id-feat-text"><div class="id-feat-label">衛星通信</div><div class="id-feat-val">緊急SOS対応</div></div></div>
+</div>
+</div>
+
+<div class="id-method">
+<div class="id-method-title"><span class="num">2</span>かんたん識別フロー</div>
+<p style="font-size:13px;color:var(--text-mid);margin-bottom:12px">以下の質問に順に答えることで素早く判別できます。</p>
+<div class="id-flow"><div class="id-flow-step"><div class="id-flow-q">❶ Dynamic Island？ノッチ？</div><div class="id-flow-a"><div class="id-flow-opt yes"><div class="opt-label">ノッチ（小型）</div><div class="opt-result">→ 13系 or 14無印系</div></div><div class="id-flow-opt no"><div class="opt-label">ノッチ（大型）</div><div class="opt-result">→ 12系</div></div></div></div>
+<div class="id-flow-step"><div class="id-flow-q">❷ ポートは？</div><div class="id-flow-a"><div class="id-flow-opt yes"><div class="opt-label">Lightning</div><div class="opt-result">→ 14系</div></div><div class="id-flow-opt no"><div class="opt-label">USB-C</div><div class="opt-result">→ 15以降</div></div></div></div>
+<div class="id-flow-step"><div class="id-flow-q">❸ カメラ/フレームは？</div><div class="id-flow-a"><div class="id-flow-opt yes"><div class="opt-label">2個 / アルミニウム</div><div class="opt-result">→ iPhone 14の可能性</div></div><div class="id-flow-opt no"><div class="opt-label">その他</div><div class="opt-result">→ 別モデル</div></div></div></div>
+<div class="id-flow-step"><div class="id-flow-q">❹ 画面サイズは？</div><div class="id-flow-a"><div class="id-flow-opt yes"><div class="opt-label">6.1インチ</div><div class="opt-result">→ ✅ iPhone 14 で確定</div></div><div class="id-flow-opt no"><div class="opt-label">その他</div><div class="opt-result">→ 別バリエーション</div></div></div></div>
+</div>
+</div>
+
+<div class="id-method">
+<div class="id-method-title"><span class="num">3</span>混同しやすいモデルとの見分け方</div>
+<table class="compare-table">
+<thead><tr><th>特徴</th><th class="highlight"">iPhone 14</th><th">iPhone 13</th><th">iPhone 15</th></tr></thead>
+<tbody><tr><td style="font-weight:600">画面上部</td><td>ノッチ（小型）</td><td>ノッチ（小型）</td><td>Dynamic Island</td></tr>
+<tr><td style="font-weight:600">ポート</td><td>Lightning</td><td>Lightning</td><td>USB-C</td></tr>
+<tr><td style="font-weight:600">チップ</td><td>A15</td><td>A15</td><td>A16</td></tr>
+<tr><td style="font-weight:600">カメラ</td><td>12MP</td><td>12MP</td><td>48MP</td></tr>
+<tr><td style="font-weight:600">フレーム</td><td>アルミニウム</td><td>アルミ</td><td>アルミ</td></tr>
+</tbody></table>
+<div class="tip-box"><div class="tip-title">💡 最も確実な見分けポイント</div><p><strong>14無印はノッチ継続。</strong>Dynamic Islandは14 Proのみ。<br><strong>iPhone 15との違い：</strong>ポート（14=Lightning、15=USB-C）。</p></div>
+</div>
+
+<div class="id-method">
+<div class="id-method-title"><span class="num">4</span>モデル番号による確認</div>
+<p style="font-size:13px;color:var(--text-mid);margin-bottom:14px">モデル番号は <strong>設定 → 一般 → 情報 → モデル番号</strong>（タップで「A」番号表示）、または <strong>SIMトレイ内側の上部</strong>に刻印されています。</p>
+<div class="model-grid"><div class="model-chip"><div class="region">米国</div><div class="code">A2649</div><div class="band-note">eSIMのみ（SIMトレイなし）</div></div>
+<div class="model-chip"><div class="region">グローバル</div><div class="code">A2881</div><div class="band-note">nano-SIM+eSIM</div></div>
+<div class="model-chip"><div class="region">中国</div><div class="code">A2884</div></div>
+</div>
+<div class="warn-box"><p>⚠ <strong>注意：</strong>米国モデルはeSIMのみ（SIMトレイなし）。これは物理的な外観の違いとなり、地域識別に使えます。</p></div>
+</div>
+
+<div class="id-method">
+<div class="id-method-title"><span class="num">5</span>内部による識別（開封済みの場合）</div>
+<p style="font-size:13px;color:var(--text-mid);margin-bottom:12px">画面を開いた状態で以下のポイントから確認できます。</p>
+<div class="internal-grid"><div class="internal-item"><div class="item-label">バッテリー</div><div class="item-val">3279 mAh</div><div class="item-note"></div></div>
+<div class="internal-item"><div class="item-label">衝突検出</div><div class="item-val">加速度センサー+ジャイロ強化</div><div class="item-note">iPhone 13以前にはない高G加速度センサー。</div></div>
+<div class="internal-item"><div class="item-label">SIMトレイ</div><div class="item-val">米国モデルはeSIMのみ（トレイなし）</div><div class="item-note">米国モデルの物理的な違い。</div></div>
+</div>
+</div>
+
+<div class="id-method">
+<div class="id-method-title"><span class="num">6</span>ソフトウェアによる確認</div>
+<table class="compare-table" style="margin-top:8px">
+<tr><td style="font-weight:700;width:200px">設定 → 一般 → 情報</td><td>モデル名・モデル番号（タップで「A」番号表示）</td></tr>
+<tr><td style="font-weight:700">3uTools / iMazing</td><td>USB接続で自動識別。DFU/リカバリーモードでも判定可能。</td></tr>
+<tr><td style="font-weight:700">IMEI検索</td><td>checkcoverage.apple.com でIMEI番号から機種確認。</td></tr>
+</table>
+</div>
+
+</div></div>
+
+<div class="section"><div class="section-head"><span class="section-icon">📋</span><h2>スペック</h2></div>
+<div class="section-body" style="padding:0">
+<table class="spec-table">
+<tr><th>発売日</th><td>2022年9月16日</td></tr>
+<tr><th>OS</th><td>iOS 16（初期搭載）</td></tr>
+<tr><th>チップ</th><td><strong>A15 Bionic</strong></td></tr>
+<tr><th>RAM</th><td>6 GB</td></tr>
+<tr><th>ストレージ</th><td>128 / 256 / 512 GB</td></tr>
+<tr><th>ディスプレイ</th><td><strong>6.1" Super Retina XDR OLED</strong><br>2532×1170 (460ppi) / 800nit（HDR 1600nit） / Haptic Touch / True Tone / P3広色域 / HDR / 衝突検出</td></tr>
+<tr><th>リアカメラ</th><td>デュアル12MP — 広角ƒ/1.5(センサーシフトOIS)+超広角ƒ/2.4 / アクションモード / 4K 60fps</td></tr>
+<tr><th>フロントカメラ</th><td>TrueDepth 12MP — ƒ/1.9 / AF</td></tr>
+<tr><th>生体認証</th><td><strong>Face ID</strong></td></tr>
+<tr><th>バッテリー</th><td><strong>3279 mAh</strong> — ビデオ再生最大20h / プルタブ接着ストリップ</td></tr>
+<tr><th>ポート</th><td><strong>Lightning</strong></td></tr>
+<tr><th>防水</th><td><strong>IP68（水深6m/30分）</strong></td></tr>
+<tr><th>通信</th><td>5G / Wi-Fi 802.11ax (Wi-Fi 6) / Bluetooth 5.3 / NFC / U1 / 衛星通信（緊急SOS）</td></tr>
+<tr><th>MagSafe</th><td>対応</td></tr>
+<tr><th>サイズ</th><td>146.7 × 71.5 × 7.80 mm</td></tr>
+<tr><th>重量</th><td>172 g</td></tr>
+<tr><th>カラー</th><td>ミッドナイト / スターライト / ブルー / パープル / (PRODUCT)RED / イエロー</td></tr>
+<tr><th>フレーム</th><td>アルミニウム+ガラスバック</td></tr>
+</table></div></div>
+
+<div class="section"><div class="section-head"><span class="section-icon">🔩</span><h2>内部構造 — ネジ・工具</h2></div>
+<div class="section-body">
+<table class="spec-table" style="margin-bottom:20px">
+<tr><th>底面ネジ</th><td><strong>P2 ペンタローブ 6.8mm × 2</strong></td></tr>
+<tr><th>内部ネジ</th><td>P2 6.8mm / Y000 / Phillips / スタンドオフ</td></tr>
+<tr><th>接着剤</th><td>防水シール / バッテリープルタブ</td></tr>
+<tr><th>開口方法</th><td>左辺ヒンジ式</td></tr>
+</table>
+<h3 style="font-size:13px;font-weight:700;margin-bottom:12px">🔧 必要工具</h3>
+<div class="tool-grid"><div class="tool-chip">P2 ペンタローブ</div><div class="tool-chip">Y000 トライポイント</div><div class="tool-chip">Phillips #00</div><div class="tool-chip">スタンドオフドライバー</div><div class="tool-chip">吸盤</div><div class="tool-chip">オープニングピック</div><div class="tool-chip">スパジャー</div><div class="tool-chip">ピンセット</div><div class="tool-chip">iOpener / ヒートガン</div></div>
+</div></div>
+
+<div class="section"><div class="section-head"><span class="section-icon">🛠</span><h2>修理ガイド一覧（8件）</h2></div>
+<div class="section-body"><div class="repair-grid"><a class="repair-card" href="../individual/ip14_backglass_manual.html">
+<div class="rc-top"><span class="rc-icon">🪟</span><span class="rc-name">バックガラス交換</span></div>
+<div class="rc-meta"><div class="rc-diff"><span class="rc-dot active"></span><span class="rc-dot active"></span><span class="rc-dot active"></span><span class="rc-dot"></span><span class="rc-dot"></span></div><span class="rc-time">⏱ 45分</span></div>
+<div class="rc-link">個別マニュアルを開く →</div></a><a class="repair-card" href="../individual/ip14_battery_manual.html">
+<div class="rc-top"><span class="rc-icon">🔋</span><span class="rc-name">バッテリー交換</span></div>
+<div class="rc-meta"><div class="rc-diff"><span class="rc-dot active"></span><span class="rc-dot active"></span><span class="rc-dot"></span><span class="rc-dot"></span><span class="rc-dot"></span></div><span class="rc-time">⏱ 25分</span></div>
+<div class="rc-link">個別マニュアルを開く →</div></a><a class="repair-card" href="../individual/ip14_earpiece_manual.html">
+<div class="rc-top"><span class="rc-icon">🔊</span><span class="rc-name">イヤースピーカー交換</span></div>
+<div class="rc-meta"><div class="rc-diff"><span class="rc-dot active"></span><span class="rc-dot active"></span><span class="rc-dot active"></span><span class="rc-dot"></span><span class="rc-dot"></span></div><span class="rc-time">⏱ 35分</span></div>
+<div class="rc-link">個別マニュアルを開く →</div></a><a class="repair-card" href="../individual/ip14_frontcam_manual.html">
+<div class="rc-top"><span class="rc-icon">📸</span><span class="rc-name">フロントカメラ交換</span></div>
+<div class="rc-meta"><div class="rc-diff"><span class="rc-dot active"></span><span class="rc-dot active"></span><span class="rc-dot active"></span><span class="rc-dot"></span><span class="rc-dot"></span></div><span class="rc-time">⏱ 35分</span></div>
+<div class="rc-link">個別マニュアルを開く →</div></a><a class="repair-card" href="../individual/ip14_loudspeaker_manual.html">
+<div class="rc-top"><span class="rc-icon">🔈</span><span class="rc-name">ラウドスピーカー交換</span></div>
+<div class="rc-meta"><div class="rc-diff"><span class="rc-dot active"></span><span class="rc-dot active"></span><span class="rc-dot"></span><span class="rc-dot"></span><span class="rc-dot"></span></div><span class="rc-time">⏱ 25分</span></div>
+<div class="rc-link">個別マニュアルを開く →</div></a><a class="repair-card" href="../individual/ip14_rearcam_manual.html">
+<div class="rc-top"><span class="rc-icon">📷</span><span class="rc-name">リアカメラ交換</span></div>
+<div class="rc-meta"><div class="rc-diff"><span class="rc-dot active"></span><span class="rc-dot active"></span><span class="rc-dot active"></span><span class="rc-dot"></span><span class="rc-dot"></span></div><span class="rc-time">⏱ 30分</span></div>
+<div class="rc-link">個別マニュアルを開く →</div></a><a class="repair-card" href="../individual/ip14_screen_manual.html">
+<div class="rc-top"><span class="rc-icon">📱</span><span class="rc-name">ディスプレイ交換</span></div>
+<div class="rc-meta"><div class="rc-diff"><span class="rc-dot active"></span><span class="rc-dot active"></span><span class="rc-dot active"></span><span class="rc-dot"></span><span class="rc-dot"></span></div><span class="rc-time">⏱ 40分</span></div>
+<div class="rc-link">個別マニュアルを開く →</div></a><a class="repair-card" href="../individual/ip14_taptic_manual.html">
+<div class="rc-top"><span class="rc-icon">📳</span><span class="rc-name">Taptic Engine交換</span></div>
+<div class="rc-meta"><div class="rc-diff"><span class="rc-dot active"></span><span class="rc-dot active"></span><span class="rc-dot"></span><span class="rc-dot"></span><span class="rc-dot"></span></div><span class="rc-time">⏱ 25分</span></div>
+<div class="rc-link">個別マニュアルを開く →</div></a></div></div></div>
+
+<div class="section"><div class="section-head"><span class="section-icon">🔎</span><h2>トラブルシューティング</h2></div>
+<div class="section-body"><div class="ts-list"><div class="ts-item"><span class="ts-icon">🔊</span><div class="ts-text"><div class="ts-title">スピーカーの問題</div><div class="ts-desc">通話音声が聞こえない → イヤースピーカー交換。メディア音声が出ない → ラウドスピーカー交換。</div></div></div><div class="ts-item"><span class="ts-icon">⚫</span><div class="ts-text"><div class="ts-title">電源が入らない</div><div class="ts-desc">強制再起動を試行。改善しない場合はバッテリー交換を検討。充電ケーブル・ポートの確認も。</div></div></div><div class="ts-item"><span class="ts-icon">📷</span><div class="ts-text"><div class="ts-title">カメラが動作しない</div><div class="ts-desc">カメラアプリ黒画面 → 強制再起動。改善しない場合はリアカメラ/フロントカメラFPCの再接続またはモジュール交換。</div></div></div><div class="ts-item"><span class="ts-icon">📱</span><div class="ts-text"><div class="ts-title">画面が反応しない</div><div class="ts-desc">タッチ不良 → ディスプレイFPCの再接続。画面に線が表示 → ディスプレイ交換。</div></div></div><div class="ts-item"><span class="ts-icon">🔋</span><div class="ts-text"><div class="ts-title">バッテリー消耗が早い</div><div class="ts-desc">設定 → バッテリー → バッテリーの状態で最大容量を確認。80%以下なら交換推奨。</div></div></div><div class="ts-item"><span class="ts-icon">🔌</span><div class="ts-text"><div class="ts-title">充電できない</div><div class="ts-desc">Lightningポート内のゴミを確認・清掃。ケーブル交換。ワイヤレス充電で動作する場合はポートの問題。</div></div></div><div class="ts-item"><span class="ts-icon">👤</span><div class="ts-text"><div class="ts-title">Face IDが動作しない</div><div class="ts-desc">画面交換後 → イヤースピーカー+センサーアセンブリが正しく移植されているか確認。損傷した場合はApple正規サービスでのみ復旧可能。</div></div></div></div></div></div>
+
+<div class="section"><div class="section-head"><span class="section-icon">🔗</span><h2>関連情報</h2></div>
+<div class="section-body"><table class="spec-table">
+<tr><th>前モデル</th><td>iPhone 13</td></tr>
+<tr><th>後モデル</th><td>iPhone 15</td></tr>
+<tr><th>同世代</th><td>iPhone 14 Plus / Pro / Pro Max</td></tr>
+<tr><th>強制再起動</th><td>音量上ボタン → 音量下ボタン → サイドボタン長押し（Appleロゴ表示まで）</td></tr>
+</table></div></div>
+
+<div class="overall-footer">iPhone 14 修理マニュアル（全体）｜ Rev 1.0 ｜ 2026-02 ｜ 社内専用</div>
+</div></body></html>

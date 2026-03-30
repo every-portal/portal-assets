@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0f172a">
+<title>研修クイズ（入社テスト）</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:'Noto Sans JP',system-ui,sans-serif;background:#f1f5f9;overflow-x:hidden}
+.app{max-width:430px;margin:0 auto;min-height:100dvh;background:#f1f5f9}
+.header{background:linear-gradient(135deg,#0f172a,#1b2a4a,#1e3a5f);padding:52px 24px 32px}
+.body{padding:16px 16px 32px}
+.card{background:#fff;border-radius:14px;padding:16px;margin-bottom:12px;border:1px solid #e2e8f0;box-shadow:0 1px 3px rgba(0,0,0,0.04)}
+.card-dark{background:#1b2a4a;border:none}
+.card-title{font-size:13px;font-weight:700;color:#1b2a4a;margin-bottom:12px}
+.ni{width:100%;padding:12px 14px;border-radius:10px;border:2px solid #e2e8f0;font-size:15px;font-family:inherit;font-weight:600;color:#1b2a4a;outline:none}
+.ni:focus{border-color:#8b5cf6}
+.ns{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;background:#f0fdf4;border:1px solid #bbf7d0;font-size:13px;font-weight:600;color:#166534}
+.ne{background:none;border:none;color:#8b5cf6;font-size:12px;font-weight:600;cursor:pointer;margin-left:8px;font-family:inherit}
+.db{display:flex;align-items:center;justify-content:space-between;width:100%;padding:14px;border-radius:10px;border:2px solid;margin-bottom:8px;cursor:pointer;font-size:14px;font-weight:500;font-family:inherit}
+.db:active{transform:scale(0.98)}.db.off{opacity:0.35;pointer-events:none}
+.dg{padding:3px 10px;border-radius:6px;color:#fff;font-size:12px;font-weight:700}
+.lb{background:none;border:none;color:#8b5cf6;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit}
+.mr{display:flex;gap:8px}.mi{flex:1;text-align:center;padding:8px 4px;border-radius:10px;border:1px solid}
+.qt{display:flex;align-items:center;gap:10px;padding:12px 16px;background:#fff;border-bottom:1px solid #e2e8f0}
+.cb{background:none;border:none;font-size:20px;color:#94a3b8;cursor:pointer}
+.pw{flex:1;height:6px;background:#e2e8f0;border-radius:3px;overflow:hidden}
+.pb{height:100%;background:linear-gradient(90deg,#8b5cf6,#a78bfa);border-radius:3px;transition:width 0.3s}
+.qc{font-size:13px;font-weight:700;color:#1b2a4a}
+.tr{display:flex;justify-content:center;padding:10px 16px 0}
+.tb{font-size:13px;font-weight:700;padding:4px 14px;border-radius:20px}
+.qa{padding:16px 20px 8px}
+.tt{display:inline-block;font-size:10px;font-weight:700;color:#8b5cf6;background:#8b5cf615;padding:3px 10px;border-radius:20px;margin-bottom:10px}
+.qx{font-size:17px;font-weight:700;color:#1b2a4a;line-height:1.6}
+.os{padding:8px 16px 16px;display:flex;flex-direction:column;gap:8px}
+.ob{display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:12px;border:2px solid #e2e8f0;background:#fff;font-size:14px;font-weight:600;color:#1b2a4a;cursor:pointer;text-align:left;font-family:inherit}
+.ob.off{pointer-events:none}.ob.ok{border-color:#16a34a;background:#f0fdf4;color:#166534}
+.ob.ng{border-color:#dc2626;background:#fef2f2;color:#991b1b}.ob.fd{opacity:0.35}
+.ol{width:28px;height:28px;border-radius:8px;background:#f1f5f9;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#64748b;flex-shrink:0}
+.rh{padding:40px 24px 28px;text-align:center}
+.rh.ps{background:linear-gradient(135deg,#065f46,#0d9488)}
+.rh.fl{background:linear-gradient(135deg,#991b1b,#dc2626)}
+.ss{margin-top:12px;padding:6px 16px;border-radius:20px;font-size:12px;font-weight:600;display:inline-block}
+.so{background:rgba(255,255,255,0.15);color:rgba(255,255,255,0.9)}
+.sf{background:rgba(255,0,0,0.15);color:#fecaca}
+.sn{background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.6)}
+.wr{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f1f5f9}
+.wi{padding:10px 0;border-bottom:1px solid #f1f5f9}
+.br{display:flex;gap:8px;margin-bottom:20px}
+.p1{flex:1;padding:14px;border-radius:12px;border:none;background:linear-gradient(135deg,#8b5cf6,#a78bfa);color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
+.p2{flex:1;padding:14px;border-radius:12px;border:2px solid #e2e8f0;background:#fff;color:#475569;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
+.hh{display:flex;align-items:center;gap:12px;padding:16px;background:#fff;border-bottom:1px solid #e2e8f0}
+.bb{background:none;border:none;font-size:13px;font-weight:600;color:#8b5cf6;cursor:pointer;font-family:inherit}
+.hi{display:flex;align-items:center;gap:12px;padding:12px 16px}
+.hs{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pg{font-size:10px;font-weight:800;padding:4px 8px;border-radius:6px;letter-spacing:1px}
+.rb{background:none;border:none;color:#dc2626;font-size:12px;cursor:pointer;display:block;margin:16px auto;font-family:inherit}
+.cn{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;padding:3px 10px;border-radius:20px;margin-top:10px}
+.co{background:#f0fdf4;color:#166534;border:1px solid #bbf7d0}
+.cf{background:rgba(255,255,255,0.1);color:#94a3b8;border:1px solid rgba(255,255,255,0.1)}
+.sec-badge{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;margin-right:6px}
+</style>
+</head>
+<body>
+<div class="app" id="app"></div>
+<script>
+var SCRIPT_URL="";
+var TITLE="研修クイズ（入社テスト）";
+var TAG="ONBOARDING TEST";
+var PASS=80;
+var CM="#8b5cf6";
+var SK="training-test-v2";
+var QS=[{"q": "出勤時の打刻はいつ行う？", "o": ["始業5分前", "始業時刻ちょうどに打刻", "到着したらすぐ", "打刻不要"], "a": "始業時刻ちょうどに打刻", "cat": "会社ルール", "sec": "rules"}, {"q": "遅刻しそうな場合の正しい対応は？", "o": ["黙って遅れる", "事前にブロック長に連絡する", "翌日に報告", "SNSで連絡"], "a": "事前にブロック長に連絡する", "cat": "会社ルール", "sec": "rules"}, {"q": "ポータルサイトの資料を私用デバイスで閲覧してよい？", "o": ["はい", "いいえ、禁止されている", "自宅でなら可", "上司の許可があれば可"], "a": "いいえ、禁止されている", "cat": "会社ルール", "sec": "rules"}, {"q": "副業・兼業について正しいのは？", "o": ["自由にできる", "会社の許可なく行うことは禁止", "届出だけでOK", "禁止ではない"], "a": "会社の許可なく行うことは禁止", "cat": "会社ルール", "sec": "rules"}, {"q": "SNSに業務内容を投稿することは？", "o": ["自由", "禁止されている", "匿名ならOK", "写真なしならOK"], "a": "禁止されている", "cat": "会社ルール", "sec": "rules"}, {"q": "コンプライアンス違反を発見した場合は？", "o": ["無視する", "コンプライアンス窓口に通報する", "同僚に相談だけ", "SNSで公開"], "a": "コンプライアンス窓口に通報する", "cat": "会社ルール", "sec": "rules"}, {"q": "会社の備品を私的に使用することは？", "o": ["問題ない", "就業規則で禁止されている", "少しなら可", "上司に聞く"], "a": "就業規則で禁止されている", "cat": "会社ルール", "sec": "rules"}, {"q": "お客様の個人情報を業務外で閲覧してよい？", "o": ["はい", "いいえ、禁止されている", "メモなら可", "退職後なら可"], "a": "いいえ、禁止されている", "cat": "会社ルール", "sec": "rules"}, {"q": "ハラスメント行為について正しいのは？", "o": ["冗談なら許される", "いかなるハラスメントも禁止", "指導なら問題ない", "本人が嫌がらなければOK"], "a": "いかなるハラスメントも禁止", "cat": "会社ルール", "sec": "rules"}, {"q": "パーツ保証期間は？", "o": ["1ヶ月", "3ヶ月", "6ヶ月", "1年"], "a": "3ヶ月", "cat": "会社ルール", "sec": "rules"}, {"q": "有機ELパネルの特徴は？", "o": ["自発光で黒が深く薄型", "バックライト使用で厚い", "色が薄く安い", "全部同じ"], "a": "自発光で黒が深く薄型", "cat": "知識", "sec": "knowledge"}, {"q": "LCDパネルの特徴は？", "o": ["バックライト使用で有機ELより安価", "自発光で高価", "有機ELと同じ", "修理不可"], "a": "バックライト使用で有機ELより安価", "cat": "知識", "sec": "knowledge"}, {"q": "iPhone 12以降の分解方法は？", "o": ["背面パネルから開ける", "画面側から開ける", "側面から", "底面から"], "a": "背面パネルから開ける", "cat": "知識", "sec": "knowledge"}, {"q": "iPhone 11以前の分解方法は？", "o": ["画面側から開ける", "背面から", "側面から", "上部から"], "a": "画面側から開ける", "cat": "知識", "sec": "knowledge"}, {"q": "USB-Cポートを初めて採用したiPhoneは？", "o": ["iPhone 14", "iPhone 15", "iPhone 16", "iPhone SE 3"], "a": "iPhone 15", "cat": "知識", "sec": "knowledge"}, {"q": "リチウムイオン電池の発火リスクが高まるのは？", "o": ["物理的損傷や過充電や高温", "低温環境", "暗い場所", "静電気"], "a": "物理的損傷や過充電や高温", "cat": "知識", "sec": "knowledge"}, {"q": "防水シールを再施工する理由は？", "o": ["防水防塵性能を維持するため", "見た目", "音質", "理由なし"], "a": "防水防塵性能を維持するため", "cat": "知識", "sec": "knowledge"}, {"q": "iPhone 15以降の防水規格は？", "o": ["IP65", "IP67", "IP68", "防水非対応"], "a": "IP68", "cat": "知識", "sec": "knowledge"}, {"q": "Sクラスパネルとは？", "o": ["純正に近い高品質互換パネル", "純正パネル", "最低品質パネル", "中古パネル"], "a": "純正に近い高品質互換パネル", "cat": "知識", "sec": "knowledge"}, {"q": "バッテリー劣化の目安となる最大容量は？", "o": ["90%以下", "80%以下", "70%以下", "50%以下"], "a": "80%以下", "cat": "知識", "sec": "knowledge"}, {"q": "開店作業で最初にすべきことは？", "o": ["レジ開設", "店内の安全確認と清掃", "修理受付開始", "看板設置"], "a": "店内の安全確認と清掃", "cat": "事務作業", "sec": "office"}, {"q": "閉店作業で必ず確認すべきことは？", "o": ["SNS投稿", "レジ締め・売上報告・施錠", "翌日の予約", "在庫発注"], "a": "レジ締め・売上報告・施錠", "cat": "事務作業", "sec": "office"}, {"q": "レジの現金過不足が発覚した場合は？", "o": ["黙っている", "速やかに上長に報告する", "自分で補填する", "翌日確認"], "a": "速やかに上長に報告する", "cat": "事務作業", "sec": "office"}, {"q": "日報の提出タイミングは？", "o": ["翌日", "閉店後速やかに当日中", "週末まとめて", "月末"], "a": "閉店後速やかに当日中", "cat": "事務作業", "sec": "office"}, {"q": "修理受付伝票に必ず記載すべき項目は？", "o": ["お客様の趣味", "端末情報・故障内容・連絡先・受付日時", "天気", "スタッフの感想"], "a": "端末情報・故障内容・連絡先・受付日時", "cat": "事務作業", "sec": "office"}, {"q": "在庫の確認頻度として適切なのは？", "o": ["年1回", "毎日の棚卸し確認", "月1回", "半年に1回"], "a": "毎日の棚卸し確認", "cat": "事務作業", "sec": "office"}, {"q": "GMB投稿の目的は？", "o": ["趣味", "集客・MEO対策・店舗の認知度向上", "不要", "個人のSNS"], "a": "集客・MEO対策・店舗の認知度向上", "cat": "事務作業", "sec": "office"}, {"q": "月末棚卸しの目的は？", "o": ["掃除", "在庫の正確な数量把握と帳簿との照合", "趣味", "上司の指示"], "a": "在庫の正確な数量把握と帳簿との照合", "cat": "事務作業", "sec": "office"}, {"q": "残業が必要な場合の正しい手順は？", "o": ["勝手に残業する", "事前にブロック長の承認を得て申請", "事後報告", "申請不要"], "a": "事前にブロック長の承認を得て申請", "cat": "事務作業", "sec": "office"}, {"q": "売上報告書に必ず含めるべき項目は？", "o": ["天気", "売上金額・修理件数・客単価", "個人の感想", "来店者の服装"], "a": "売上金額・修理件数・客単価", "cat": "事務作業", "sec": "office"}, {"q": "修理開始時に必ず行うべきことは？", "o": ["お客様に声をかける", "写真撮影で現状記録", "BGMを止める", "エアコンを消す"], "a": "写真撮影で現状記録", "cat": "修理", "sec": "repair"}, {"q": "バッテリー膨張時の正しい対処は？", "o": ["慎重に取り外し発火に備える", "無視して続行", "釘で穴を開ける", "水につける"], "a": "慎重に取り外し発火に備える", "cat": "修理", "sec": "repair"}, {"q": "バッテリー交換時、最初にすべきことは？", "o": ["電源OFFしコネクタを外す", "いきなり剥がす", "充電しながら作業", "画面を外さず作業"], "a": "電源OFFしコネクタを外す", "cat": "修理", "sec": "repair"}, {"q": "バッテリーが発火したら？", "o": ["砂や消火器で消火。水は禁止", "水をかける", "息を吹く", "放置"], "a": "砂や消火器で消火。水は禁止", "cat": "修理", "sec": "repair"}, {"q": "iPhoneの底面ネジに使用するドライバーは？", "o": ["Y字ドライバー", "＋ドライバー", "ペンタローブP2", "トルクスT5"], "a": "ペンタローブP2", "cat": "修理", "sec": "repair"}, {"q": "ネジを外した際に必ずすべきことは？", "o": ["種類と位置を記録する", "覚えておく", "どこでも同じ", "記録不要"], "a": "種類と位置を記録する", "cat": "修理", "sec": "repair"}, {"q": "FPCケーブル接続時の注意は？", "o": ["まっすぐ均等に押し込む", "力任せ", "斜めでもOK", "テープで貼る"], "a": "まっすぐ均等に押し込む", "cat": "修理", "sec": "repair"}, {"q": "動作テストで最低限確認すべき項目は？", "o": ["タッチ,表示,カメラ,音,充電,通話", "タッチだけ", "表示だけ", "充電だけ"], "a": "タッチ,表示,カメラ,音,充電,通話", "cat": "修理", "sec": "repair"}, {"q": "修理前にバッテリー残量を何%以下にする？", "o": ["50%以下", "25%以下", "10%以下", "残量は関係ない"], "a": "25%以下", "cat": "修理", "sec": "repair"}, {"q": "水没端末の修理で最初にすべきことは？", "o": ["電源を入れず分解して乾燥洗浄", "すぐ電源ON", "ドライヤー", "何もしない"], "a": "電源を入れず分解して乾燥洗浄", "cat": "修理", "sec": "repair"}];
+
+var S={screen:"home",qs:[],cur:0,ans:[],sel:null,fb:false,tm:0,hist:[],name:"",ss:""};
+var ti=null;
+function lh(){try{return JSON.parse(localStorage.getItem(SK+"-h"))||[];}catch(e){return[];}}
+function sh(h){try{localStorage.setItem(SK+"-h",JSON.stringify(h));}catch(e){}}
+function _ln(){try{return localStorage.getItem(SK+"-n")||"";}catch(e){return"";}}
+function _sn(n){try{localStorage.setItem(SK+"-n",n);}catch(e){}}
+
+function sub(r){
+  if(!SCRIPT_URL){S.ss="no-url";R();return;}
+  S.ss="sending";R();
+  var p={name:S.name,date:r.date,score:r.score,correct:r.correct,total:r.total,passed:r.passed,quiz:TITLE,
+    answers:r.ans.map(function(a){return{category:a.q.cat||"",question:a.q.q,selected:a.sel,answer:a.q.a,correct:a.ok,time:a.tm};})
+  };
+  fetch(SCRIPT_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain"},body:JSON.stringify(p)})
+    .then(function(){S.ss="ok";R();}).catch(function(){S.ss="fail";R();});
+}
+
+function gq(){
+  var secs={"rules":[],"knowledge":[],"office":[],"repair":[]};
+  QS.forEach(function(q){if(secs[q.sec])secs[q.sec].push(q);});
+  var picked=[];
+  Object.keys(secs).forEach(function(k){
+    var pool=secs[k].slice().sort(function(){return Math.random()-0.5;});
+    picked=picked.concat(pool.slice(0,10));
+  });
+  picked.sort(function(){return Math.random()-0.5;});
+  return picked.map(function(q){
+    var oi=q.o.map(function(o,i){return{o:o,i:i};});
+    oi.sort(function(){return Math.random()-0.5;});
+    return{q:q.q,o:oi.map(function(x){return x.o;}),a:q.a,cat:q.cat,sec:q.sec};
+  });
+}
+
+function stm(){clearInterval(ti);S.tm=0;ti=setInterval(function(){S.tm++;var e=document.getElementById("tm");if(e){var t=S.tm;e.style.background=t>20?"#fef2f2":t>10?"#fffbeb":"#f0fdf4";e.style.color=t>20?"#dc2626":t>10?"#d97706":"#16a34a";e.textContent="⏱ "+t+"秒";}},1000);}
+function st(){clearInterval(ti);}
+function setN(){var e=document.getElementById("ni");if(e&&e.value.trim()){S.name=e.value.trim();_sn(S.name);R();}}
+function edN(){S.name="";R();setTimeout(function(){var e=document.getElementById("ni");if(e)e.focus();},50);}
+function go(){if(!S.name){alert("名前を入力してください");return;}S.qs=gq();S.cur=0;S.ans=[];S.sel=null;S.fb=false;S.tm=0;S.ss="";S.screen="quiz";R();stm();}
+function ans(idx){if(S.fb)return;var q=S.qs[S.cur];var o=q.o[idx];S.sel=o;S.fb=true;st();var ok=(o===q.a);S.ans.push({q:q,sel:o,ok:ok,tm:S.tm});R();setTimeout(function(){if(S.cur<S.qs.length-1){S.cur++;S.sel=null;S.fb=false;S.tm=0;R();stm();}else{fin();}},ok?800:2200);}
+function fin(){st();var c=S.ans.filter(function(a){return a.ok;}).length;var s=Math.round(c/S.ans.length*100);var rec={date:new Date().toLocaleString("ja-JP"),score:s,total:S.ans.length,correct:c,passed:s>=PASS,ans:S.ans,name:S.name};S.hist=[rec].concat(S.hist).slice(0,50);sh(S.hist);S.screen="result";R();sub(rec);}
+function hm(){st();S.screen="home";R();}
+function hs(){S.screen="history";R();}
+function rs(){if(confirm("全履歴を削除しますか？")){S.hist=[];sh([]);R();}}
+function qt(){if(confirm("テストを中断しますか？"))hm();}
+function R(){var a=document.getElementById("app");switch(S.screen){case "home":a.innerHTML=rH();break;case "quiz":a.innerHTML=rQ();break;case "result":a.innerHTML=rR();break;case "history":a.innerHTML=rHi();break;}}
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+
+function rH(){
+  var cn=SCRIPT_URL?'<div class="cn co">● Spreadsheet連携ON</div>':'<div class="cn cf">● オフライン</div>';
+  var nm;
+  if(S.name)nm='<div class="ns">👤 '+esc(S.name)+' さん<button class="ne" onclick="edN()">変更</button></div>';
+  else nm='<div style="display:flex;gap:8px"><input class="ni" id="ni" placeholder="名前を入力"><button style="padding:8px 16px;border-radius:10px;border:none;background:'+CM+';color:#fff;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap" onclick="setN()">決定</button></div>';
+  var dc=S.name?"":"off";
+  var mi="";
+  if(S.hist.length>0){
+    var ms="";for(var i=0;i<Math.min(5,S.hist.length);i++){var r=S.hist[i];var bg=r.passed?"#f0fdf4":"#fef2f2";var bc=r.passed?"#bbf7d0":"#fecaca";var sc=r.passed?"#16a34a":"#dc2626";var ds=(r.date.split(" ")[0]||"").split("/").slice(1).join("/");ms+='<div class="mi" style="background:'+bg+';border-color:'+bc+'"><div style="font-size:18px;font-weight:800;color:'+sc+'">'+r.score+'%</div><div style="font-size:9px;color:#94a3b8">'+ds+'</div></div>';}
+    mi='<div class="card"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><span style="font-size:13px;font-weight:700;color:#1b2a4a">最近の結果</span><button class="lb" onclick="hs()">履歴 →</button></div><div class="mr">'+ms+'</div></div>';
+  }
+  return '<div class="header"><div style="font-size:11px;font-weight:700;color:'+CM+';letter-spacing:2px">'+TAG+'</div>'
+    +'<h1 style="font-size:28px;font-weight:900;color:#fff;margin:8px 0 0;line-height:1.2">'+TITLE+'</h1>'
+    +'<div style="font-size:13px;color:#94a3b8;margin-top:8px">4分野×10問 = 全40問</div>'+cn+'</div>'
+    +'<div class="body"><div class="card"><div class="card-title">受験者名</div>'+nm+'</div>'
+    +'<div class="card"><div class="card-title">テスト内容</div>'
+    +'<div style="font-size:12px;color:#475569;line-height:1.8;margin-bottom:12px">'
+    +'<span class="sec-badge" style="background:#dc262615;color:#dc2626">🛡️ 会社ルール 10問</span>'
+    +'<span class="sec-badge" style="background:#2563eb15;color:#2563eb">📚 知識 10問</span><br>'
+    +'<span class="sec-badge" style="background:#059669 15;color:#059669">📋 事務作業 10問</span>'
+    +'<span class="sec-badge" style="background:#0891b215;color:#0891b2">🔧 修理 10問</span>'
+    +'</div>'
+    +'<button class="db '+dc+'" style="border-color:#8b5cf6;background:#faf5ff" onclick="go()"><div style="display:flex;align-items:center"><span class="dg" style="background:#8b5cf6">入社テスト</span><span style="font-size:13px;color:#475569;margin-left:10px">40問</span></div><span style="font-size:18px;color:#8b5cf6">→</span></button>'
+    +'</div>'+mi
+    +'<div class="card card-dark"><div style="font-size:12px;font-weight:700;color:'+CM+';margin-bottom:6px">合格ライン</div>'
+    +'<div style="font-size:28px;font-weight:800;color:#fff">'+PASS+'%<span style="font-size:14px;color:#94a3b8;margin-left:8px">以上で合格</span></div></div></div>';
+}
+
+function rQ(){
+  var q=S.qs[S.cur];var pr=(S.cur/S.qs.length*100).toFixed(0);
+  var op="";
+  for(var i=0;i<q.o.length;i++){var o=q.o[i];var c="ob";var r="";if(S.fb){if(o===q.a){c+=" ok";r='<span style="font-size:18px;margin-left:auto">✓</span>';}else if(o===S.sel){c+=" ng";r='<span style="font-size:18px;margin-left:auto">✗</span>';}else{c+=" fd";}c+=" off";}op+='<button class="'+c+'" onclick="ans('+i+')"><span class="ol">'+String.fromCharCode(65+i)+'</span><span style="flex:1;text-align:left">'+esc(o)+'</span>'+r+'</button>';}
+  var fb="";if(S.fb&&S.sel!==q.a)fb='<div style="padding:8px 16px;font-size:12px;color:#dc2626;font-weight:700">正解：'+esc(q.a)+'</div>';
+  return '<div class="qt"><button class="cb" onclick="qt()">✕</button><div class="pw"><div class="pb" style="width:'+pr+'%"></div></div><div class="qc">'+(S.cur+1)+'/'+S.qs.length+'</div></div>'
+    +'<div class="tr"><div class="tb" id="tm" style="background:#f0fdf4;color:#16a34a">⏱ 0秒</div></div>'
+    +'<div class="qa"><div class="tt">'+esc(q.cat||"")+'</div><h2 class="qx">'+esc(q.q)+'</h2></div>'
+    +'<div class="os">'+op+'</div>'+fb;
+}
+
+function rR(){
+  var r=S.hist[0];if(!r)return"";
+  var ss="";
+  if(S.ss==="sending")ss='<div class="ss sn">📡 送信中...</div>';
+  else if(S.ss==="ok")ss='<div class="ss so">✅ 記録済み</div>';
+  else if(S.ss==="fail")ss='<div class="ss sf">⚠ 送信失敗</div>';
+  else if(S.ss==="no-url")ss='<div class="ss sf">未接続</div>';
+  var wt={};for(var i=0;i<r.ans.length;i++){var a=r.ans[i];var t=a.q.cat||"その他";if(!wt[t])wt[t]={t:0,w:0};wt[t].t++;if(!a.ok)wt[t].w++;}
+  var wl=Object.keys(wt).filter(function(k){return wt[k].w>0;}).sort(function(a,b){return wt[b].w-wt[a].w;});
+  var wh="";if(wl.length>0){wh='<div class="card"><div class="card-title">苦手分野</div>';for(var i=0;i<wl.length;i++){var t=wl[i];wh+='<div class="wr"><span style="font-size:12px;color:#475569">'+esc(t)+'</span><span style="font-size:12px;font-weight:700;color:#dc2626">'+wt[t].w+'問ミス/'+wt[t].t+'問</span></div>';}wh+='</div>';}
+  var wr=r.ans.filter(function(a){return!a.ok;});var wrh="";
+  if(wr.length===0)wrh='<div style="font-size:12px;color:#16a34a;font-weight:600">全問正解！ 🎉</div>';
+  else{for(var i=0;i<wr.length;i++){var a=wr[i];wrh+='<div class="wi"><div style="font-size:11px;color:#dc2626;font-weight:700">Q. '+esc(a.q.q)+'</div><div style="font-size:11px;color:#64748b;margin-top:2px">回答：<span style="color:#dc2626;font-weight:600">'+esc(a.sel)+'</span>　正解：<span style="color:#16a34a;font-weight:600">'+esc(a.q.a)+'</span></div></div>';}}
+  return '<div class="rh '+(r.passed?"ps":"fl")+'">'+'<div style="font-size:48px">'+(r.passed?"🎉":"📝")+'</div>'+'<div style="font-size:14px;color:rgba(255,255,255,0.8);font-weight:600">'+(r.passed?"合格！":"不合格")+'</div>'+'<div style="font-size:56px;font-weight:800;color:#fff;line-height:1">'+r.score+'%</div>'+'<div style="font-size:13px;color:rgba(255,255,255,0.7);margin-top:4px">'+r.correct+'/'+r.total+'問 - '+esc(r.name)+'</div>'+ss+'</div>'
+    +'<div class="body" style="padding-top:16px">'+wh+'<div class="card"><div class="card-title">'+(wr.length>0?"間違えた問題":"結果")+'</div>'+wrh+'</div>'+'<div class="br"><button class="p1" onclick="go()">もう一度</button><button class="p2" onclick="hm()">ホーム</button></div></div>';
+}
+
+function rHi(){
+  var h=S.hist;if(!h.length)return '<div class="hh"><button class="bb" onclick="hm()">← 戻る</button><h2 style="font-size:18px;font-weight:800;color:#1b2a4a">履歴</h2></div><div class="body" style="text-align:center;padding:40px;color:#94a3b8">記録なし</div>';
+  var mx=0;var pc=0;for(var i=0;i<h.length;i++){if(h[i].score>mx)mx=h[i].score;if(h[i].passed)pc++;}
+  var items="";for(var i=0;i<h.length;i++){var r=h[i];items+='<div class="card" style="padding:0"><div class="hi"><div class="hs" style="background:'+(r.passed?"#f0fdf4":"#fef2f2")+'"><span style="font-size:20px;font-weight:800;color:'+(r.passed?"#16a34a":"#dc2626")+'">'+r.score+'</span></div>'+'<div style="flex:1"><div style="font-size:13px;font-weight:700;color:#1b2a4a">'+(r.passed?"合格":"不合格")+' '+r.correct+'/'+r.total+(r.name?" - "+esc(r.name):"")+'</div>'+'<div style="font-size:11px;color:#94a3b8">'+r.date+'</div></div>'+'<div class="pg" style="background:'+(r.passed?"#dcfce7":"#fecaca")+';color:'+(r.passed?"#166534":"#991b1b")+'">'+(r.passed?"PASS":"FAIL")+'</div></div></div>';}
+  return '<div class="hh"><button class="bb" onclick="hm()">← 戻る</button><h2 style="font-size:18px;font-weight:800;color:#1b2a4a">履歴</h2></div>'+'<div class="body"><div class="card card-dark"><div style="display:flex;justify-content:space-around;text-align:center">'+'<div><div style="font-size:24px;font-weight:800;color:'+CM+'">'+h.length+'</div><div style="font-size:10px;color:#94a3b8">受験</div></div>'+'<div><div style="font-size:24px;font-weight:800;color:#16a34a">'+pc+'</div><div style="font-size:10px;color:#94a3b8">合格</div></div>'+'<div><div style="font-size:24px;font-weight:800;color:#fff">'+mx+'%</div><div style="font-size:10px;color:#94a3b8">最高</div></div>'+'</div></div>'+items+'<button class="rb" onclick="rs()">履歴リセット</button></div>';
+}
+
+document.addEventListener("keydown",function(e){if(e.key==="Enter"){var ni=document.getElementById("ni");if(ni&&document.activeElement===ni)setN();}});
+S.hist=lh();S.name=_ln();R();
+</script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>リカバリーモードとDFUモードの使いかた</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;background:#f8fafc;color:#1e293b;line-height:1.8;padding:24px 32px 60px}
+h1{text-align:center;font-size:26px;font-weight:900;margin-bottom:8px;color:#0f172a}
+h1 span{display:block;font-size:13px;font-weight:400;color:#64748b;margin-top:4px}
+.subtitle{text-align:center;font-size:13px;color:#64748b;margin-bottom:36px}
+h2{font-size:20px;font-weight:800;margin:40px 0 16px;padding:12px 20px;background:linear-gradient(135deg,#2563eb,#3b82f6);color:#fff;border-radius:10px}
+h3{font-size:16px;font-weight:700;color:#1e40af;margin:28px 0 12px;padding-left:14px;border-left:4px solid #3b82f6}
+.section{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:24px 28px;margin-bottom:20px}
+.note{background:#fef9c3;border:1px solid #fde047;border-radius:10px;padding:14px 18px;margin:12px 0;font-size:13px;color:#854d0e;line-height:1.7}
+.note::before{content:"⚠️ ";font-size:14px}
+.important{background:#fef2f2;border:1px solid #fca5a5;border-radius:10px;padding:14px 18px;margin:12px 0;font-size:13px;color:#991b1b;line-height:1.7;font-weight:600}
+.important::before{content:"🚫 ";font-size:14px}
+.tip{background:#f0fdf4;border:1px solid #86efac;border-radius:10px;padding:14px 18px;margin:12px 0;font-size:13px;color:#166534;line-height:1.7}
+.tip::before{content:"💡 ";font-size:14px}
+.compare-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:13px}
+.compare-table th,.compare-table td{padding:12px 16px;text-align:left;border-bottom:1px solid #e2e8f0}
+.compare-table th{background:#f1f5f9;font-weight:700;color:#475569;font-size:12px}
+.compare-table tr:hover td{background:#f8fafc}
+.step-box{background:#eff6ff;border:1px solid #93c5fd;border-radius:10px;padding:16px 20px;margin:12px 0;font-size:13px;line-height:1.8}
+.step-box h4{font-size:14px;font-weight:700;color:#1e40af;margin-bottom:8px}
+.divider{height:2px;background:linear-gradient(90deg,#e2e8f0,#cbd5e1,#e2e8f0);margin:32px 0;border-radius:1px}
+</style>
+</head>
+<body>
+<h1>🔄 リカバリーモードとDFUモードの使いかた<span>iPhone修理・初期化作業の必須知識</span></h1>
+<p class="subtitle">iPhoneに不具合が起きた際に初期化を行うための特殊な起動方法です</p>
+
+<h2>📋 どのような場面で必要か？</h2>
+<div class="section">
+<p>以下のような症状が出ている場合、端末での操作が不可能なため、パソコンを使った初期化作業が必要です。</p>
+<ul style="margin:12px 0 0 20px;font-size:14px">
+<li>iPhoneが正常に起動しなくなった</li>
+<li>リンゴループが発生した</li>
+<li>iOSのアップデートが失敗した</li>
+</ul>
+<p style="margin-top:12px">正常に使用できないiPhoneを初期化したい場合は、<strong>リカバリーモード</strong>または<strong>DFUモード</strong>にすることで初めてパソコンがiPhoneを認識するようになります。</p>
+</div>
+
+<h2>⚖️ リカバリーモードとDFUモードの違い</h2>
+<div class="section">
+<table class="compare-table">
+<thead><tr><th></th><th>リカバリーモード</th><th>DFUモード</th></tr></thead>
+<tbody>
+<tr><td style="font-weight:700">公式/非公式</td><td>Apple公式</td><td>非公式（Apple非公表）</td></tr>
+<tr><td style="font-weight:700">仕組み</td><td>iOSの起動システムを使用</td><td>iOSを起動させず強制的に読み込み</td></tr>
+<tr><td style="font-weight:700">選択肢</td><td>「アップデート」と「復元（初期化）」</td><td>「復元」のみ</td></tr>
+<tr><td style="font-weight:700">データ保持</td><td>アップデート選択で可能</td><td>不可能（必ず初期化）</td></tr>
+<tr><td style="font-weight:700">弱点</td><td>iOSに不具合がある場合は失敗する</td><td>モードに入る操作が難しい</td></tr>
+<tr><td style="font-weight:700">使用順序</td><td>まずこちらを試す</td><td>リカバリーモードが失敗した場合</td></tr>
+</tbody>
+</table>
+
+<div class="tip">通常はまずリカバリーモードでの作業を行い、失敗した場合にDFUモードを試します。「iPhoneを初期化したい」という目的であればDFUモードが確実です。</div>
+</div>
+
+<h2>🔧 リカバリーモードで起動する方法</h2>
+<div class="section">
+<p style="margin-bottom:16px"><strong>iTunesに繋いだ状態で行います</strong></p>
+
+<div class="step-box">
+<h4>iPhone 6s / iPhone SE（第1世代）以前</h4>
+「ホームボタン」と「電源ボタン」を同時に押し、リカバリーモードの画面が表示されるまで押し続ける。
+</div>
+
+<div class="step-box">
+<h4>iPhone 7シリーズ</h4>
+「音量（小）ボタン」と「電源ボタン」を同時に押し、リカバリーモードの画面が表示されるまで押し続ける。
+</div>
+
+<div class="step-box">
+<h4>iPhone 8以降</h4>
+「音量（大）ボタン」を押しすぐ離し、「音量（小）ボタン」を押しすぐ離す。その後、リカバリーモードの画面が表示されるまで「電源ボタン」を押し続ける。
+</div>
+
+<div class="note">解除したい場合はiPhoneを強制再起動します。</div>
+</div>
+
+<h2>⚡ DFUモードで起動する方法</h2>
+<div class="section">
+<p style="margin-bottom:16px"><strong>iTunesに繋いだ状態で行います</strong></p>
+
+<div class="step-box">
+<h4>iPhone 6s / iPhone SE（第1世代）以前</h4>
+「電源ボタン」と「ホームボタン」を長押しし強制再起動をかける。画面が真っ暗になったら、「電源ボタン」だけを離し「ホームボタン」を押し続ける。
+</div>
+
+<div class="step-box">
+<h4>iPhone 7シリーズ</h4>
+「電源ボタン」と「音量（小）ボタン」を同時に長押しし強制再起動をかける。画面が真っ暗になったら、「電源ボタン」だけを離し「音量（小）ボタン」を押し続ける。
+</div>
+
+<div class="step-box">
+<h4>iPhone 8以降</h4>
+「音量（大）ボタン」を押しすぐ離し、「音量（小）ボタン」を押しすぐ離す。その後「電源ボタン」を長押しし強制再起動をかける。画面が真っ暗になったら「電源ボタン」を押し続けたまま「音量（小）ボタン」を<strong>2〜5秒ほど</strong>押し続ける。その後「電源ボタン」だけを離し「音量（小）ボタン」を10秒ほど押し続ける。
+</div>
+
+<div class="important">「2〜5秒ほど」は端末によって誤差があります。ここがDFUモードの起動の難しさです。</div>
+
+<div class="tip">DFUモードは起動成功時にiPhoneの画面が<strong>真っ暗な状態</strong>になります。ロゴが再表示されたら失敗です。画面が真っ暗＋パソコン画面に「iTunesはリカバリーモードのiPhoneを見つけました」と表示されたら成功です。</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>iPhone 機種見分けガイド</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-primary:#f5f7fa;--bg-card:#ffffff;--bg-surface:#eef2f7;
+  --accent:#2563eb;--accent-glow:rgba(37,99,235,0.08);--accent-bright:#6366f1;
+  --green:#059669;--amber:#d97706;--rose:#e11d48;--purple:#a855f7;--teal:#14b8a6;
+  --text-primary:#0f172a;--text-secondary:#475569;--text-dim:#94a3b8;
+  --border:#e2e5ea;--border-accent:rgba(37,99,235,0.25);
+  --radius:16px;--radius-sm:10px;
+  --shadow:0 4px 24px rgba(0,0,0,0.06);--transition:0.3s cubic-bezier(0.4,0,0.2,1);
+}
+@media(prefers-color-scheme:dark){:root{
+  --bg-primary:#0f1117;--bg-card:#1a1d2b;--bg-surface:#161922;
+  --accent:#4f8fff;--accent-glow:rgba(79,143,255,0.10);--accent-bright:#818cf8;
+  --green:#34d399;--amber:#fbbf24;--rose:#fb7185;--purple:#c084fc;--teal:#2dd4bf;
+  --text-primary:#e8eaf0;--text-secondary:#9ba3b5;--text-dim:#5d6578;
+  --border:#262a3a;--border-accent:rgba(79,143,255,0.3);
+  --shadow:0 4px 24px rgba(0,0,0,0.35);
+}}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--bg-primary);color:var(--text-primary);line-height:1.8;-webkit-font-smoothing:antialiased;}
+.mc{max-width:820px;margin:0 auto;padding:32px 24px 80px;}
+
+/* Header */
+.hdr{text-align:center;margin-bottom:32px;}
+.hdr-icon{width:72px;height:72px;background:linear-gradient(135deg,var(--accent),var(--accent-bright));border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 14px;box-shadow:0 8px 24px rgba(37,99,235,0.18);}
+.hdr h1{font-size:22px;font-weight:800;margin-bottom:4px;letter-spacing:-0.01em;}
+.hdr p{font-size:13px;color:var(--text-secondary);max-width:480px;margin:0 auto;}
+.hdr-meta{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:10px;}
+.hdr-meta span{font-size:11px;color:var(--text-dim);font-weight:500;}
+.hdr-meta strong{color:var(--text-secondary);}
+.tag{display:inline-block;font-size:10px;font-weight:600;padding:2px 10px;border-radius:20px;background:var(--accent-glow);color:var(--accent);}
+
+/* Hero image */
+.hero-img{margin:0 -8px 28px;text-align:center;}
+.hero-img img{width:100%;max-width:780px;border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow);}
+
+/* Tab Navigation - improved sticky */
+.tab-nav{display:flex;gap:5px;margin-bottom:20px;flex-wrap:wrap;position:sticky;top:0;z-index:20;background:var(--bg-primary);padding:10px 0 12px;border-bottom:1px solid var(--border);}
+@supports(backdrop-filter:blur(12px)){
+  .tab-nav{background:color-mix(in srgb,var(--bg-primary) 85%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}
+}
+.tab-btn{padding:8px 16px;border-radius:9px;border:1px solid var(--border);background:var(--bg-card);font-size:12.5px;font-weight:600;font-family:inherit;color:var(--text-secondary);cursor:pointer;transition:all var(--transition);white-space:nowrap;}
+.tab-btn:hover{border-color:var(--accent);color:var(--accent);}
+.tab-btn.active{background:var(--accent);color:#fff;border-color:var(--accent);box-shadow:0 2px 8px rgba(37,99,235,0.25);}
+
+/* Tabs */
+.tab{display:none;}
+.tab.active{display:block;animation:fadeIn .25s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+
+/* Section title */
+.stitle{font-size:16px;font-weight:700;display:flex;align-items:center;gap:10px;margin:0 0 14px;}
+.stitle::before{content:'';width:4px;height:18px;background:var(--accent);border-radius:2px;flex-shrink:0;}
+
+/* Visual section: image + caption */
+.vis{margin:18px 0 20px;text-align:center;}
+.vis img{max-width:100%;border-radius:14px;border:1px solid var(--border);box-shadow:0 2px 16px rgba(0,0,0,0.05);}
+.vis figcaption{font-size:11px;color:var(--text-dim);margin-top:6px;font-weight:500;}
+
+/* Model card grid */
+.mg{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;}
+.mc-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;transition:border-color var(--transition),box-shadow var(--transition);}
+.mc-card:hover{border-color:var(--border-accent);box-shadow:var(--shadow);}
+.mc-name{font-size:15px;font-weight:800;margin-bottom:6px;}
+.mc-feat{display:flex;align-items:flex-start;gap:7px;font-size:12px;line-height:1.7;margin-bottom:3px;}
+.mc-feat::before{content:'•';color:var(--accent);font-weight:700;flex-shrink:0;margin-top:1px;}
+.mc-tip{font-size:11px;color:var(--amber);font-weight:600;margin-top:8px;padding:6px 10px;background:rgba(217,119,6,0.06);border-radius:8px;border-left:3px solid var(--amber);line-height:1.6;}
+.mc-full{grid-column:1/-1;}
+
+/* Section divider */
+.divider{height:1px;background:var(--border);margin:28px 0 24px;opacity:0.6;}
+
+/* Lens cards */
+.lens-wrap{margin-bottom:24px;}
+.lg{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:8px;}
+.lc{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px;text-align:center;transition:all var(--transition);}
+.lc:hover{border-color:var(--border-accent);box-shadow:var(--shadow);}
+.lc-name{font-size:12px;font-weight:700;margin-bottom:4px;}
+.lc-detail{font-size:11px;color:var(--text-secondary);line-height:1.5;font-family:'JetBrains Mono',monospace;letter-spacing:-0.02em;}
+.lc-note{font-size:10px;color:var(--rose);font-weight:600;margin-top:3px;}
+
+/* Subtitle */
+.sub{font-size:13px;font-weight:600;color:var(--text-secondary);margin:20px 0 10px;padding-left:14px;border-left:3px solid var(--border);}
+
+/* Footer */
+.footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--border);text-align:center;font-size:11px;color:var(--text-dim);}
+
+@media(max-width:600px){
+  .mc{padding:16px 14px 60px;}
+  .mg{grid-template-columns:1fr;}
+  .tab-nav{gap:4px;}
+  .tab-btn{padding:7px 10px;font-size:11.5px;}
+  .hero-img{margin:0 -4px 20px;}
+}
+@media print{
+  body{background:#fff;}
+  .tab{display:block!important;}
+  .tab-nav{display:none;}
+  .mc-card{break-inside:avoid;box-shadow:none;}
+  .divider{break-after:avoid;}
+}
+</style>
+</head>
+<body>
+<div class="mc">
+
+  <!-- Header -->
+  <div class="hdr">
+    <div class="hdr-icon">📱</div>
+    <h1>iPhone 機種見分けガイド</h1>
+    <p>ディテールで読み解くデザインの変遷<br>外観からモデルを特定するビジュアルハンドブック</p>
+    <div class="hdr-meta">
+      <span>👥 <strong>対象</strong> 全スタッフ</span>
+      <span>📱 <strong>対応</strong> iPhone 5 〜 17 Pro Max / SE全世代</span>
+      <span class="tag">受付必須知識</span>
+    </div>
+  </div>
+
+  <!-- Hero: 世代識別ガイド -->
+  <div class="hero-img">
+    <img src="images/generation_guide.jpg" alt="iPhone世代識別ガイド">
+  </div>
+
+  <!-- Tab Navigation -->
+  <nav class="tab-nav">
+    <button class="tab-btn active" onclick="sw('t1',this)">iPhone 5〜8</button>
+    <button class="tab-btn" onclick="sw('t2',this)">SE2・X〜11</button>
+    <button class="tab-btn" onclick="sw('t3',this)">12〜14</button>
+    <button class="tab-btn" onclick="sw('t4',this)">15〜16・SE3</button>
+    <button class="tab-btn" onclick="sw('t5',this)">カメラ変遷</button>
+  </nav>
+
+  <!-- ===== TAB 1: iPhone 5-8 ===== -->
+  <section class="tab active" id="t1">
+    <h2 class="stitle">iPhone 5 〜 8 シリーズ</h2>
+
+    <!-- 5/5C/5S/SE -->
+    <figure class="vis">
+      <img src="images/ip5_series.jpg" alt="iPhone 5/5C/5S/SE">
+      <figcaption>iPhone 5 / 5C / 5S・SE（初代）の見分けポイント</figcaption>
+    </figure>
+    <div class="mg">
+      <div class="mc-card">
+        <div class="mc-name">iPhone 5</div>
+        <div class="mc-feat">指紋認証なし — ホームボタンに四角いマーク</div>
+        <div class="mc-feat">4インチ画面</div>
+      </div>
+      <div class="mc-card">
+        <div class="mc-name">iPhone 5C</div>
+        <div class="mc-feat">指紋認証なし — ホームボタンに四角いマーク</div>
+        <div class="mc-feat">フレームがプラスチックでカラバリ豊富</div>
+        <div class="mc-feat">4インチ画面</div>
+      </div>
+      <div class="mc-card mc-full">
+        <div class="mc-name">iPhone 5S / SE（初代）</div>
+        <div class="mc-feat">背面に「SE」の記載があればiPhone SE。ないものは5S</div>
+        <div class="mc-feat">ピンクのカラーは5Sになく、SEのみの設定</div>
+        <div class="mc-feat">4インチ画面</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- 6/6S -->
+    <figure class="vis">
+      <img src="images/ip6_vs_6s.jpg" alt="iPhone 6 vs 6S">
+      <figcaption>「S」マークの有無 / アンテナラインでiPhone 7と見分け</figcaption>
+    </figure>
+    <div class="mg">
+      <div class="mc-card mc-full">
+        <div class="mc-name">iPhone 6 / 6S</div>
+        <div class="mc-feat">背面に「S」の記載があれば6S、なければiPhone 6</div>
+        <div class="mc-feat">ピンクは6になく、6Sのみの設定</div>
+        <div class="mc-feat">背面上下にあるアンテナラインでiPhone 7と見分ける</div>
+        <div class="mc-feat">4.7インチ、Plus系は5.5インチ</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- 7 vs 8 -->
+    <figure class="vis">
+      <img src="images/ip7_vs_8.jpg" alt="iPhone 7 vs 8">
+      <figcaption>iPhone 7（アルミ）vs iPhone 8（背面ガラス）— 赤い本体の画面色が決め手</figcaption>
+    </figure>
+    <div class="mg">
+      <div class="mc-card">
+        <div class="mc-name">iPhone 7 / 7 Plus</div>
+        <div class="mc-feat">背面にアンテナラインのないアルミボディ</div>
+        <div class="mc-feat">赤い本体に白い画面はiPhone 7のみ</div>
+        <div class="mc-feat">7 Plusはカメラレンズが2つ</div>
+        <div class="mc-feat">4.7インチ、Plusは5.5インチ</div>
+      </div>
+      <div class="mc-card">
+        <div class="mc-name">iPhone 8 / 8 Plus</div>
+        <div class="mc-feat">背面ガラスでリンゴマークとiPhoneの文字</div>
+        <div class="mc-feat">赤い本体に黒い画面が7との違い</div>
+        <div class="mc-feat">8 Plusはカメラレンズが2つ</div>
+        <div class="mc-feat">ピンクっぽいゴールドは8のみ</div>
+        <div class="mc-feat">4.7インチ、Plusは5.5インチ</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TAB 2: SE2, X-11 ===== -->
+  <section class="tab" id="t2">
+    <h2 class="stitle">iPhone SE（第2世代）・X 〜 11 シリーズ</h2>
+
+    <div class="mg">
+      <div class="mc-card">
+        <div class="mc-name">iPhone SE（第2世代）</div>
+        <div class="mc-feat">背面ガラスで中央にリンゴマークのみ</div>
+        <div class="mc-feat">白い本体に黒い画面はSE2のみ（画面は黒のみ）</div>
+        <div class="mc-feat">4.7インチ</div>
+        <div class="mc-tip">⚠️ iPhone 8と似ているので注意</div>
+      </div>
+      <div class="mc-card">
+        <div class="mc-name">iPhone X / XS / XS Max</div>
+        <div class="mc-feat">フェイスID搭載</div>
+        <div class="mc-feat">XS・XS Maxは側面上下にアンテナライン。ラインなしがX</div>
+        <div class="mc-feat">ゴールドはXには設定なし</div>
+        <div class="mc-feat">X・XSは5.8インチ、XS Maxは6.5インチ</div>
+      </div>
+      <div class="mc-card">
+        <div class="mc-name">iPhone XR</div>
+        <div class="mc-feat">背面ガラスでカメラレンズが1つ</div>
+        <div class="mc-feat">カラーバリエーション豊富</div>
+        <div class="mc-feat">フェイスIDモデル、6.1インチ</div>
+        <div class="mc-feat">オレンジの本体はXRのみ</div>
+      </div>
+      <div class="mc-card">
+        <div class="mc-name">iPhone 11</div>
+        <div class="mc-feat">背面ガラスで中央にリンゴマークのみ</div>
+        <div class="mc-feat">カメラレンズは2つ、6.1インチ</div>
+        <div class="mc-feat">薄緑、薄紫が独自カラー</div>
+        <div class="mc-feat">フェイスIDモデル</div>
+      </div>
+      <div class="mc-card mc-full">
+        <div class="mc-name">iPhone 11 Pro / 11 Pro Max</div>
+        <div class="mc-feat">背面ガラスでカメラレンズ3つ</div>
+        <div class="mc-feat">5.8インチ、Pro Maxは6.5インチ</div>
+        <div class="mc-feat">深緑が独自カラー / フェイスIDモデル</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TAB 3: 12-14 ===== -->
+  <section class="tab" id="t3">
+    <h2 class="stitle">iPhone 12 〜 14 シリーズ</h2>
+
+    <!-- 12 vs 13 スタンダード -->
+    <p class="sub">スタンダード：12 vs 13 の見分け方</p>
+    <figure class="vis">
+      <img src="images/ip12_vs_13.jpg" alt="iPhone 12 vs 13">
+      <figcaption>12: 縦並び＋メッシュ真ん中 vs 13: ななめ並び＋メッシュ上部</figcaption>
+    </figure>
+    <div class="mg">
+      <div class="mc-card">
+        <div class="mc-name">iPhone 12 / 12 mini</div>
+        <div class="mc-feat">フラットエッジデザイン</div>
+        <div class="mc-feat">背面カメラが縦並びに2個</div>
+        <div class="mc-feat">インカメラの穴がメッシュの右側</div>
+        <div class="mc-feat">メッシュがノッチの真ん中辺り</div>
+      </div>
+      <div class="mc-card">
+        <div class="mc-name">iPhone 13 / 13 mini</div>
+        <div class="mc-feat">フラットエッジデザイン</div>
+        <div class="mc-feat">背面カメラがななめ並びに2個</div>
+        <div class="mc-feat">インカメラの穴がメッシュの左側</div>
+        <div class="mc-feat">メッシュがノッチの上部に移動</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- 12 Pro vs 13 Pro -->
+    <p class="sub">Pro：12 Pro vs 13 Pro の見分け方</p>
+    <figure class="vis">
+      <img src="images/ip12pro_vs_13pro.jpg" alt="12 Pro vs 13 Pro">
+      <figcaption>12 Pro（パシフィックブルー・メッシュ真ん中）vs 13 Pro（シエラブルー・メッシュ上部）</figcaption>
+    </figure>
+    <div class="mg">
+      <div class="mc-card">
+        <div class="mc-name">iPhone 12 Pro / 12 Pro Max</div>
+        <div class="mc-feat">フラットエッジ、カメラ3個</div>
+        <div class="mc-feat">パシフィックブルーは12限定</div>
+        <div class="mc-feat">インカメラの穴がメッシュの右側</div>
+      </div>
+      <div class="mc-card">
+        <div class="mc-name">iPhone 13 Pro / 13 Pro Max</div>
+        <div class="mc-feat">フラットエッジ、カメラ3個</div>
+        <div class="mc-feat">シエラブルー、アルパイングリーンは13限定</div>
+        <div class="mc-feat">インカメラの穴がメッシュの左側</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- 13 vs 14 -->
+    <p class="sub">スタンダード：13 vs 14 の見分け方</p>
+    <figure class="vis">
+      <img src="images/ip13_vs_14.jpg" alt="iPhone 13 vs 14">
+      <figcaption>miniが廃止しPlusへ / ノッチで判断 / フラッシュレンズの粒が違う</figcaption>
+    </figure>
+    <div class="mg">
+      <div class="mc-card mc-full">
+        <div class="mc-name">iPhone 14 / 14 Plus</div>
+        <div class="mc-feat">背面カメラがななめ並びに2個</div>
+        <div class="mc-feat">miniが廃止になりPlusがラインナップ（PMと同サイズ）</div>
+        <div class="mc-feat">イエローは14限定</div>
+        <div class="mc-feat">インカメラの穴が大きい（13より）</div>
+        <div class="mc-feat">背面フラッシュレンズの粒が違う（13: 丸型 → 14: リング状）</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- 14 Pro -->
+    <p class="sub">Pro：14 Pro — Dynamic Island 初搭載</p>
+    <figure class="vis">
+      <img src="images/ip14pro_dynamic_island.jpg" alt="14 Pro Dynamic Island">
+      <figcaption>ノッチが「Dynamic Island」に変更 / ディープパープルは14 Pro限定</figcaption>
+    </figure>
+    <div class="mg">
+      <div class="mc-card mc-full">
+        <div class="mc-name">iPhone 14 Pro / 14 Pro Max</div>
+        <div class="mc-feat">背面カメラ3個</div>
+        <div class="mc-feat">ノッチが「Dynamic Island（ダイナミックアイランド）」に変更</div>
+        <div class="mc-feat">ディープパープルは14 Pro限定</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TAB 4: 15-16, SE3 ===== -->
+  <section class="tab" id="t4">
+    <h2 class="stitle">iPhone 15 〜 16 シリーズ ・ SE3</h2>
+
+    <div class="mg">
+      <div class="mc-card">
+        <div class="mc-name">iPhone 15 / 15 Plus</div>
+        <div class="mc-feat">背面カメラがななめ並びに2個</div>
+        <div class="mc-feat">ノッチが「Dynamic Island」に変更</div>
+        <div class="mc-feat">LightningからUSB Type-Cに変更</div>
+        <div class="mc-feat">カラーが全体的に淡い色合い / REDなし</div>
+      </div>
+      <div class="mc-card">
+        <div class="mc-name">iPhone 15 Pro / 15 Pro Max</div>
+        <div class="mc-feat">素材がアルミ→チタニウムに変更</div>
+        <div class="mc-feat">背面カメラ3個、USB Type-C</div>
+        <div class="mc-feat">ブルーチタニウムは15限定</div>
+        <div class="mc-feat">ノッチは「Dynamic Island」</div>
+      </div>
+      <div class="mc-card">
+        <div class="mc-name">iPhone 16 / 16 Plus</div>
+        <div class="mc-feat">背面カメラが縦並びに2個（フラッシュがフレーム外へ）</div>
+        <div class="mc-feat">ノッチは「Dynamic Island」</div>
+        <div class="mc-feat">カラーが濃い目でポップ</div>
+        <div class="mc-feat">スリープボタン下に「カメラコントロール」搭載</div>
+      </div>
+      <div class="mc-card">
+        <div class="mc-name">iPhone 16 Pro / 16 Pro Max</div>
+        <div class="mc-feat">背面カメラ3個</div>
+        <div class="mc-feat">ノッチは「Dynamic Island」</div>
+        <div class="mc-feat">デザートチタニウム追加（ゴールドに近い色味）</div>
+        <div class="mc-feat">全機種に「カメラコントロール」搭載</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <h2 class="stitle">iPhone SE（第3世代）</h2>
+    <div class="mg" style="grid-template-columns:1fr;">
+      <div class="mc-card">
+        <div class="mc-name">iPhone SE3</div>
+        <div class="mc-feat">背面ガラスで中央にリンゴマーク</div>
+        <div class="mc-feat">外見はSE2そっくり — 確実な違いはモデル番号</div>
+        <div class="mc-feat">設定→一般→情報でモデル番号をタッチ</div>
+        <div class="mc-feat">SE2: A2296 / SE3: A2782（どちらも日本版）</div>
+        <div class="mc-feat">端末未起動時はSIMトレー内部の刻印で確認</div>
+        <div class="mc-tip">⚠️ カラー見分け：赤 — SE2はピンク寄り朱色、SE3は赤が強い。黒 — SE2は黒色、SE3はネイビー。白 — SE2は白、SE3は金が混じった白（サイドフレームで分かりやすい）</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TAB 5: カメラ変遷 ===== -->
+  <section class="tab" id="t5">
+    <h2 class="stitle">カメラ変遷 — 世代別比較</h2>
+    <p style="font-size:13px;color:var(--text-secondary);margin-bottom:16px;">カメラレンズの配置・サイズの変化を世代ごとに比較。修理時のパーツ特定に活用してください。</p>
+
+    <!-- スタンダード -->
+    <figure class="vis">
+      <img src="images/std_camera_evolution.jpg" alt="スタンダードモデルのカメラ変遷">
+      <figcaption>スタンダードモデルのカメラ変遷（iPhone 11 〜 17）</figcaption>
+    </figure>
+
+    <p class="sub">デュアルカメラモデル — レンズサイズ比較</p>
+    <div class="lens-wrap">
+      <div class="lg">
+        <div class="lc"><div class="lc-name">iPhone 11</div><div class="lc-detail">上 大 / 下 小</div></div>
+        <div class="lc"><div class="lc-name">iPhone 12mini/12</div><div class="lc-detail">上 小 / 下 大</div></div>
+        <div class="lc"><div class="lc-name">iPhone 13mini/13</div><div class="lc-detail">上 小 / 下 大</div></div>
+        <div class="lc"><div class="lc-name">iPhone 14/Plus</div><div class="lc-detail">上 小 / 下 大</div><div class="lc-note">※上は厚い ※サイズほぼ同じ</div></div>
+        <div class="lc"><div class="lc-name">iPhone 15/15Plus</div><div class="lc-detail">上 小 / 下 大</div><div class="lc-note">※上は厚い ※サイズほぼ同じ</div></div>
+        <div class="lc"><div class="lc-name">iPhone 16/16Plus</div><div class="lc-detail">上 小 / 下 大</div><div class="lc-note">※上は厚い</div></div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Pro -->
+    <figure class="vis">
+      <img src="images/pro_camera_evolution.jpg" alt="Proモデルのカメラ変遷">
+      <figcaption>Proモデルのカメラ変遷（iPhone 11 Pro 〜 17 Pro）</figcaption>
+    </figure>
+
+    <p class="sub">トリプルカメラモデル — レンズサイズ比較</p>
+    <div class="lens-wrap">
+      <div class="lg">
+        <div class="lc"><div class="lc-name">iPhone 11 Pro/PM</div><div class="lc-detail">右小 / 上中 / 下大</div><div class="lc-note">※中・大ほぼ同じ</div></div>
+        <div class="lc"><div class="lc-name">iPhone 12 Pro</div><div class="lc-detail">右小 / 上中 / 下大</div><div class="lc-note">※中・大ほぼ同じ</div></div>
+        <div class="lc"><div class="lc-name">iPhone 12 PM</div><div class="lc-detail">右小 / 上大 / 下中</div></div>
+        <div class="lc"><div class="lc-name">iPhone 13 Pro/PM</div><div class="lc-detail">右小 / 上大 / 下中</div><div class="lc-note">※右は厚い</div></div>
+        <div class="lc"><div class="lc-name">iPhone 14 Pro/PM</div><div class="lc-detail">右小 / 上大 / 下中</div><div class="lc-note">※右は厚い</div></div>
+        <div class="lc"><div class="lc-name">iPhone 15 Pro</div><div class="lc-detail">右大 / 上小 / 下中</div><div class="lc-note">※上下ほぼ同じ</div></div>
+        <div class="lc"><div class="lc-name">iPhone 15 PM</div><div class="lc-detail">右大 / 上小 / 下中</div></div>
+        <div class="lc"><div class="lc-name">iPhone 16 Pro/PM</div><div class="lc-detail">右大 / 上小 / 下中</div><div class="lc-note">※上は厚い</div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer">社内マニュアル ─ 社外秘 ｜ モバイル修理救急便</div>
+</div>
+
+<script>
+function sw(id,btn){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:document.querySelector('.tab-nav').offsetTop-8,behavior:'smooth'});
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apple Account 確認コード受け取り方法</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   マニュアル共通テンプレート CSS
+   ポータルの CSS 変数を継承 — iframe 内でも単独でも動作
+   ============================================================ */
+:root {
+  --bg-primary: #f5f7fa;
+  --bg-card: #ffffff;
+  --bg-surface: #eef2f7;
+  --accent: #2563eb;
+  --accent-light: #2563eb;
+  --accent-glow: rgba(37, 99, 235, 0.08);
+  --accent-bright: #6366f1;
+  --green: #059669;
+  --amber: #d97706;
+  --rose: #e11d48;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-dim: #94a3b8;
+  --border: #e5e7eb;
+  --border-accent: rgba(37, 99, 235, 0.25);
+  --radius: 16px;
+  --radius-sm: 10px;
+  --shadow: 0 4px 24px rgba(0,0,0,0.06);
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ダークモード（ポータルの data-theme="dark" を継承） */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-primary: #0f1117;
+    --bg-card: #1e2130;
+    --bg-surface: #161922;
+    --accent: #4f8fff;
+    --accent-light: #6ba1ff;
+    --accent-glow: rgba(79, 143, 255, 0.12);
+    --accent-bright: #818cf8;
+    --green: #34d399;
+    --amber: #fbbf24;
+    --rose: #fb7185;
+    --text-primary: #e8eaf0;
+    --text-secondary: #9ba3b5;
+    --text-dim: #5d6578;
+    --border: #2a2e3d;
+    --border-accent: rgba(79, 143, 255, 0.3);
+    --shadow: 0 4px 24px rgba(0,0,0,0.3);
+  }
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== レイアウト ===== */
+.manual-container {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 32px 24px 80px;
+}
+
+/* ===== ヘッダー ===== */
+.manual-header {
+  text-align: center;
+  margin-bottom: 36px;
+}
+.manual-header-img {
+  width: 100%;
+  max-width: 600px;
+  border-radius: var(--radius);
+  margin-bottom: 20px;
+}
+.manual-meta {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+.manual-meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-dim);
+  font-weight: 500;
+}
+.manual-meta-item strong {
+  color: var(--text-secondary);
+}
+.manual-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.04em;
+}
+.manual-tag.important {
+  background: rgba(225, 29, 72, 0.1);
+  color: var(--rose);
+}
+.manual-tag.info {
+  background: rgba(37, 99, 235, 0.08);
+  color: var(--accent);
+}
+
+/* ===== セクション ===== */
+.manual-section {
+  margin-bottom: 32px;
+}
+.section-title {
+  font-size: 17px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  color: var(--text-primary);
+}
+.section-title::before {
+  content: '';
+  width: 4px;
+  height: 20px;
+  background: var(--accent);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+/* ===== カード ===== */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  margin-bottom: 12px;
+}
+.card p {
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+/* ===== アラート ===== */
+.alert {
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+.alert-danger {
+  background: rgba(225, 29, 72, 0.06);
+  border: 1px solid rgba(225, 29, 72, 0.15);
+  border-left: 4px solid var(--rose);
+}
+.alert-info {
+  background: var(--accent-glow);
+  border: 1px solid var(--border-accent);
+  border-left: 4px solid var(--accent);
+}
+.alert-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+.alert-title { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
+.alert-danger .alert-title { color: var(--rose); }
+.alert-info .alert-title { color: var(--accent); }
+.alert-text { font-size: 13px; line-height: 1.8; }
+.alert-text strong { color: var(--rose); }
+
+/* ===== 画像 ===== */
+.manual-img-wrap {
+  text-align: center;
+  margin: 20px 0;
+}
+.manual-img {
+  max-width: 100%;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+.manual-img.screenshot {
+  max-width: 320px;
+}
+.manual-img-caption {
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-top: 8px;
+  font-weight: 500;
+}
+
+/* ===== ステップ ===== */
+.steps { display: flex; flex-direction: column; gap: 0; }
+.step {
+  display: flex;
+  gap: 18px;
+  position: relative;
+}
+.step-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  width: 44px;
+}
+.step-num {
+  width: 44px; height: 44px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
+  flex-shrink: 0;
+  z-index: 1;
+}
+.step-line {
+  width: 2px;
+  flex: 1;
+  background: var(--border);
+  margin: 4px 0;
+}
+.step:last-child .step-line { display: none; }
+.step-content {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  flex: 1;
+  margin-bottom: 14px;
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  transition: all var(--transition);
+}
+.step-content:hover {
+  border-color: var(--border-accent);
+  box-shadow: var(--shadow);
+}
+.step-title {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+.step-desc {
+  font-size: 14px;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  line-height: 1.8;
+}
+.step-note {
+  font-size: 12px;
+  color: var(--text-dim);
+  font-style: italic;
+  padding-left: 12px;
+  border-left: 2px solid var(--border);
+}
+
+/* ===== 比較テーブル ===== */
+.comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.compare-card {
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+}
+.compare-header {
+  padding: 10px 16px;
+  font-weight: 700;
+  font-size: 13px;
+  color: #fff;
+  text-align: center;
+}
+.compare-header.old { background: var(--rose); }
+.compare-header.new { background: var(--green); }
+.compare-body {
+  padding: 16px 20px;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+/* ===== 禁止事項 ===== */
+.prohibition-list { display: flex; flex-direction: column; gap: 8px; }
+.prohibition-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--rose);
+  border-radius: var(--radius-sm);
+  padding: 14px 18px;
+  transition: all var(--transition);
+}
+.prohibition-item:hover {
+  border-color: rgba(225, 29, 72, 0.3);
+  box-shadow: 0 2px 8px rgba(225, 29, 72, 0.06);
+}
+.prohibition-icon {
+  color: var(--rose);
+  font-size: 18px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.prohibition-text { font-size: 14px; }
+
+/* ===== FAQ ===== */
+.faq-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 22px;
+  margin-bottom: 10px;
+  transition: all var(--transition);
+}
+.faq-item:hover {
+  border-color: var(--border-accent);
+}
+.faq-q {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+.faq-a { font-size: 13px; line-height: 1.8; }
+
+/* ===== フッター ===== */
+.manual-footer {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  font-size: 11px;
+  color: var(--text-dim);
+}
+
+/* ===== レスポンシブ ===== */
+@media (max-width: 600px) {
+  .manual-container { padding: 20px 16px 60px; }
+  .comparison { grid-template-columns: 1fr; }
+  .manual-meta { gap: 12px; }
+  .step { gap: 12px; }
+  .step-content { padding: 16px 18px; }
+}
+
+/* ===== 印刷 ===== */
+@media print {
+  body { background: #fff; }
+  .card, .step-content, .faq-item, .prohibition-item, .compare-card {
+    break-inside: avoid;
+    box-shadow: none;
+    border-color: #ddd;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="manual-container">
+
+  <!-- ===== ヘッダー ===== -->
+  <div class="manual-header">
+    <img src="images/apple_account_header.jpg" alt="Apple Account 確認コード受け取り方法" class="manual-header-img">
+    <div class="manual-meta">
+      <span class="manual-meta-item">📅 <strong>発行日</strong> 令和8年2月5日</span>
+      <span class="manual-meta-item">👥 <strong>対象</strong> 全店舗・全スタッフ</span>
+      <span class="manual-tag important">必須対応</span>
+    </div>
+  </div>
+
+  <!-- ===== 概要 ===== -->
+  <div class="manual-section">
+    <h2 class="section-title">変更の概要</h2>
+    <div class="card">
+      <p>Apple Account の確認コード受け取り方法を全店舗で統一します。社長が認証を行うため、店舗での操作は送信先の選択のみです。</p>
+    </div>
+    <div class="alert alert-danger">
+      <span class="alert-icon">⚠️</span>
+      <div>
+        <div class="alert-title">重要な変更点</div>
+        <p class="alert-text">今後は店舗間でのエリア・連絡網などでの確認コードの送信・確認は<strong>禁止</strong>とします。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 手順概要（画像） ===== -->
+  <div class="manual-section">
+    <h2 class="section-title">操作の流れ</h2>
+    <div class="manual-img-wrap">
+      <img src="images/apple_account_steps_overview.jpg" alt="操作概要" class="manual-img">
+      <div class="manual-img-caption">確認コード受け取りの全体フロー</div>
+    </div>
+  </div>
+
+  <!-- ===== 変更前後比較 ===== -->
+  <div class="manual-section">
+    <h2 class="section-title">変更前後の比較</h2>
+    <div class="comparison">
+      <div class="compare-card">
+        <div class="compare-header old">❌ 変更前（旧ルール）</div>
+        <div class="compare-body">
+          <p>エリアや連絡網に送信された番号がないかを各店舗で確認していた</p>
+        </div>
+      </div>
+      <div class="compare-card">
+        <div class="compare-header new">✅ 変更後（新ルール）</div>
+        <div class="compare-body">
+          <p>「コードが届いてない場合」→「＊＊＊＊＊＊＊＊＊15に送信」→ <strong>社長に通知が届く</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 詳細手順 ===== -->
+  <div class="manual-section">
+    <h2 class="section-title">操作手順（詳細）</h2>
+
+    <div class="steps">
+      <!-- STEP 1 -->
+      <div class="step">
+        <div class="step-indicator"><div class="step-num">1</div><div class="step-line"></div></div>
+        <div class="step-content">
+          <div class="step-title">「コードが届いていない場合」をタップ</div>
+          <div class="step-desc">Apple Account 確認コードの入力画面が表示されたら、コード入力欄には何も入力せず、画面下部の<strong>「コードが届いていない場合」</strong>をタップしてください。</div>
+          <div class="manual-img-wrap">
+            <img src="images/apple_account_step1_screen.jpg" alt="手順1：コードが届いていない場合をタップ" class="manual-img screenshot">
+            <div class="manual-img-caption">赤枠の「コードが届いてない場合」をタップ</div>
+          </div>
+          <div class="step-note">コード入力欄には何も入力しないでください</div>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="step">
+        <div class="step-indicator"><div class="step-num">2</div><div class="step-line"></div></div>
+        <div class="step-content">
+          <div class="step-title">「＊＊＊＊＊＊＊＊＊15 に送信とする」を選択</div>
+          <div class="step-desc">送信先の選択画面が表示されます。末尾が<strong>「15」</strong>の番号（＊＊＊＊＊＊＊＊＊15）を選択してください。これが社長のデバイスへの送信先です。</div>
+          <div class="manual-img-wrap">
+            <img src="images/apple_account_step2_screen.jpg" alt="手順2：15を選択" class="manual-img">
+            <div class="manual-img-caption">末尾「15」の番号を選択</div>
+          </div>
+          <div class="step-note">他の送信先は絶対に選ばないでください</div>
+          <div class="alert alert-info" style="margin-top: 12px;">
+            <span class="alert-icon">💡</span>
+            <div>
+              <div class="alert-title">この後の操作は不要です</div>
+              <p class="alert-text">送信後は社長が認証を行います。店舗側でコードを確認・入力する必要はありません。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+  <!-- ===== 禁止事項 ===== -->
+  <div class="manual-section">
+    <h2 class="section-title">禁止事項</h2>
+    <div class="manual-img-wrap">
+      <img src="images/apple_account_prohibition.jpg" alt="禁止事項" class="manual-img" style="max-width: 480px;">
+    </div>
+    <div class="prohibition-list">
+      <div class="prohibition-item">
+        <span class="prohibition-icon">✕</span>
+        <span class="prohibition-text">店舗間のエリアグループでの確認コードの送信・受信</span>
+      </div>
+      <div class="prohibition-item">
+        <span class="prohibition-icon">✕</span>
+        <span class="prohibition-text">連絡網を使った確認コードの共有・問い合わせ</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== FAQ ===== -->
+  <div class="manual-section">
+    <h2 class="section-title">よくある質問</h2>
+    <div class="faq-item">
+      <div class="faq-q">Q. 以前のやり方（エリアや連絡網で確認）はもう使えませんか？</div>
+      <div class="faq-a">A. はい、今後は一切禁止です。必ず本マニュアルの手順に従ってください。</div>
+    </div>
+  </div>
+
+  <!-- ===== フッター ===== -->
+  <div class="manual-footer">
+    社内マニュアル ─ 社外秘 ｜ 発行: 令和8年2月5日 ｜ モバイル修理救急便
+  </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0f172a">
+<title>毎日の事務作業クイズ</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:'Noto Sans JP',system-ui,sans-serif;background:#f1f5f9;overflow-x:hidden}
+.app{max-width:430px;margin:0 auto;min-height:100dvh;background:#f1f5f9}
+.header{background:linear-gradient(135deg,#0f172a,#1b2a4a,#1e3a5f);padding:52px 24px 32px}
+.body{padding:16px 16px 32px}
+.card{background:#fff;border-radius:14px;padding:16px;margin-bottom:12px;border:1px solid #e2e8f0;box-shadow:0 1px 3px rgba(0,0,0,0.04)}
+.card-dark{background:#1b2a4a;border:none}
+.card-title{font-size:13px;font-weight:700;color:#1b2a4a;margin-bottom:12px}
+.ni{width:100%;padding:12px 14px;border-radius:10px;border:2px solid #e2e8f0;font-size:15px;font-family:inherit;font-weight:600;color:#1b2a4a;outline:none}
+.ni:focus{border-color:#0891B2}
+.ns{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;background:#f0fdf4;border:1px solid #bbf7d0;font-size:13px;font-weight:600;color:#166534}
+.ne{background:none;border:none;color:#0891B2;font-size:12px;font-weight:600;cursor:pointer;margin-left:8px;font-family:inherit}
+.db{display:flex;align-items:center;justify-content:space-between;width:100%;padding:14px;border-radius:10px;border:2px solid;margin-bottom:8px;cursor:pointer;font-size:14px;font-weight:500;font-family:inherit}
+.db:active{transform:scale(0.98)}.db.off{opacity:0.35;pointer-events:none}
+.dg{padding:3px 10px;border-radius:6px;color:#fff;font-size:12px;font-weight:700}
+.lb{background:none;border:none;color:#0891B2;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit}
+.mr{display:flex;gap:8px}.mi{flex:1;text-align:center;padding:8px 4px;border-radius:10px;border:1px solid}
+.qt{display:flex;align-items:center;gap:10px;padding:12px 16px;background:#fff;border-bottom:1px solid #e2e8f0}
+.cb{background:none;border:none;font-size:20px;color:#94a3b8;cursor:pointer}
+.pw{flex:1;height:6px;background:#e2e8f0;border-radius:3px;overflow:hidden}
+.pb{height:100%;background:linear-gradient(90deg,#0891B2,#06B6D4);border-radius:3px;transition:width 0.3s}
+.qc{font-size:13px;font-weight:700;color:#1b2a4a}
+.tr{display:flex;justify-content:center;padding:10px 16px 0}
+.tb{font-size:13px;font-weight:700;padding:4px 14px;border-radius:20px}
+.qa{padding:16px 20px 8px}
+.tt{display:inline-block;font-size:10px;font-weight:700;color:#0891B2;background:#0891B215;padding:3px 10px;border-radius:20px;margin-bottom:10px}
+.qx{font-size:17px;font-weight:700;color:#1b2a4a;line-height:1.6}
+.os{padding:8px 16px 16px;display:flex;flex-direction:column;gap:8px}
+.ob{display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:12px;border:2px solid #e2e8f0;background:#fff;font-size:14px;font-weight:600;color:#1b2a4a;cursor:pointer;text-align:left;font-family:inherit}
+.ob.off{pointer-events:none}.ob.ok{border-color:#16a34a;background:#f0fdf4;color:#166534}
+.ob.ng{border-color:#dc2626;background:#fef2f2;color:#991b1b}.ob.fd{opacity:0.35}
+.ol{width:28px;height:28px;border-radius:8px;background:#f1f5f9;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#64748b;flex-shrink:0}
+.fb{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:#fff;border-top:2px solid #fecaca;padding:12px 20px;display:flex;justify-content:space-between;align-items:center;z-index:10}
+.rh{padding:40px 24px 28px;text-align:center}
+.rh.ps{background:linear-gradient(135deg,#065f46,#0d9488)}
+.rh.fl{background:linear-gradient(135deg,#991b1b,#dc2626)}
+.ss{margin-top:12px;padding:6px 16px;border-radius:20px;font-size:12px;font-weight:600;display:inline-block}
+.so{background:rgba(255,255,255,0.15);color:rgba(255,255,255,0.9)}
+.sf{background:rgba(255,0,0,0.15);color:#fecaca}
+.sn{background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.6)}
+.wr{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f1f5f9}
+.wi{padding:10px 0;border-bottom:1px solid #f1f5f9}
+.br{display:flex;gap:8px;margin-bottom:20px}
+.p1{flex:1;padding:14px;border-radius:12px;border:none;background:linear-gradient(135deg,#0891B2,#06B6D4);color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
+.p2{flex:1;padding:14px;border-radius:12px;border:2px solid #e2e8f0;background:#fff;color:#475569;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
+.hh{display:flex;align-items:center;gap:12px;padding:16px;background:#fff;border-bottom:1px solid #e2e8f0}
+.bb{background:none;border:none;font-size:13px;font-weight:600;color:#0891B2;cursor:pointer;font-family:inherit}
+.hi{display:flex;align-items:center;gap:12px;padding:12px 16px}
+.hs{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pg{font-size:10px;font-weight:800;padding:4px 8px;border-radius:6px;letter-spacing:1px}
+.rb{background:none;border:none;color:#dc2626;font-size:12px;cursor:pointer;display:block;margin:16px auto;font-family:inherit}
+.cn{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;padding:3px 10px;border-radius:20px;margin-top:10px}
+.co{background:#f0fdf4;color:#166534;border:1px solid #bbf7d0}
+.cf{background:rgba(255,255,255,0.1);color:#94a3b8;border:1px solid rgba(255,255,255,0.1)}
+</style>
+</head>
+<body>
+<div class="app" id="app"></div>
+<script>
+var SCRIPT_URL="";
+var TITLE="毎日の事務作業クイズ";
+var TAG="DAILY OFFICE";
+var PASS=80;
+var CM="#2563eb";
+var SK="daily-office-quiz-v2";
+
+// lv: 1=研修, 2=初級, 3=中級, 4=上級, 5=超級
+var QS=[{"q": "開店準備で最初に行うべき作業は？", "o": ["レジの起動", "店内清掃", "セキュリティ解除・照明点灯", "在庫確認"], "a": "セキュリティ解除・照明点灯", "cat": "日常業務", "lv": 1}, {"q": "閉店時のレジ締め作業で必ず確認することは？", "o": ["翌日の天気", "レジ金とPOS売上の一致", "SNSの更新", "エアコンの温度"], "a": "レジ金とPOS売上の一致", "cat": "日常業務", "lv": 1}, {"q": "店内の防犯カメラチェックのタイミングは？", "o": ["閉店時のみ", "開店時のみ", "開店時に確認し業務アプリで報告", "月末のみ"], "a": "開店時に確認し業務アプリで報告", "cat": "日常業務", "lv": 1}, {"q": "お客様の修理品を預かる際に必ず記録すべき情報は？", "o": ["お客様の職業", "端末の状態・既存の傷・パスコード", "お客様の来店回数", "修理にかかる原価"], "a": "端末の状態・既存の傷・パスコード", "cat": "日常業務", "lv": 1}, {"q": "GMB（Googleビジネスプロフィール）の投稿はいつ行う？", "o": ["月に1回", "週に1回", "毎日", "気が向いた時"], "a": "毎日", "cat": "日常業務", "lv": 1}, {"q": "GMBの投稿頻度として推奨されるのは？", "o": ["月に1回", "週に1回", "毎日", "気が向いた時"], "a": "毎日", "cat": "業務管理", "lv": 3}, {"q": "レジ金に差異が発生した場合の対応は？", "o": ["翌日に繰り越す", "原因を調査し記録・報告する", "自腹で補填", "無視する"], "a": "原因を調査し記録・報告する", "cat": "業務管理", "lv": 3}, {"q": "修理受付時のPOS入力で間違いを防ぐ最も重要な点は？", "o": ["素早く入力する", "機種名と修理内容を復唱確認する", "お客様に入力してもらう", "後で修正する"], "a": "機種名と修理内容を復唱確認する", "cat": "業務管理", "lv": 3}, {"q": "閉店後に修理品を預かっている場合の保管方法は？", "o": ["レジ横に置く", "施錠可能な保管場所に入れる", "作業台に置いたまま", "自宅に持ち帰る"], "a": "施錠可能な保管場所に入れる", "cat": "業務管理", "lv": 3}, {"q": "部品の在庫が不足しそうな場合のタイミングは？", "o": ["なくなってから発注", "在庫が一定数を下回ったら早めに発注", "月末にまとめて発注", "気づいた時"], "a": "在庫が一定数を下回ったら早めに発注", "cat": "業務管理", "lv": 3}, {"q": "修理品引取りのお客様が来店されない場合の対応は？", "o": ["すぐ処分", "一定期間保管後、連絡してから対応を決める", "放置する", "他のお客様に売る"], "a": "一定期間保管後、連絡してから対応を決める", "cat": "業務管理", "lv": 3}, {"q": "日報に記載すべき項目として適切なのは？", "o": ["天気のみ", "修理件数・売上・特記事項・クレーム有無", "個人的な感想", "翌日の予定のみ"], "a": "修理件数・売上・特記事項・クレーム有無", "cat": "業務管理", "lv": 3}, {"q": "お客様の待ち時間が長くなる繁忙時のスタッフ間連携で重要なことは？", "o": ["各自バラバラに対応", "受付担当と修理担当の役割分担を明確にする", "全員が修理する", "お客様を断る"], "a": "受付担当と修理担当の役割分担を明確にする", "cat": "業務管理", "lv": 3}, {"q": "業務管理アプリでの出勤報告を忘れた場合の対応は？", "o": ["そのまま放置", "気づいた時点で速やかに報告し、ブロック長に連絡", "翌日まとめて報告", "同僚に頼む"], "a": "気づいた時点で速やかに報告し、ブロック長に連絡", "cat": "業務管理", "lv": 3}, {"q": "開店準備の最適な順序は？", "o": ["清掃→レジ→セキュリティ", "セキュリティ解除→照明→清掃→レジ→在庫→看板", "レジ→清掃→看板", "在庫→清掃→レジ"], "a": "セキュリティ解除→照明→清掃→レジ→在庫→看板", "cat": "業務改善", "lv": 4}, {"q": "レジ金に差異が発生した場合の正しい報告順序は？", "o": ["翌日報告", "原因調査→記録→当日中に上長報告", "自腹補填後報告", "月末にまとめて"], "a": "原因調査→記録→当日中に上長報告", "cat": "業務改善", "lv": 4}, {"q": "繁忙期のスタッフ配置で最も効果的なのは？", "o": ["全員修理", "受付・修理・引渡しの役割分担", "全員受付", "交代制"], "a": "受付・修理・引渡しの役割分担", "cat": "業務改善", "lv": 4}, {"q": "日報に記載すべき最も重要な項目は？", "o": ["天気", "修理件数・売上・特記事項・引継ぎ", "個人の感想", "来客数のみ"], "a": "修理件数・売上・特記事項・引継ぎ", "cat": "業務改善", "lv": 4}, {"q": "部品在庫の適正管理で重要な指標は？", "o": ["総在庫金額のみ", "回転率と安全在庫数", "部品の色", "発注頻度のみ"], "a": "回転率と安全在庫数", "cat": "業務改善", "lv": 4}, {"q": "修理品引取りのお客様が来店されない場合、最初にすべきことは？", "o": ["処分する", "登録された連絡先に電話・メールで連絡する", "放置する", "店頭に展示"], "a": "登録された連絡先に電話・メールで連絡する", "cat": "業務改善", "lv": 4}, {"q": "GMB投稿の効果を最大化するためのコツは？", "o": ["テキストのみ", "修理Before/After写真付きで投稿", "毎回同じ内容", "長文で詳細に"], "a": "修理Before/After写真付きで投稿", "cat": "業務改善", "lv": 4}, {"q": "業務管理アプリでの売上報告が遅れた場合の影響は？", "o": ["影響なし", "ブロック長・エリアマネージャーの分析・判断が遅れる", "特にない", "自動で補完される"], "a": "ブロック長・エリアマネージャーの分析・判断が遅れる", "cat": "業務改善", "lv": 4}, {"q": "閉店後の施錠チェックリストに含まれるべき項目は？", "o": ["レジのみ", "出入口・レジ・保管庫・窓・空調・照明", "出入口のみ", "チェック不要"], "a": "出入口・レジ・保管庫・窓・空調・照明", "cat": "業務改善", "lv": 4}, {"q": "修理予約のダブルブッキングを防ぐ方法は？", "o": ["記憶で管理", "予約管理システムを一元化し、受付時に必ず空き確認する", "口頭で確認", "オーバーブッキングで対応"], "a": "予約管理システムを一元化し、受付時に必ず空き確認する", "cat": "業務改善", "lv": 4}, {"q": "お釣りの準備金が不足しそうな場合の対応は？", "o": ["不足してから対応", "事前に両替を行い、常に十分な準備金を確保する", "カード払いのみにする", "お客様にお釣り不要を依頼"], "a": "事前に両替を行い、常に十分な準備金を確保する", "cat": "業務改善", "lv": 5}, {"q": "競合店の調査報告で記載すべき情報は？", "o": ["外観の写真のみ", "料金・サービス内容・営業時間・レビュー評価・特徴", "住所のみ", "特に必要なし"], "a": "料金・サービス内容・営業時間・レビュー評価・特徴", "cat": "業務改善", "lv": 5}, {"q": "清掃の品質を維持するために最も効果的な方法は？", "o": ["気づいた時にやる", "チェックリスト化し担当と時間を決めてルーティン化する", "業者に任せる", "お客様がいない時だけ"], "a": "チェックリスト化し担当と時間を決めてルーティン化する", "cat": "業務改善", "lv": 5}, {"q": "POS端末が故障した場合の緊急対応は？", "o": ["営業を停止する", "手書き伝票で受付を続行し、システム復旧後に入力する", "お客様を帰す", "翌日まで待つ"], "a": "手書き伝票で受付を続行し、システム復旧後に入力する", "cat": "業務改善", "lv": 5}, {"q": "1日の修理件数が目標に達しない日が続く場合、まず分析すべきことは？", "o": ["スタッフを叱る", "問い合わせ数→来店率→修理率のファネル分析", "天気のせいにする", "目標を下げる"], "a": "問い合わせ数→来店率→修理率のファネル分析", "cat": "業務改善", "lv": 5}, {"q": "修理依頼が集中する時間帯への対策として適切なのは？", "o": ["断る", "予約制を活用してピーク分散し、ピーク時はスタッフを増員", "何もしない", "営業時間を短縮"], "a": "予約制を活用してピーク分散し、ピーク時はスタッフを増員", "cat": "業務改善", "lv": 5}, {"q": "端末の取り違え（別のお客様に渡してしまう）を防ぐ方法は？", "o": ["記憶で管理", "受付番号制を導入し、引渡し時に本人確認する", "お客様任せ", "気をつけるだけ"], "a": "受付番号制を導入し、引渡し時に本人確認する", "cat": "業務改善", "lv": 5}, {"q": "新人スタッフが一人で店番をする際に最低限確認すべきことは？", "o": ["特になし", "緊急連絡先・受付手順・修理可否判断基準・レジ操作", "レジ操作のみ", "修理技術のみ"], "a": "緊急連絡先・受付手順・修理可否判断基準・レジ操作", "cat": "業務改善", "lv": 5}, {"q": "エアコンの設定温度管理が重要な理由は？", "o": ["電気代削減のみ", "お客様の快適性と部品保管の品質管理の両方", "見た目の問題", "特に理由なし"], "a": "お客様の快適性と部品保管の品質管理の両方", "cat": "業務改善", "lv": 5}, {"q": "営業日報の提出が遅れることの最大のデメリットは？", "o": ["特にない", "問題の早期発見・対策が遅れ、売上機会を逃す", "上司に怒られる", "ペナルティだけ"], "a": "問題の早期発見・対策が遅れ、売上機会を逃す", "cat": "業務改善", "lv": 5}, {"q": "開店作業で最初にすべきことは？", "o": ["レジ開設", "店内の安全確認と清掃", "修理受付開始", "看板設置"], "a": "店内の安全確認と清掃", "cat": "開閉店", "lv": 1}, {"q": "閉店作業で必ず確認すべきことは？", "o": ["SNS投稿", "レジ締め・売上報告・施錠", "翌日の予約", "在庫発注"], "a": "レジ締め・売上報告・施錠", "cat": "開閉店", "lv": 1}, {"q": "レジの現金過不足が発覚した場合の対応は？", "o": ["黙っている", "速やかに上長に報告する", "自分で補填する", "翌日確認"], "a": "速やかに上長に報告する", "cat": "レジ業務", "lv": 1}, {"q": "お客様の個人情報の取り扱いで正しいのは？", "o": ["メモに書いて持ち帰る", "業務目的以外では使用・閲覧しない", "同僚に共有", "SNSに投稿"], "a": "業務目的以外では使用・閲覧しない", "cat": "情報管理", "lv": 1}, {"q": "日報の提出タイミングは？", "o": ["翌日", "閉店後速やかに当日中", "週末まとめて", "月末"], "a": "閉店後速やかに当日中", "cat": "報告業務", "lv": 1}, {"q": "店内清掃で特に重視すべき場所は？", "o": ["バックヤードのみ", "お客様の目に入る受付カウンターと待合スペース", "トイレのみ", "倉庫"], "a": "お客様の目に入る受付カウンターと待合スペース", "cat": "開閉店", "lv": 1}, {"q": "修理受付伝票に必ず記載すべき項目は？", "o": ["お客様の趣味", "端末情報・故障内容・お客様連絡先・受付日時", "天気", "スタッフの感想"], "a": "端末情報・故障内容・お客様連絡先・受付日時", "cat": "受付業務", "lv": 1}, {"q": "在庫の確認頻度として適切なのは？", "o": ["年1回", "毎日の棚卸し確認", "月1回", "半年に1回"], "a": "毎日の棚卸し確認", "cat": "在庫管理", "lv": 1}, {"q": "ジョブカンでの勤怠打刻を忘れた場合は？", "o": ["放置する", "速やかにブロック長に報告し修正申請する", "翌日に打刻", "同僚に頼む"], "a": "速やかにブロック長に報告し修正申請する", "cat": "勤怠管理", "lv": 2}, {"q": "残業が必要な場合の正しい手順は？", "o": ["勝手に残業する", "事前にブロック長の承認を得てジョブカンで残業申請", "事後報告", "申請不要"], "a": "事前にブロック長の承認を得てジョブカンで残業申請", "cat": "勤怠管理", "lv": 2}, {"q": "エアレジの売上データを確認する理由は？", "o": ["趣味", "日次の売上実績を把握し報告するため", "不要", "上司に言われたから"], "a": "日次の売上実績を把握し報告するため", "cat": "レジ業務", "lv": 2}, {"q": "パーツの発注タイミングとして適切なのは？", "o": ["なくなってから", "在庫が一定数以下になったら事前に発注", "年1回まとめて", "お客様が来てから"], "a": "在庫が一定数以下になったら事前に発注", "cat": "在庫管理", "lv": 2}, {"q": "GMB（Googleマイビジネス）投稿の目的は？", "o": ["趣味", "集客・MEO対策・店舗の認知度向上", "不要", "個人のSNS"], "a": "集客・MEO対策・店舗の認知度向上", "cat": "集客業務", "lv": 2}]];
+
+var DIFF_CFG=[
+  {key:"training",label:"研修",n:10,color:"#6b7280",bg:"#f9fafb"},
+  {key:"beginner",label:"初級",n:10,color:"#16a34a",bg:"#f0fdf4"},
+  {key:"intermediate",label:"中級",n:15,color:"#2563eb",bg:"#eff6ff"},
+  {key:"advanced",label:"上級",n:20,color:"#dc2626",bg:"#fef2f2"},
+  {key:"expert",label:"超級",n:20,color:"#7c3aed",bg:"#faf5ff"}
+];
+
+var S={screen:"home",qs:[],cur:0,ans:[],sel:null,fb:false,tm:0,hist:[],diff:0,name:"",ss:""};
+var ti=null;
+
+function lh(){try{return JSON.parse(localStorage.getItem(SK+"-h"))||[];}catch(e){return[];}}
+function sh(h){try{localStorage.setItem(SK+"-h",JSON.stringify(h));}catch(e){}}
+function _ln(){try{return localStorage.getItem(SK+"-n")||"";}catch(e){return"";}}
+function _sn(n){try{localStorage.setItem(SK+"-n",n);}catch(e){}}
+
+function sub(r){
+  if(!SCRIPT_URL){S.ss="no-url";R();return;}
+  S.ss="sending";R();
+  var dc=DIFF_CFG[r.diff];
+  var p={name:S.name,date:r.date,score:r.score,correct:r.correct,total:r.total,passed:r.passed,quiz:TITLE,
+    difficulty:dc?dc.label:"",
+    answers:r.ans.map(function(a){return{category:a.q.cat||"",question:a.q.q,selected:a.sel,answer:a.q.a,correct:a.ok,time:a.tm};})
+  };
+  fetch(SCRIPT_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain"},body:JSON.stringify(p)})
+    .then(function(){S.ss="ok";R();})
+    .catch(function(){S.ss="fail";R();});
+}
+
+// Filter by level, shuffle, pick n. Answers also shuffled.
+function gq(diffIdx){
+  var cfg=DIFF_CFG[diffIdx];
+  var lv=diffIdx+1;
+  // For higher levels, include questions from lower levels too
+  var pool=QS.filter(function(q){return q.lv<=lv;});
+  pool.sort(function(){return Math.random()-0.5;});
+  // Prioritize current level questions
+  var thisLv=pool.filter(function(q){return q.lv===lv;});
+  var lowerLv=pool.filter(function(q){return q.lv<lv;});
+  thisLv.sort(function(){return Math.random()-0.5;});
+  lowerLv.sort(function(){return Math.random()-0.5;});
+  var merged=thisLv.concat(lowerLv).slice(0,cfg.n);
+  merged.sort(function(){return Math.random()-0.5;});
+  // Shuffle answer options for each question
+  return merged.map(function(q){
+    var oidx=q.o.map(function(o,i){return{o:o,i:i};});
+    oidx.sort(function(){return Math.random()-0.5;});
+    return{q:q.q,o:oidx.map(function(x){return x.o;}),a:q.a,cat:q.cat,lv:q.lv};
+  });
+}
+
+function stm(){clearInterval(ti);S.tm=0;ti=setInterval(function(){S.tm++;var e=document.getElementById("tm");if(e){var t=S.tm;e.style.background=t>20?"#fef2f2":t>10?"#fffbeb":"#f0fdf4";e.style.color=t>20?"#dc2626":t>10?"#d97706":"#16a34a";e.textContent="⏱ "+t+"秒";}},1000);}
+function st(){clearInterval(ti);}
+
+function setN(){var e=document.getElementById("ni");if(e&&e.value.trim()){S.name=e.value.trim();_sn(S.name);R();}}
+function edN(){S.name="";R();setTimeout(function(){var e=document.getElementById("ni");if(e)e.focus();},50);}
+
+function go(di){
+  if(!S.name){alert("名前を入力してください");return;}
+  S.diff=di;S.qs=gq(di);S.cur=0;S.ans=[];S.sel=null;S.fb=false;S.tm=0;S.ss="";S.screen="quiz";R();stm();
+}
+
+function ans(idx){if(S.fb)return;var q=S.qs[S.cur];var o=q.o[idx];S.sel=o;S.fb=true;st();var ok=(o===q.a);S.ans.push({q:q,sel:o,ok:ok,tm:S.tm});R();setTimeout(function(){if(S.cur<S.qs.length-1){S.cur++;S.sel=null;S.fb=false;S.tm=0;R();stm();}else{fin();}},ok?800:2200);}
+function fin(){st();var c=S.ans.filter(function(a){return a.ok;}).length;var s=Math.round(c/S.ans.length*100);var rec={date:new Date().toLocaleString("ja-JP"),score:s,total:S.ans.length,correct:c,passed:s>=PASS,diff:S.diff,ans:S.ans,name:S.name};S.hist=[rec].concat(S.hist).slice(0,50);sh(S.hist);S.screen="result";R();sub(rec);}
+function hm(){st();S.screen="home";R();}
+function hs(){S.screen="history";R();}
+function rs(){if(confirm("全履歴を削除しますか？")){S.hist=[];sh([]);R();}}
+function qt(){if(confirm("テストを中断しますか？"))hm();}
+
+function R(){
+  var a=document.getElementById("app");
+  switch(S.screen){
+    case "home":a.innerHTML=rH();break;
+    case "quiz":a.innerHTML=rQ();break;
+    case "result":a.innerHTML=rR();break;
+    case "history":a.innerHTML=rHi();break;
+  }
+}
+
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+
+function rH(){
+  var cn=SCRIPT_URL?'<div class="cn co">● Spreadsheet連携ON</div>':'<div class="cn cf">● オフライン</div>';
+  var nm;
+  if(S.name){
+    nm='<div class="ns">👤 '+esc(S.name)+' さん<button class="ne" onclick="edN()">変更</button></div>';
+  } else {
+    nm='<div style="display:flex;gap:8px"><input class="ni" id="ni" placeholder="名前を入力"><button style="padding:8px 16px;border-radius:10px;border:none;background:'+CM+';color:#fff;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap" onclick="setN()">決定</button></div>';
+  }
+  var dc=S.name?"":"off";
+  var btns="";
+  for(var i=0;i<DIFF_CFG.length;i++){
+    var d=DIFF_CFG[i];
+    btns+='<button class="db '+dc+'" style="border-color:'+d.color+';background:'+d.bg+'" onclick="go('+i+')"><div style="display:flex;align-items:center"><span class="dg" style="background:'+d.color+'">'+d.label+'</span><span style="font-size:13px;color:#475569;margin-left:10px">'+d.n+'問</span></div><span style="font-size:18px;color:'+d.color+'">→</span></button>';
+  }
+  var mi="";
+  if(S.hist.length>0){
+    var ms="";
+    for(var i=0;i<Math.min(5,S.hist.length);i++){
+      var r=S.hist[i];var bg=r.passed?"#f0fdf4":"#fef2f2";var bc=r.passed?"#bbf7d0":"#fecaca";var sc=r.passed?"#16a34a":"#dc2626";
+      var ds=(r.date.split(" ")[0]||"").split("/").slice(1).join("/");
+      ms+='<div class="mi" style="background:'+bg+';border-color:'+bc+'"><div style="font-size:18px;font-weight:800;color:'+sc+'">'+r.score+'%</div><div style="font-size:9px;color:#94a3b8">'+ds+'</div></div>';
+    }
+    mi='<div class="card"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><span style="font-size:13px;font-weight:700;color:#1b2a4a">最近の結果</span><button class="lb" onclick="hs()">履歴 →</button></div><div class="mr">'+ms+'</div></div>';
+  }
+  return '<div class="header"><div style="font-size:11px;font-weight:700;color:'+CM+';letter-spacing:2px">'+TAG+'</div>'
+    +'<h1 style="font-size:34px;font-weight:900;color:#fff;margin:8px 0 0;line-height:1.2">'+TITLE+'</h1>'
+    +'<div style="font-size:13px;color:#94a3b8;margin-top:8px">全'+QS.length+'問から出題</div>'+cn+'</div>'
+    +'<div class="body"><div class="card"><div class="card-title">受験者名</div>'+nm+'</div>'
+    +'<div class="card"><div class="card-title">難易度を選択</div>'+btns+'</div>'+mi
+    +'<div class="card card-dark"><div style="font-size:12px;font-weight:700;color:'+CM+';margin-bottom:6px">合格ライン</div>'
+    +'<div style="font-size:28px;font-weight:800;color:#fff">'+PASS+'%<span style="font-size:14px;color:#94a3b8;margin-left:8px">以上で合格</span></div></div></div>';
+}
+
+function rQ(){
+  var q=S.qs[S.cur];var pr=(S.cur/S.qs.length*100).toFixed(0);
+  var op="";
+  for(var i=0;i<q.o.length;i++){
+    var o=q.o[i];var c="ob";var r="";
+    if(S.fb){
+      if(o===q.a){c+=" ok";r='<span style="font-size:18px;margin-left:auto">✓</span>';}
+      else if(o===S.sel){c+=" ng";r='<span style="font-size:18px;margin-left:auto">✗</span>';}
+      else{c+=" fd";}
+      c+=" off";
+    }
+    op+='<button class="'+c+'" onclick="ans('+i+')"><span class="ol">'+String.fromCharCode(65+i)+'</span><span style="flex:1;text-align:left">'+esc(o)+'</span>'+r+'</button>';
+  }
+  var fb="";
+  if(S.fb&&S.sel!==q.a){fb='<div class="fb"><div style="font-weight:700;color:#dc2626;font-size:13px">不正解</div><div style="font-size:12px;color:#64748b">正解：'+esc(q.a)+'</div></div>';}
+  return '<div class="qt"><button class="cb" onclick="qt()">✕</button><div class="pw"><div class="pb" style="width:'+pr+'%"></div></div><div class="qc">'+(S.cur+1)+'/'+S.qs.length+'</div></div>'
+    +'<div class="tr"><div class="tb" id="tm" style="background:#f0fdf4;color:#16a34a">⏱ 0秒</div></div>'
+    +'<div class="qa"><div class="tt">'+(q.cat||"")+'</div><h2 class="qx">'+esc(q.q)+'</h2></div>'
+    +'<div class="os">'+op+'</div>'+fb;
+}
+
+function rR(){
+  var r=S.hist[0];if(!r)return"";
+  var ss="";
+  if(S.ss==="sending")ss='<div class="ss sn">📡 送信中...</div>';
+  else if(S.ss==="ok")ss='<div class="ss so">✅ 記録済み</div>';
+  else if(S.ss==="fail")ss='<div class="ss sf">⚠ 送信失敗</div>';
+  else if(S.ss==="no-url")ss='<div class="ss sf">未接続</div>';
+
+  var wt={};
+  for(var i=0;i<r.ans.length;i++){var a=r.ans[i];var t=a.q.cat||"その他";if(!wt[t])wt[t]={t:0,w:0};wt[t].t++;if(!a.ok)wt[t].w++;}
+  var wl=Object.keys(wt).filter(function(k){return wt[k].w>0;}).sort(function(a,b){return wt[b].w-wt[a].w;});
+  var wh="";
+  if(wl.length>0){
+    wh='<div class="card"><div class="card-title">苦手分野</div>';
+    for(var i=0;i<wl.length;i++){var t=wl[i];wh+='<div class="wr"><span style="font-size:12px;color:#475569">'+esc(t)+'</span><span style="font-size:12px;font-weight:700;color:#dc2626">'+wt[t].w+'問ミス/'+wt[t].t+'問</span></div>';}
+    wh+='</div>';
+  }
+  var wr=r.ans.filter(function(a){return!a.ok;});
+  var wrh="";
+  if(wr.length===0){wrh='<div style="font-size:12px;color:#16a34a;font-weight:600">全問正解！ 🎉</div>';}
+  else{for(var i=0;i<wr.length;i++){var a=wr[i];wrh+='<div class="wi"><div style="font-size:11px;color:#dc2626;font-weight:700">Q. '+esc(a.q.q)+'</div><div style="font-size:11px;color:#64748b;margin-top:2px">回答：<span style="color:#dc2626;font-weight:600">'+esc(a.sel)+'</span>　正解：<span style="color:#16a34a;font-weight:600">'+esc(a.q.a)+'</span></div></div>';}}
+  var dc=DIFF_CFG[r.diff];var dl=dc?dc.label:"";
+  return '<div class="rh '+(r.passed?"ps":"fl")+'">'
+    +'<div style="font-size:48px">'+(r.passed?"🎉":"📝")+'</div>'
+    +'<div style="font-size:14px;color:rgba(255,255,255,0.8);font-weight:600">'+(r.passed?"合格！":"不合格")+'</div>'
+    +'<div style="font-size:56px;font-weight:800;color:#fff;line-height:1">'+r.score+'%</div>'
+    +'<div style="font-size:13px;color:rgba(255,255,255,0.7);margin-top:4px">'+r.correct+'/'+r.total+'問（'+dl+'）- '+esc(r.name)+'</div>'+ss+'</div>'
+    +'<div class="body" style="padding-top:16px">'+wh
+    +'<div class="card"><div class="card-title">'+(wr.length>0?"間違えた問題":"結果")+'</div>'+wrh+'</div>'
+    +'<div class="br"><button class="p1" onclick="go('+r.diff+')">もう一度</button><button class="p2" onclick="hm()">ホーム</button></div></div>';
+}
+
+function rHi(){
+  var h=S.hist;
+  if(!h.length)return '<div class="hh"><button class="bb" onclick="hm()">← 戻る</button><h2 style="font-size:18px;font-weight:800;color:#1b2a4a">履歴</h2></div><div class="body" style="text-align:center;padding:40px;color:#94a3b8">記録なし</div>';
+  var mx=0;var pc=0;
+  for(var i=0;i<h.length;i++){if(h[i].score>mx)mx=h[i].score;if(h[i].passed)pc++;}
+  var items="";
+  for(var i=0;i<h.length;i++){
+    var r=h[i];var dc=DIFF_CFG[r.diff];var dl=dc?dc.label:"";
+    items+='<div class="card" style="padding:0"><div class="hi"><div class="hs" style="background:'+(r.passed?"#f0fdf4":"#fef2f2")+'"><span style="font-size:20px;font-weight:800;color:'+(r.passed?"#16a34a":"#dc2626")+'">'+r.score+'</span></div>'
+      +'<div style="flex:1"><div style="font-size:13px;font-weight:700;color:#1b2a4a">'+(r.passed?"合格":"不合格")+' '+r.correct+'/'+r.total+' ('+dl+')'+(r.name?" - "+esc(r.name):"")+'</div>'
+      +'<div style="font-size:11px;color:#94a3b8">'+r.date+'</div></div>'
+      +'<div class="pg" style="background:'+(r.passed?"#dcfce7":"#fecaca")+';color:'+(r.passed?"#166534":"#991b1b")+'">'+(r.passed?"PASS":"FAIL")+'</div></div></div>';
+  }
+  return '<div class="hh"><button class="bb" onclick="hm()">← 戻る</button><h2 style="font-size:18px;font-weight:800;color:#1b2a4a">履歴</h2></div>'
+    +'<div class="body"><div class="card card-dark"><div style="display:flex;justify-content:space-around;text-align:center">'
+    +'<div><div style="font-size:24px;font-weight:800;color:'+CM+'">'+h.length+'</div><div style="font-size:10px;color:#94a3b8">受験</div></div>'
+    +'<div><div style="font-size:24px;font-weight:800;color:#16a34a">'+pc+'</div><div style="font-size:10px;color:#94a3b8">合格</div></div>'
+    +'<div><div style="font-size:24px;font-weight:800;color:#fff">'+mx+'%</div><div style="font-size:10px;color:#94a3b8">最高</div></div>'
+    +'</div></div>'+items+'<button class="rb" onclick="rs()">履歴リセット</button></div>';
+}
+
+document.addEventListener("keydown",function(e){if(e.key==="Enter"){var ni=document.getElementById("ni");if(ni&&document.activeElement===ni)setN();}});
+S.hist=lh();S.name=_ln();R();
+</script>
+</body>
+</html>

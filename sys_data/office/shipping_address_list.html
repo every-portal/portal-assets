@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>送付先一覧</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-primary: #f5f7fa;
+  --bg-card: #ffffff;
+  --bg-surface: #eef2f7;
+  --accent: #2563eb;
+  --accent-glow: rgba(37, 99, 235, 0.08);
+  --accent-bright: #6366f1;
+  --green: #059669;
+  --amber: #d97706;
+  --rose: #e11d48;
+  --purple: #a855f7;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-dim: #94a3b8;
+  --border: #e5e7eb;
+  --border-accent: rgba(37, 99, 235, 0.25);
+  --radius: 16px;
+  --radius-sm: 10px;
+  --shadow: 0 4px 24px rgba(0,0,0,0.06);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-primary: #0f1117;
+    --bg-card: #1e2130;
+    --bg-surface: #161922;
+    --accent: #4f8fff;
+    --accent-glow: rgba(79, 143, 255, 0.12);
+    --accent-bright: #818cf8;
+    --green: #34d399;
+    --amber: #fbbf24;
+    --rose: #fb7185;
+    --purple: #c084fc;
+    --text-primary: #e8eaf0;
+    --text-secondary: #9ba3b5;
+    --text-dim: #5d6578;
+    --border: #2a2e3d;
+    --border-accent: rgba(79, 143, 255, 0.3);
+    --shadow: 0 4px 24px rgba(0,0,0,0.3);
+  }
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+}
+.manual-container {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 32px 24px 80px;
+}
+.manual-header {
+  text-align: center;
+  margin-bottom: 36px;
+}
+.manual-header h1 {
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+.manual-header p {
+  font-size: 13px;
+  color: var(--text-dim);
+}
+
+/* カード */
+.addr-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  transition: border-color 0.2s;
+}
+.addr-card:hover {
+  border-color: var(--border-accent);
+}
+.addr-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.addr-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.addr-icon.ipad { background: rgba(37, 99, 235, 0.1); }
+.addr-icon.android { background: rgba(5, 150, 105, 0.1); }
+.addr-icon.ipod { background: rgba(168, 85, 247, 0.1); }
+.addr-icon.board { background: rgba(225, 29, 72, 0.1); }
+.addr-icon.parts { background: rgba(217, 119, 6, 0.1); }
+.addr-icon.battery { background: rgba(100, 116, 139, 0.1); }
+.addr-icon.hq { background: rgba(99, 102, 241, 0.1); }
+
+.addr-name {
+  font-size: 16px;
+  font-weight: 700;
+}
+.addr-tel {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.addr-body {
+  padding-left: 56px;
+}
+.addr-zip {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--text-dim);
+  font-weight: 500;
+}
+.addr-address {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+}
+.addr-scope {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 14px;
+  border-radius: 20px;
+  background: var(--accent-glow);
+  color: var(--accent);
+  margin-bottom: 4px;
+  margin-right: 4px;
+}
+.addr-scope.green { background: rgba(5, 150, 105, 0.08); color: var(--green); }
+.addr-scope.purple { background: rgba(168, 85, 247, 0.08); color: var(--purple); }
+.addr-scope.rose { background: rgba(225, 29, 72, 0.08); color: var(--rose); }
+.addr-scope.amber { background: rgba(217, 119, 6, 0.08); color: var(--amber); }
+
+.addr-note {
+  margin-top: 10px;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  background: rgba(217, 119, 6, 0.06);
+  border: 1px solid rgba(217, 119, 6, 0.15);
+  font-size: 12px;
+  color: var(--amber);
+  font-weight: 500;
+  line-height: 1.7;
+}
+.addr-note strong { font-weight: 700; }
+</style>
+</head>
+<body>
+<div class="manual-container">
+
+  <div class="manual-header">
+    <h1>📦 送付先一覧</h1>
+    <p>修理品・廃バッテリー等の送付先住所一覧</p>
+  </div>
+
+  <!-- 1. 調布駅前店 -->
+  <div class="addr-card">
+    <div class="addr-header">
+      <div class="addr-icon ipad">📱</div>
+      <div>
+        <div class="addr-name">調布駅前店</div>
+        <div class="addr-tel">0120-586-765</div>
+      </div>
+    </div>
+    <div class="addr-body">
+      <div class="addr-zip">〒182-0026</div>
+      <div class="addr-address">東京都調布市小島町2-51-3 ロイヤルプラザ1F</div>
+      <span class="addr-scope">iPad mini シリーズ</span>
+      <span class="addr-scope">iPad Air 2以降 画面修理</span>
+      <span class="addr-scope">画面修理＋バッテリー交換</span>
+    </div>
+  </div>
+
+  <!-- 2. 仙台駅前店 -->
+  <div class="addr-card">
+    <div class="addr-header">
+      <div class="addr-icon android">🔧</div>
+      <div>
+        <div class="addr-name">仙台駅前店</div>
+        <div class="addr-tel">0120-847-730</div>
+      </div>
+    </div>
+    <div class="addr-body">
+      <div class="addr-zip">〒980-0021</div>
+      <div class="addr-address">宮城県仙台市青葉区中央2丁目6-1 山口ビル</div>
+      <span class="addr-scope">iPad 2〜9 画面修理</span>
+      <span class="addr-scope">iPad Air</span>
+      <span class="addr-scope">iPad Pro</span>
+      <span class="addr-scope">画面＋バッテリー交換</span>
+      <span class="addr-scope green">Android</span>
+      <span class="addr-scope green">Switch</span>
+      <div class="addr-note">
+        ⚠️ <strong>iPad Proシリーズ</strong>は画面＋バッテリーの場合、先に基盤修理センターにバッテリー交換を依頼後、仙台フォーラス店に送るよう記載すること。
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. ルミネ新宿店 -->
+  <div class="addr-card">
+    <div class="addr-header">
+      <div class="addr-icon ipod">🎵</div>
+      <div>
+        <div class="addr-name">ルミネ新宿店</div>
+        <div class="addr-tel">03-6258-1860</div>
+      </div>
+    </div>
+    <div class="addr-body">
+      <div class="addr-zip">〒160-0023</div>
+      <div class="addr-address">東京都新宿区西新宿1丁目1-5【ルミネ1】8F</div>
+      <span class="addr-scope purple">iPod touch 5〜7 画面修理</span>
+      <span class="addr-scope purple">iPod その他機種</span>
+    </div>
+  </div>
+
+  <!-- 4. 基盤修理研修センター -->
+  <div class="addr-card">
+    <div class="addr-header">
+      <div class="addr-icon board">🔬</div>
+      <div>
+        <div class="addr-name">iPhone基盤修理研修センター</div>
+        <div class="addr-tel">090-1286-7442</div>
+      </div>
+    </div>
+    <div class="addr-body">
+      <div class="addr-zip">〒456-0051</div>
+      <div class="addr-address">愛知県名古屋市熱田区四番1-10-26</div>
+      <span class="addr-scope rose">iPhone 基盤修理</span>
+      <span class="addr-scope rose">iPad 基盤修理</span>
+      <span class="addr-scope rose">Nintendo Switch 基盤修理</span>
+    </div>
+  </div>
+
+  <!-- 5. FYL（iPad等修理） -->
+  <div class="addr-card">
+    <div class="addr-header">
+      <div class="addr-icon parts">🛠️</div>
+      <div>
+        <div class="addr-name">FYL 株式会社（iPad等修理発送先）</div>
+        <div class="addr-tel">080-7448-8999</div>
+      </div>
+    </div>
+    <div class="addr-body">
+      <div class="addr-zip">〒101-0021</div>
+      <div class="addr-address">東京都千代田区外神田5-1-5 ACN秋葉原Place 2階</div>
+      <span class="addr-scope amber">iPad バッテリー単品</span>
+      <span class="addr-scope amber">ケーブル等スモールパーツ交換</span>
+    </div>
+  </div>
+
+  <!-- 6. FYL（廃バッテリー） -->
+  <div class="addr-card">
+    <div class="addr-header">
+      <div class="addr-icon battery">🔋</div>
+      <div>
+        <div class="addr-name">FYL 株式会社（廃バッテリー発送先）</div>
+        <div class="addr-tel">080-7725-4499</div>
+      </div>
+    </div>
+    <div class="addr-body">
+      <div class="addr-zip">〒116-0013</div>
+      <div class="addr-address">東京都荒川区西日暮里4-16-3 ファミールカワセ101　<strong>徐国志 宛</strong></div>
+      <span class="addr-scope">廃バッテリー発送</span>
+      <div class="addr-note">
+        ⚠️ <strong>廃バッテリー100枚以上</strong>で送付（着払い）<br>
+        ⚠️ 都心エリアは回収に回る場合があるので、来た時は<strong>1枚でも渡す</strong>こと。
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. every -->
+  <div class="addr-card">
+    <div class="addr-header">
+      <div class="addr-icon hq">🏢</div>
+      <div>
+        <div class="addr-name">株式会社every（本社）</div>
+        <div class="addr-tel">042-707-0465</div>
+      </div>
+    </div>
+    <div class="addr-body">
+      <div class="addr-zip">〒252-0231</div>
+      <div class="addr-address">神奈川県相模原市中央区相模原1-2-1 MKビル1F</div>
+      <span class="addr-scope">月末発送物</span>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>画面割れ 軽度・重度 判定フローチャート</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-primary:#f5f7fa;--bg-card:#ffffff;--bg-surface:#eef2f7;
+  --accent:#2563eb;--accent-glow:rgba(37,99,235,0.08);--accent-bright:#6366f1;
+  --green:#059669;--amber:#d97706;--rose:#e11d48;--purple:#a855f7;--teal:#14b8a6;
+  --text-primary:#0f172a;--text-secondary:#475569;--text-dim:#94a3b8;
+  --border:#e2e5ea;--border-accent:rgba(37,99,235,0.25);
+  --radius:16px;--radius-sm:10px;
+  --shadow:0 4px 24px rgba(0,0,0,0.06);--transition:0.3s cubic-bezier(0.4,0,0.2,1);
+}
+@media(prefers-color-scheme:dark){:root{
+  --bg-primary:#0f1117;--bg-card:#1a1d2b;--bg-surface:#161922;
+  --accent:#4f8fff;--accent-glow:rgba(79,143,255,0.10);--accent-bright:#818cf8;
+  --green:#34d399;--amber:#fbbf24;--rose:#fb7185;--purple:#c084fc;--teal:#2dd4bf;
+  --text-primary:#e8eaf0;--text-secondary:#9ba3b5;--text-dim:#5d6578;
+  --border:#262a3a;--border-accent:rgba(79,143,255,0.3);
+  --shadow:0 4px 24px rgba(0,0,0,0.35);
+}}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--bg-primary);color:var(--text-primary);line-height:1.8;-webkit-font-smoothing:antialiased;}
+.mc{max-width:820px;margin:0 auto;padding:32px 24px 80px;}
+
+/* Header */
+.hdr{text-align:center;margin-bottom:32px;}
+.hdr-icon{width:72px;height:72px;background:linear-gradient(135deg,var(--rose),var(--amber));border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 14px;box-shadow:0 8px 24px rgba(225,29,72,0.18);}
+.hdr h1{font-size:22px;font-weight:800;margin-bottom:4px;letter-spacing:-0.01em;}
+.hdr p{font-size:13px;color:var(--text-secondary);max-width:520px;margin:0 auto;}
+.hdr-meta{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:10px;}
+.hdr-meta span{font-size:11px;color:var(--text-dim);font-weight:500;}
+.hdr-meta strong{color:var(--text-secondary);}
+.tag{display:inline-block;font-size:10px;font-weight:600;padding:2px 10px;border-radius:20px;}
+.tag.warn{background:rgba(225,29,72,0.08);color:var(--rose);}
+.tag.info{background:var(--accent-glow);color:var(--accent);}
+
+/* Hero image */
+.hero-img{margin:0 -8px 28px;text-align:center;}
+.hero-img img{width:100%;max-width:780px;border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow);}
+
+/* Sticky nav */
+.tab-nav{display:flex;gap:5px;margin-bottom:20px;flex-wrap:wrap;position:sticky;top:0;z-index:20;background:var(--bg-primary);padding:10px 0 12px;border-bottom:1px solid var(--border);}
+@supports(backdrop-filter:blur(12px)){
+  .tab-nav{background:color-mix(in srgb,var(--bg-primary) 85%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}
+}
+.tab-btn{padding:8px 16px;border-radius:9px;border:1px solid var(--border);background:var(--bg-card);font-size:12.5px;font-weight:600;font-family:inherit;color:var(--text-secondary);cursor:pointer;transition:all var(--transition);white-space:nowrap;}
+.tab-btn:hover{border-color:var(--accent);color:var(--accent);}
+.tab-btn.active{background:var(--accent);color:#fff;border-color:var(--accent);box-shadow:0 2px 8px rgba(37,99,235,0.25);}
+
+/* Tabs */
+.tab{display:none;}
+.tab.active{display:block;animation:fadeIn .25s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+
+/* Section title */
+.stitle{font-size:16px;font-weight:700;display:flex;align-items:center;gap:10px;margin:0 0 14px;}
+.stitle::before{content:'';width:4px;height:18px;background:var(--accent);border-radius:2px;flex-shrink:0;}
+.stitle.red::before{background:var(--rose);}
+.stitle.green::before{background:var(--green);}
+
+/* Visual section */
+.vis{margin:18px 0 20px;text-align:center;}
+.vis img{max-width:100%;border-radius:14px;border:1px solid var(--border);box-shadow:0 2px 16px rgba(0,0,0,0.05);}
+.vis figcaption{font-size:11px;color:var(--text-dim);margin-top:6px;font-weight:500;}
+
+/* Cards */
+.card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:14px;transition:border-color var(--transition),box-shadow var(--transition);}
+.card:hover{border-color:var(--border-accent);box-shadow:var(--shadow);}
+.card-title{font-size:15px;font-weight:800;margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+.card-feat{display:flex;align-items:flex-start;gap:7px;font-size:12.5px;line-height:1.7;margin-bottom:3px;}
+.card-feat::before{content:'•';color:var(--accent);font-weight:700;flex-shrink:0;margin-top:1px;}
+.card-feat.red::before{color:var(--rose);}
+
+/* Severity badges */
+.badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;padding:3px 10px;border-radius:6px;letter-spacing:0.02em;}
+.badge.severe{background:rgba(225,29,72,0.10);color:var(--rose);border:1px solid rgba(225,29,72,0.2);}
+.badge.mild{background:rgba(5,150,105,0.10);color:var(--green);border:1px solid rgba(5,150,105,0.2);}
+
+/* Rule callout */
+.rule{background:linear-gradient(135deg,rgba(225,29,72,0.05),rgba(217,119,6,0.05));border:1px solid rgba(225,29,72,0.15);border-radius:var(--radius);padding:18px 20px;margin:20px 0;font-size:13px;line-height:1.7;}
+.rule-title{font-size:14px;font-weight:800;color:var(--rose);margin-bottom:6px;}
+
+/* Quick ref table */
+.qr-table{width:100%;border-collapse:collapse;font-size:12.5px;margin:16px 0;}
+.qr-table th{background:var(--bg-surface);font-weight:700;padding:10px 14px;text-align:left;border-bottom:2px solid var(--border);}
+.qr-table td{padding:10px 14px;border-bottom:1px solid var(--border);}
+.qr-table tr:last-child td{border-bottom:2px solid var(--border);}
+.qr-table .sev{font-weight:800;text-align:center;}
+.qr-table .sev.r{color:var(--rose);}
+.qr-table .sev.g{color:var(--green);}
+
+/* Checkpoint number */
+.cp-num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:8px;font-size:13px;font-weight:800;color:#fff;flex-shrink:0;}
+.cp-num.n1{background:var(--accent);}
+.cp-num.n2{background:var(--rose);}
+.cp-num.n3{background:var(--amber);}
+.cp-num.n4{background:var(--purple);}
+
+/* Divider */
+.divider{height:1px;background:var(--border);margin:28px 0 24px;opacity:0.6;}
+
+/* Tip */
+.tip{font-size:11px;color:var(--amber);font-weight:600;margin-top:8px;padding:6px 10px;background:rgba(217,119,6,0.06);border-radius:8px;border-left:3px solid var(--amber);line-height:1.6;}
+
+/* Footer */
+.footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--border);text-align:center;font-size:11px;color:var(--text-dim);}
+
+@media(max-width:600px){
+  .mc{padding:16px 14px 60px;}
+  .tab-nav{gap:4px;}
+  .tab-btn{padding:7px 10px;font-size:11.5px;}
+  .hero-img{margin:0 -4px 20px;}
+  .qr-table{font-size:11px;}
+  .qr-table th,.qr-table td{padding:8px 10px;}
+}
+@media print{
+  body{background:#fff;}
+  .tab{display:block!important;}
+  .tab-nav{display:none;}
+  .card{break-inside:avoid;box-shadow:none;}
+}
+</style>
+</head>
+<body>
+<div class="mc">
+
+  <!-- Header -->
+  <div class="hdr">
+    <div class="hdr-icon">🔍</div>
+    <h1>画面割れ 軽度・重度 判定フローチャート</h1>
+    <p>消去法による診断プロセス — ひとつでも該当すれば「重度」<br>受付時の画面損傷査定を標準化するためのマニュアル</p>
+    <div class="hdr-meta">
+      <span>👥 <strong>対象</strong> 全スタッフ</span>
+      <span>🔧 <strong>分類</strong> 受付・査定</span>
+      <span class="tag warn">判定ミス厳禁</span>
+    </div>
+  </div>
+
+  <!-- Hero: フローチャート全体像 -->
+  <div class="hero-img">
+    <img src="images/flowchart_new.png" alt="診断プロセス全体像と判定の鉄則">
+  </div>
+
+  <!-- Tab Navigation -->
+  <nav class="tab-nav">
+    <button class="tab-btn active" onclick="sw('t0',this)">判定ルール</button>
+    <button class="tab-btn" onclick="sw('t1',this)">CP01 修理歴確認</button>
+    <button class="tab-btn" onclick="sw('t2',this)">CP02 液晶</button>
+    <button class="tab-btn" onclick="sw('t3',this)">CP03 タッチ</button>
+    <button class="tab-btn" onclick="sw('t4',this)">CP04 劣化</button>
+    <button class="tab-btn" onclick="sw('t5',this)">早見表</button>
+  </nav>
+
+  <!-- ===== TAB 0: 判定ルール ===== -->
+  <section class="tab active" id="t0">
+    <h2 class="stitle red">判定の鉄則と診断プロセス</h2>
+
+    <div class="rule">
+      <div class="rule-title">鉄則：ひとつでも該当すれば「重度」</div>
+      診断は「消去法」で行います。以下の4つのチェックポイントにおいて、<strong>一つでも異常が見られた時点</strong>で、ガラス割れ（軽度）の可能性は除外され、即座に<strong>液晶交換（重度）</strong>と判定されます。
+    </div>
+
+    <h2 class="stitle" style="margin-top:24px;">診断フロー</h2>
+    <div class="card">
+      <div class="card-feat">Checkpoint 01：<strong>修理歴確認</strong> — 外観・設定画面・お客様からのヒアリングを総合的に判断し、Apple以外の画面修理歴がないか確認</div>
+      <div class="card-feat">Checkpoint 02：<strong>液晶不良</strong> — 液晶漏れ・変色・線・水シミ・映像乱れ・映らない・電源入らない？</div>
+      <div class="card-feat">Checkpoint 03：<strong>タッチ不良</strong> — タッチが効かない箇所がある？ゴーストタッチが起きている？</div>
+      <div class="card-feat">Checkpoint 04：<strong>経年劣化</strong> — 画面焼き付き・黄色いやけ・ピンクの焼けがある？</div>
+    </div>
+
+    <div style="display:flex;gap:12px;margin-top:16px;flex-wrap:wrap;">
+      <div class="card" style="flex:1;min-width:200px;border-left:4px solid var(--rose);text-align:center;">
+        <div style="font-size:14px;font-weight:800;color:var(--rose);margin-bottom:4px;">いずれかYES</div>
+        <div class="badge severe" style="font-size:13px;padding:6px 16px;">液晶交換（重度）</div>
+      </div>
+      <div class="card" style="flex:1;min-width:200px;border-left:4px solid var(--green);text-align:center;">
+        <div style="font-size:14px;font-weight:800;color:var(--green);margin-bottom:4px;">すべてNO</div>
+        <div class="badge mild" style="font-size:13px;padding:6px 16px;">ガラス割れ（軽度）</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TAB 1: CP01 修理歴確認 ===== -->
+  <section class="tab" id="t1">
+    <h2 class="stitle">
+      <span class="cp-num n1">01</span>
+      過去の修理歴確認
+    </h2>
+
+    <div class="rule" style="margin-top:0;margin-bottom:18px;">
+      <div class="rule-title">総合判断</div>
+      <strong>外観</strong>・<strong>設定画面</strong>・<strong>お客様からのヒアリング</strong>の3つを総合的に確認し、Apple以外での画面修理歴がないか判断します。いずれか1つでも該当すれば「重度」です。
+    </div>
+
+    <figure class="vis">
+      <img src="images/cp01_repair_history.png" alt="Checkpoint 01: 修理歴の確認 — Apple以外で画面修理歴がある場合は液晶交換（重度）">
+      <figcaption>設定 → 一般 → 情報 →「不明な部品」表示があれば重度確定</figcaption>
+    </figure>
+
+    <div class="card">
+      <div class="card-title">
+        👁️ 外観で判断
+        <span class="badge severe">該当 → 重度</span>
+      </div>
+      <div class="card-feat red">画面の縁やフレームに分解痕（こじ開けた跡・傷）がある</div>
+      <div class="card-feat red">画面と本体の間に隙間・浮きがある</div>
+      <div class="card-feat red">画面の色味や明るさが純正品と明らかに異なる</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        ⚙️ 設定画面で判断
+        <span class="badge severe">該当 → 重度</span>
+      </div>
+      <div class="card-feat red">設定 → 一般 → 情報 →「部品と修理の履歴」に<strong>「不明な部品」</strong>と表示されている</div>
+      <div class="card-feat red">True Toneが使用できない（非純正パネルの可能性）</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        🗣️ お客様からのヒアリングで判断
+        <span class="badge severe">該当 → 重度</span>
+      </div>
+      <div class="card-feat red">Apple以外で画面修理をしたことがある</div>
+      <div class="card-feat red">非正規の修理店で修理した履歴がある</div>
+      <div class="card-feat red">ご自身や知人による自己修理の履歴がある</div>
+    </div>
+
+    <div class="tip">⚠️ 純正パネル以外の部品が使われている場合、状態に関わらず重度扱いとなります。外観・設定・ヒアリングのすべてを確認し、総合的に判断してください。</div>
+  </section>
+
+  <!-- ===== TAB 2: CP02 液晶不良 ===== -->
+  <section class="tab" id="t2">
+    <h2 class="stitle">
+      <span class="cp-num n2">02</span>
+      液晶の物理的異常
+    </h2>
+
+    <figure class="vis">
+      <img src="images/cp02_lcd_damage.jpg" alt="Checkpoint 02: 液晶の物理的異常">
+      <figcaption>液晶漏れ / 水シミ・変色 / 縦線・横線 — いずれかあれば重度</figcaption>
+    </figure>
+
+    <div class="card">
+      <div class="card-title">
+        見た目で判断
+        <span class="badge severe">該当 → 重度</span>
+      </div>
+      <div class="card-feat red"><strong>液晶漏れ</strong> — 黒いシミや液体が広がったような表示がある</div>
+      <div class="card-feat red"><strong>水シミ・変色</strong> — 画面内部に水の痕跡や染みが見える</div>
+      <div class="card-feat red"><strong>縦線・横線</strong> — 画面に緑・赤・白などの線が走っている</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        機能で判断
+        <span class="badge severe">該当 → 重度</span>
+      </div>
+      <div class="card-feat red"><strong>映像の乱れ</strong> — ちらつき・ノイズ・色おかしい</div>
+      <div class="card-feat red"><strong>画面が映らない</strong> — バックライトが点かない</div>
+      <div class="card-feat red"><strong>電源が入らない</strong> — 充電しても反応しない</div>
+    </div>
+
+    <figure class="vis">
+      <img src="images/cp02_display_power.jpg" alt="Checkpoint 02: 映像と電源">
+      <figcaption>映像の乱れ / ブラックアウト・起動不可 — 「ガラス割れ」ではありません → 重度</figcaption>
+    </figure>
+  </section>
+
+  <!-- ===== TAB 3: CP03 タッチ不良 ===== -->
+  <section class="tab" id="t3">
+    <h2 class="stitle">
+      <span class="cp-num n3">03</span>
+      タッチ機能の不具合
+    </h2>
+
+    <figure class="vis">
+      <img src="images/cp03_touch_issue.jpg" alt="Checkpoint 03: タッチ機能の不具合">
+      <figcaption>デッドゾーン（反応しない領域）やゴーストタッチの有無を確認</figcaption>
+    </figure>
+
+    <div class="card">
+      <div class="card-title">
+        チェック内容
+        <span class="badge severe">該当 → 重度</span>
+      </div>
+      <div class="card-feat red"><strong>タッチが効かない箇所がある</strong> — 画面の一部が反応しない（デッドゾーン）</div>
+      <div class="card-feat red"><strong>ゴーストタッチが起きている</strong> — 触れていないのに勝手に反応する</div>
+    </div>
+
+    <div class="tip">⚠️ お客様に「タッチで困っていることはありますか？」と確認。画面割れと同時にタッチ不具合が発生していることがあるので許可をいただき画面のタッチ確認する</div>
+  </section>
+
+  <!-- ===== TAB 4: CP04 経年劣化 ===== -->
+  <section class="tab" id="t4">
+    <h2 class="stitle">
+      <span class="cp-num n4">04</span>
+      経年劣化
+    </h2>
+
+    <figure class="vis">
+      <img src="images/cp04_aging.jpg" alt="Checkpoint 04: 経年劣化">
+      <figcaption>正常な画面 vs 劣化した画面（焼き付き・黄色いやけ・ピンク液晶）</figcaption>
+    </figure>
+
+    <figure class="vis">
+      <img src="images/cp04_burnin.jpg" alt="Checkpoint 04: 焼き付き拡大比較">
+      <figcaption>正常 vs 焼き付き — ホーム画面のアイコンがうっすら残っている例</figcaption>
+    </figure>
+
+    <div class="card">
+      <div class="card-title">
+        チェック内容
+        <span class="badge severe">該当 → 重度</span>
+      </div>
+      <div class="card-feat red"><strong>焼き付き</strong> — 前に表示していた画像やUIがうっすら残っている</div>
+      <div class="card-feat red"><strong>黄色いやけ</strong> — 画面全体が黄色っぽくなっている</div>
+      <div class="card-feat red"><strong>ピンク液晶</strong> — 画面全体がピンクがかっている</div>
+    </div>
+
+    <div class="tip">⚠️ 白い画面を表示して確認すると劣化が見えやすい。設定 → 白背景にして確認（ダークモードは解除する）</div>
+  </section>
+
+  <!-- ===== TAB 5: 早見表 ===== -->
+  <section class="tab" id="t5">
+    <h2 class="stitle">査定クイックリファレンス</h2>
+
+    <table class="qr-table">
+      <thead>
+        <tr><th>チェック項目</th><th>詳細症状</th><th style="text-align:center;">判定</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>修理歴確認</strong></td>
+          <td>外観の分解痕 / 設定で不明な部品 / ヒアリングで非正規修理歴</td>
+          <td class="sev r">重度</td>
+        </tr>
+        <tr>
+          <td><strong>液晶（見た目）</strong></td>
+          <td>漏れ / 変色 / 線 / 水シミ</td>
+          <td class="sev r">重度</td>
+        </tr>
+        <tr>
+          <td><strong>液晶（機能）</strong></td>
+          <td>映像乱れ / 映らない / 電源入らない</td>
+          <td class="sev r">重度</td>
+        </tr>
+        <tr>
+          <td><strong>タッチ</strong></td>
+          <td>効かない箇所 / ゴーストタッチ</td>
+          <td class="sev r">重度</td>
+        </tr>
+        <tr>
+          <td><strong>劣化</strong></td>
+          <td>焼き付き / 黄ばみ / ピンク変色</td>
+          <td class="sev r">重度</td>
+        </tr>
+        <tr style="background:rgba(5,150,105,0.04);">
+          <td><strong>上記すべて無し</strong></td>
+          <td>表面のひび割れのみ</td>
+          <td class="sev g">軽度</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </section>
+
+  <div class="footer">社内マニュアル ─ 社外秘 ｜ モバイル修理救急便</div>
+</div>
+
+<script>
+function sw(id,btn){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:document.querySelector('.tab-nav').offsetTop-8,behavior:'smooth'});
+}
+</script>
+</body>
+</html>

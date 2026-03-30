@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Win用データ復元方法</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;background:#f8fafc;color:#1e293b;line-height:1.8;padding:24px 28px 60px}
+h1{font-size:22px;font-weight:800;color:#0f172a;margin-bottom:6px;border-bottom:3px solid #2563eb;padding-bottom:10px}
+h2{font-size:16px;font-weight:700;color:#1e40af;margin:28px 0 10px;padding-left:12px;border-left:4px solid #3b82f6}
+h3{font-size:14px;font-weight:700;color:#0f172a;margin:18px 0 6px}
+p{font-size:13px;color:#475569;margin-bottom:10px}
+ul,ol{font-size:13px;padding-left:22px;margin-bottom:12px}
+li{margin-bottom:4px}
+.hero-desc{font-size:13px;color:#64748b;margin-bottom:24px}
+.card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:20px 24px;margin-bottom:16px}
+.card-title{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:8px}
+.warn{background:#fef3c7;border:1px solid #fcd34d;border-radius:8px;padding:12px 16px;font-size:13px;color:#92400e;margin:12px 0}
+.info{background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:12px 16px;font-size:13px;color:#1e40af;margin:12px 0}
+.ng{background:#fef2f2;border:1px solid #fca5a5;border-radius:8px;padding:12px 16px;font-size:13px;color:#991b1b;margin:12px 0}
+.step{display:flex;gap:12px;margin-bottom:14px;align-items:flex-start}
+.step-num{width:28px;height:28px;border-radius:50%;background:#2563eb;color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-body{flex:1;font-size:13px}
+code{background:#f1f5f9;padding:2px 6px;border-radius:4px;font-size:12px;font-family:monospace}
+</style>
+</head>
+<body>
+<h1>💻 Win用データ復元方法</h1>
+<p class="hero-desc">WindowsパソコンでiTunesを使ったバックアップの復元手順です。</p>
+
+<h2>データ復元を始める前に</h2>
+<div class="card">
+<p>データ復元を始める前にiTunesをダウンロードする必要があります。既にiTunesをダウンロードしている場合は「バックアップからデータを復元する」に進んでください。</p>
+<div class="warn">⚠️ iTunesが最新版ではない場合はエラーが起きる可能性があるので、必ずiTunesは最新の状態にアップデートをしてから行ってください。</div>
+</div>
+
+<h2>iTunesのアップデートを確認する</h2>
+<div class="card">
+<p>ダウンロードをしたのがずっと前の場合は、複数回のアップデートをするために時間がかかるので、アンインストールをして再インストールをした方が早い場合もあります。</p>
+<ul>
+<li>iTunesを起動した時に【新しいバージョンがあります。更新しますか？】と出たら【はい】を押す</li>
+<li>iTunesの右上のメニューから【ヘルプ】→【更新プログラムを確認】を押し、【アップデート】を押す</li>
+<li>マイクロソフトストアでiTunesを検索し、【更新】と出ていたら更新ボタンを押す</li>
+</ul>
+</div>
+
+<h2>iTunesをダウンロードする</h2>
+<div class="card">
+<div class="step"><div class="step-num">1</div><div class="step-body">インターネットを開き、【iTunes Windows】と検索します。</div></div>
+<div class="step"><div class="step-num">2</div><div class="step-body">検索結果に【iTunes for Windowsをダウンロードする】と出るのでクリック</div></div>
+<div class="step"><div class="step-num">3</div><div class="step-body">開いたページを下にスクロールし、【iTunes for WindowsをMicrosoft storeからダウンロードする↗】をクリック</div></div>
+<div class="step"><div class="step-num">4</div><div class="step-body">Microsoft storeのiTunesのページが開くので、【ダウンロード】をクリック</div></div>
+<div class="step"><div class="step-num">5</div><div class="step-body">右上のダウンロードをクリック → 【iTunes installer.exe】をクリック（または【ダウンロード】フォルダ）</div></div>
+<div class="step"><div class="step-num">6</div><div class="step-body">ウィンドウが開くので【インストール】を押す → 使用許諾契約を確認し【同意する】</div></div>
+<div class="step"><div class="step-num">7</div><div class="step-body">iTunesが開いたら利用規約に【同意する】→ 準備完了</div></div>
+</div>
+
+<h2>バックアップからデータを復元する</h2>
+
+<h3>① バックアップの保存先の確認</h3>
+
+<div class="card">
+<div class="card-title">■ Microsoft Store版</div>
+<p><code>C:\ユーザー\(ユーザー名)\Apple\MobileSync\Backup</code></p>
+<ol>
+<li>Cドライブ内の【ユーザー】フォルダをダブルクリック</li>
+<li>次に【自分のユーザー名】をダブルクリック（変更をしてない場合 "user"）</li>
+<li>次に【Apple】フォルダをダブルクリック</li>
+<li>次に【MobileSync】フォルダをダブルクリック</li>
+<li>次に【Backup】フォルダをダブルクリックし、そこにUSBに保存されているBackupデータをコピー</li>
+</ol>
+</div>
+
+<div class="card">
+<div class="card-title">■ ダウンロード版（Apple officialsite からのDL）</div>
+<p><code>C:\Users\ユーザー名\AppData\Roaming\Apple Computer\MobileSync\Backup</code></p>
+<ol>
+<li>Cドライブ内の【ユーザー】フォルダをダブルクリック</li>
+<li>次に【自分のユーザー名】をダブルクリック</li>
+<li>画面上側の【表示】→【隠しファイル】にチェックを入れ、【AppData】をダブルクリック</li>
+<li>次に【Roaming】→【Apple Computer】をダブルクリック（※【Apple】とは別のフォルダ）</li>
+<li>次に【MobileSync】→【Backup】フォルダをダブルクリックし、USBのBackupデータをコピー</li>
+</ol>
+</div>
+
+<div class="card">
+<div class="card-title">■ フォルダが見つからない場合</div>
+<ul>
+<li>iTunesを一度も起動していない場合は利用規約に同意がなされておらずフォルダが作られていない可能性があります。一度iTunesを起動し、利用規約に【同意する】を押して5～10分後に確認</li>
+<li>PCのデスクトップ左下にある検索バーに <code>%Apple%</code> と入力（Enterキーは押さない）→ 表示された【Apple】フォルダを開く → 【MobileSync】→【Backup】</li>
+</ul>
+</div>
+
+<div class="ng">🚫 USBから『Backup』フォルダにコピーをするデータの容量によっては数時間かかることもあります。100％まで行かずに諦めて中途半端に止めてしまうと、iTunesからデータ移行するときに「バックアップデータが壊れています」と出てデータ移行ができません。<strong>中断をせず、必ず全てのデータをコピーしてください。</strong></div>
+
+<h3>② iTunesで復元</h3>
+<div class="card">
+<ol>
+<li>iTunesを起動する</li>
+<li>新しい端末と接続する（新しい端末は初期化状態(出荷状態)からスタート）</li>
+<li>「バックアップを復元」からバックアップデータを選んでデータ移行開始</li>
+<li>iTunes から編集 → 環境設定 → デバイスからバックアップデータを確認</li>
+</ol>
+<div class="info">💡 【ローカルバックアップを暗号化】にチェックで細かいところまでバックアップができるので忘れずに☑を入れてください。パスワードは忘れなければなんでもOK。</div>
+</div>
+
+<h2>端末接続時の注意事項</h2>
+<div class="card">
+<ul>
+<li>端末は<strong>初期化済みまたは新品購入時の状態</strong>が条件</li>
+<li>初期化をする端末は初期化前に『iPhoneを探す』が<strong>OFF</strong>になっているか確認する。ONだとデータ移行不可</li>
+<li>端末のストレージとバックアップデータの容量を必ず確認すること（例：バックアップ180GB ＞ 端末128GBの場合はNG）</li>
+</ul>
+<div class="info">💡 バックアップデータの容量確認方法：フォルダを選択して右クリック → 『プロパティ』→『全般』の『サイズ』</div>
+</div>
+
+<h2>補足事項</h2>
+<div class="card">
+<ul>
+<li><strong>補足①：</strong>『バックアップを復元』が透明のままでクリックできない場合は端末が同期されてないので左下の『同期』をクリックすれば解消されます</li>
+<li><strong>補足②：</strong>iTunesから端末にデータ移行する際に、容量が多いと相当の時間がかかります。1日中かかることもザラにあります</li>
+<li><strong>補足③：</strong>USB/SSDのデータとiTunesのバックアップデータが合っているか確認。iTunes側のフォルダ名はiPhoneの『設定』→『一般』→『情報』の『名前』に該当します</li>
+</ul>
+</div>
+
+</body>
+</html>

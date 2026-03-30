@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>リンゴループ攻略法</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;background:#f8fafc;color:#1e293b;line-height:1.8;padding:24px 32px 60px}
+h1{text-align:center;font-size:26px;font-weight:900;margin-bottom:8px;color:#0f172a}
+h1 span{display:block;font-size:13px;font-weight:400;color:#64748b;margin-top:4px}
+.subtitle{text-align:center;font-size:13px;color:#64748b;margin-bottom:36px}
+h2{font-size:20px;font-weight:800;margin:40px 0 16px;padding:12px 20px;background:linear-gradient(135deg,#dc2626,#ef4444);color:#fff;border-radius:10px}
+h3{font-size:16px;font-weight:700;color:#991b1b;margin:28px 0 12px;padding-left:14px;border-left:4px solid #dc2626}
+.section{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:24px 28px;margin-bottom:20px}
+.note{background:#fef9c3;border:1px solid #fde047;border-radius:10px;padding:14px 18px;margin:12px 0;font-size:13px;color:#854d0e;line-height:1.7}
+.note::before{content:"⚠️ ";font-size:14px}
+.important{background:#fef2f2;border:1px solid #fca5a5;border-radius:10px;padding:14px 18px;margin:12px 0;font-size:13px;color:#991b1b;line-height:1.7;font-weight:600}
+.important::before{content:"🚫 ";font-size:14px}
+.tip{background:#f0fdf4;border:1px solid #86efac;border-radius:10px;padding:14px 18px;margin:12px 0;font-size:13px;color:#166534;line-height:1.7}
+.tip::before{content:"💡 ";font-size:14px}
+.step-list{list-style:none;counter-reset:step;padding:0}
+.step-list>li{counter-increment:step;position:relative;padding:14px 14px 14px 56px;margin-bottom:10px;background:#f0f9ff;border-radius:10px;border:1px solid #bfdbfe;font-size:14px;line-height:1.7}
+.step-list>li::before{content:counter(step);position:absolute;left:14px;top:14px;width:30px;height:30px;background:#2563eb;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
+.error-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:13px}
+.error-table th,.error-table td{padding:10px 14px;text-align:left;border-bottom:1px solid #e2e8f0}
+.error-table th{background:#fef2f2;font-weight:700;color:#991b1b;font-size:12px}
+.flow-box{background:#eff6ff;border:1px solid #93c5fd;border-radius:10px;padding:16px 20px;margin:12px 0;font-size:14px;line-height:1.8}
+</style>
+</head>
+<body>
+<h1>🍎 リンゴループ攻略法<span>原因別の診断と対処フロー</span></h1>
+<p class="subtitle">リンゴループの3つの原因と、それぞれの対処法を順番に解説します</p>
+
+<h2>1️⃣ ソフトウェアの不具合</h2>
+<div class="section">
+<h3>よくある原因</h3>
+<ul style="margin:8px 0 0 20px;font-size:14px">
+<li>PCにつないでアップデート中やバックアップ中にケーブルを抜いてしまった、または何らかの原因で失敗した</li>
+<li>夜間に自動アップデートがはじまったが通信環境の不具合などで失敗した</li>
+<li>容量がいっぱいのまま使い続けていたせいでOSの読み込みに不具合が出た（iOS13でよくある）</li>
+<li>その他、何らかの原因でOSが正常起動できなかった</li>
+</ul>
+
+<h3>対処フロー</h3>
+<ol class="step-list">
+<li>PC（iTunes）につないでiPhoneをリカバリーモードに入れる</li>
+<li>まずはデータが残せるように<strong>「アップデート」（OSの更新）</strong>を試す</li>
+<li>アップデートが失敗する場合 → エラーコードを確認（下表参照）</li>
+<li>データが不要なら<strong>「復元」（初期化）</strong>を試す</li>
+<li>それでも失敗する場合 → <strong>DFUモードに入れて復元</strong></li>
+</ol>
+
+<h3>よく出るエラーコードと対処法</h3>
+<table class="error-table">
+<thead><tr><th>エラー</th><th>意味・対処</th></tr></thead>
+<tbody>
+<tr><td style="font-weight:700;color:#dc2626">4013、13</td><td>基板破損の可能性大。初期化でもほぼ復元不可。</td></tr>
+<tr><td style="font-weight:700;color:#d97706">9</td><td>初期化で改善の可能性あり。基板破損の場合も。</td></tr>
+<tr><td style="font-weight:700;color:#16a34a">78</td><td>初期化で改善の可能性大。</td></tr>
+<tr><td style="font-weight:700;color:#d97706">14、4005</td><td>パーツの破損の影響でアップデートできていない可能性。データを残したいなら疑わしいパーツを外してアップデート。初期化ならほぼ改善。</td></tr>
+</tbody>
+</table>
+
+<div class="note">容量いっぱいで使っていた場合は初期化でしか改善しません。</div>
+</div>
+
+<h2>2️⃣ 各種パーツの破損</h2>
+<div class="section">
+<p>iPhoneは起動時にすべてのパーツが正常に動くかどうか読み込みに行くので、破損パーツがあるとエラーを吐いてリンゴループになります。</p>
+
+<div class="note">「バッテリーが弱っているとなる」と説明する業者が多いですが、バッテリーだけでなく<strong>近接、ドック、画面、電源・ボリュームケーブル、リアカメラ</strong>など、コネクタで基板につながったパーツはすべて原因になりえます。</div>
+
+<h3>対処法</h3>
+<div class="flow-box">
+破損していると思われるパーツのコネクタを外して起動させてみる。<br>
+例：近接を外して正常起動すれば近接が原因、ドックを外して起動すればドックが原因。<br>
+ひとつひとつパーツを外してチェックし、原因がわかればそれを交換すればOK。
+</div>
+
+<h3>チェック順序（効率的な順番）</h3>
+<ol style="margin:12px 0 0 20px;font-size:14px;line-height:2">
+<li><strong>近接センサー</strong>（最もよく破損）</li>
+<li><strong>ドックコネクタ</strong></li>
+<li><strong>ホームボタン</strong></li>
+<li><strong>バイブレーター</strong>（特にX系。ドックと勘違いしやすいので注意）</li>
+<li><strong>電源・ボリュームケーブル</strong></li>
+<li><strong>リアカメラ</strong></li>
+</ol>
+
+<div class="tip">全てのパーツを試して改善しない場合は、ソフトウェアもしくは基板破損の可能性あり。それぞれの項目の対処法を試してください。</div>
+</div>
+
+<h2>3️⃣ 本体基板の破損</h2>
+<div class="section">
+<p>ソフトウェアの不具合、パーツの不具合、両方の対処法を試してダメなら<strong>基板破損の可能性大</strong>です。</p>
+
+<div class="flow-box" style="background:#fef2f2;border-color:#fca5a5">
+→ 池袋東口店に相談してください。
+</div>
+
+<div class="important">一度「復元」をかけてしまうと、失敗してもデータは消失している可能性があります。<strong>データが目的なら「復元」をかける前に相談しましょう！</strong></div>
+</div>
+
+</body>
+</html>
