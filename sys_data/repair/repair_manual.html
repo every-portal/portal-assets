@@ -3939,11 +3939,11 @@
 
     function openIndividualManual(type) {
         var files = {
-            screen: 'sys_data/individual/ip17_screen_manual.html',
-            battery: 'sys_data/individual/ip17_battery_manual.html',
-            backglass: 'sys_data/individual/ip17_backglass_manual.html',
-            ccbutton: 'sys_data/individual/ip17_ccbutton_manual.html',
-            chargport: 'sys_data/individual/ip17_chargport_manual.html'
+            screen: '../individual/ip17_screen_manual.html',
+            battery: '../individual/ip17_battery_manual.html',
+            backglass: '../individual/ip17_backglass_manual.html',
+            ccbutton: '../individual/ip17_ccbutton_manual.html',
+            chargport: '../individual/ip17_chargport_manual.html'
         };
         var iframe = document.getElementById('manualIframe');
         iframe.src = files[type] || 'about:blank';
@@ -3966,7 +3966,7 @@
 
     function openOverallManual() {
         var iframe = document.getElementById('manualIframe');
-        iframe.src = 'sys_data/overall/ip17_overall_manual.html';
+        iframe.src = '../overall/ip17_overall_manual.html';
         document.getElementById('detailTab-overall').classList.remove('active');
         document.getElementById('manualIframeWrapper').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -4003,9 +4003,9 @@
 
     function openIndividualManualAir(type) {
         var files = {
-            screen: 'sys_data/individual/air_screen_manual.html',
-            battery: 'sys_data/individual/air_battery_manual.html',
-            backglass: 'sys_data/individual/air_backglass_manual.html'
+            screen: '../individual/air_screen_manual.html',
+            battery: '../individual/air_battery_manual.html',
+            backglass: '../individual/air_backglass_manual.html'
         };
         var iframe = document.getElementById('manualIframeAir');
         iframe.src = files[type] || 'about:blank';
@@ -4028,7 +4028,7 @@
 
     function openOverallManualAir() {
         var iframe = document.getElementById('manualIframeAir');
-        iframe.src = 'sys_data/overall/air_overall_manual.html';
+        iframe.src = '../overall/air_overall_manual.html';
         document.getElementById('detailTabAir-overall').classList.remove('active');
         document.getElementById('manualIframeWrapperAir').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -4065,22 +4065,22 @@
 
     function openIndividualManualPro(type) {
         var files = {
-            screen: 'sys_data/individual/ip17pro_screen_manual.html',
-            battery: 'sys_data/individual/ip17pro_battery_manual.html',
-            backglass: 'sys_data/individual/ip17pro_backglass_manual.html',
-            rearcam: 'sys_data/individual/ip17pro_rearcam_manual.html',
-            frontcam: 'sys_data/individual/ip17pro_frontcam_manual.html',
-            logicboard: 'sys_data/individual/ip17pro_logicboard_manual.html',
-            loudspeaker: 'sys_data/individual/ip17pro_loudspeaker_manual.html',
-            topspeaker: 'sys_data/individual/ip17pro_topspeaker_manual.html',
-            earpiece: 'sys_data/individual/ip17pro_earpiece_manual.html',
-            taptic: 'sys_data/individual/ip17pro_taptic_manual.html',
-            lowermic: 'sys_data/individual/ip17pro_lowermic_manual.html',
-            lidar: 'sys_data/individual/ip17pro_lidar_manual.html',
-            usbc: 'sys_data/individual/ip17pro_usbc_manual.html',
-            actionbtn: 'sys_data/individual/ip17pro_actionbtn_manual.html',
-            ccbutton: 'sys_data/individual/ip17pro_ccbutton_manual.html',
-            chargport: 'sys_data/individual/ip17pro_chargport_manual.html'
+            screen: '../individual/ip17pro_screen_manual.html',
+            battery: '../individual/ip17pro_battery_manual.html',
+            backglass: '../individual/ip17pro_backglass_manual.html',
+            rearcam: '../individual/ip17pro_rearcam_manual.html',
+            frontcam: '../individual/ip17pro_frontcam_manual.html',
+            logicboard: '../individual/ip17pro_logicboard_manual.html',
+            loudspeaker: '../individual/ip17pro_loudspeaker_manual.html',
+            topspeaker: '../individual/ip17pro_topspeaker_manual.html',
+            earpiece: '../individual/ip17pro_earpiece_manual.html',
+            taptic: '../individual/ip17pro_taptic_manual.html',
+            lowermic: '../individual/ip17pro_lowermic_manual.html',
+            lidar: '../individual/ip17pro_lidar_manual.html',
+            usbc: '../individual/ip17pro_usbc_manual.html',
+            actionbtn: '../individual/ip17pro_actionbtn_manual.html',
+            ccbutton: '../individual/ip17pro_ccbutton_manual.html',
+            chargport: '../individual/ip17pro_chargport_manual.html'
         };
         var iframe = document.getElementById('manualIframePro');
         iframe.src = files[type] || 'about:blank';
@@ -4103,7 +4103,7 @@
 
     function openOverallManualPro() {
         var iframe = document.getElementById('manualIframePro');
-        iframe.src = 'sys_data/overall/ip17pro_overall_manual.html';
+        iframe.src = '../overall/ip17pro_overall_manual.html';
         document.getElementById('detailTabPro-overall').classList.remove('active');
         document.getElementById('manualIframeWrapperPro').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -4140,22 +4140,22 @@
 
     function openIndividualManualProMax(type) {
         var files = {
-            screen: 'sys_data/individual/ip17promax_screen_manual.html',
-            battery: 'sys_data/individual/ip17promax_battery_manual.html',
-            backglass: 'sys_data/individual/ip17promax_backglass_manual.html',
-            rearcam: 'sys_data/individual/ip17promax_rearcam_manual.html',
-            frontcam: 'sys_data/individual/ip17promax_frontcam_manual.html',
-            logicboard: 'sys_data/individual/ip17promax_logicboard_manual.html',
-            loudspeaker: 'sys_data/individual/ip17promax_loudspeaker_manual.html',
-            topspeaker: 'sys_data/individual/ip17promax_topspeaker_manual.html',
-            earpiece: 'sys_data/individual/ip17promax_earpiece_manual.html',
-            taptic: 'sys_data/individual/ip17promax_taptic_manual.html',
-            lowermic: 'sys_data/individual/ip17promax_lowermic_manual.html',
-            lidar: 'sys_data/individual/ip17promax_lidar_manual.html',
-            usbc: 'sys_data/individual/ip17promax_usbc_manual.html',
-            actionbtn: 'sys_data/individual/ip17promax_actionbtn_manual.html',
-            ccbutton: 'sys_data/individual/ip17promax_ccbutton_manual.html',
-            chargport: 'sys_data/individual/ip17promax_chargport_manual.html'
+            screen: '../individual/ip17promax_screen_manual.html',
+            battery: '../individual/ip17promax_battery_manual.html',
+            backglass: '../individual/ip17promax_backglass_manual.html',
+            rearcam: '../individual/ip17promax_rearcam_manual.html',
+            frontcam: '../individual/ip17promax_frontcam_manual.html',
+            logicboard: '../individual/ip17promax_logicboard_manual.html',
+            loudspeaker: '../individual/ip17promax_loudspeaker_manual.html',
+            topspeaker: '../individual/ip17promax_topspeaker_manual.html',
+            earpiece: '../individual/ip17promax_earpiece_manual.html',
+            taptic: '../individual/ip17promax_taptic_manual.html',
+            lowermic: '../individual/ip17promax_lowermic_manual.html',
+            lidar: '../individual/ip17promax_lidar_manual.html',
+            usbc: '../individual/ip17promax_usbc_manual.html',
+            actionbtn: '../individual/ip17promax_actionbtn_manual.html',
+            ccbutton: '../individual/ip17promax_ccbutton_manual.html',
+            chargport: '../individual/ip17promax_chargport_manual.html'
         };
         if (!files[type]) return;
         var iframe = document.getElementById('manualIframeProMax');
@@ -4179,7 +4179,7 @@
 
     function openOverallManualProMax() {
         var iframe = document.getElementById('manualIframeProMax');
-        iframe.src = 'sys_data/overall/ip17promax_overall_manual.html';
+        iframe.src = '../overall/ip17promax_overall_manual.html';
         document.getElementById('detailTabProMax-overall').classList.remove('active');
         document.getElementById('manualIframeWrapperProMax').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -4216,18 +4216,18 @@
 
     function openIndividualManual16(type) {
         var files = {
-            screen: 'sys_data/individual/ip16_screen_manual.html',
-            battery: 'sys_data/individual/ip16_battery_manual.html',
-            backglass: 'sys_data/individual/ip16_backglass_manual.html',
-            rearcam: 'sys_data/individual/ip16_rearcam_manual.html',
-            frontcam: 'sys_data/individual/ip16_frontcam_manual.html',
-            loudspeaker: 'sys_data/individual/ip16_loudspeaker_manual.html',
-            earpiece: 'sys_data/individual/ip16_earpiece_manual.html',
-            taptic: 'sys_data/individual/ip16_taptic_manual.html',
-            mic: 'sys_data/individual/ip16_mic_manual.html',
-            '5gmmwave': 'sys_data/individual/ip16_5gmmwave_manual.html',
-            ccbutton: 'sys_data/individual/ip16_ccbutton_manual.html',
-            chargport: 'sys_data/individual/ip16_chargport_manual.html'
+            screen: '../individual/ip16_screen_manual.html',
+            battery: '../individual/ip16_battery_manual.html',
+            backglass: '../individual/ip16_backglass_manual.html',
+            rearcam: '../individual/ip16_rearcam_manual.html',
+            frontcam: '../individual/ip16_frontcam_manual.html',
+            loudspeaker: '../individual/ip16_loudspeaker_manual.html',
+            earpiece: '../individual/ip16_earpiece_manual.html',
+            taptic: '../individual/ip16_taptic_manual.html',
+            mic: '../individual/ip16_mic_manual.html',
+            '5gmmwave': '../individual/ip16_5gmmwave_manual.html',
+            ccbutton: '../individual/ip16_ccbutton_manual.html',
+            chargport: '../individual/ip16_chargport_manual.html'
         };
         if (!files[type]) return;
         var iframe = document.getElementById('manualIframe16');
@@ -4251,7 +4251,7 @@
 
     function openOverallManual16() {
         var iframe = document.getElementById('manualIframe16');
-        iframe.src = 'sys_data/overall/ip16_overall_manual.html';
+        iframe.src = '../overall/ip16_overall_manual.html';
         document.getElementById('detailTab16-overall').classList.remove('active');
         document.getElementById('manualIframeWrapper16').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -4288,18 +4288,18 @@
 
     function openIndividualManual16Plus(type) {
         var files = {
-            screen: 'sys_data/individual/ip16plus_screen_manual.html',
-            battery: 'sys_data/individual/ip16plus_battery_manual.html',
-            backglass: 'sys_data/individual/ip16plus_backglass_manual.html',
-            rearcam: 'sys_data/individual/ip16plus_rearcam_manual.html',
-            frontcam: 'sys_data/individual/ip16plus_frontcam_manual.html',
-            loudspeaker: 'sys_data/individual/ip16plus_loudspeaker_manual.html',
-            earpiece: 'sys_data/individual/ip16plus_earpiece_manual.html',
-            taptic: 'sys_data/individual/ip16plus_taptic_manual.html',
-            mic: 'sys_data/individual/ip16plus_mic_manual.html',
-            '5gmmwave': 'sys_data/individual/ip16plus_5gmmwave_manual.html',
-            ccbutton: 'sys_data/individual/ip16plus_ccbutton_manual.html',
-            chargport: 'sys_data/individual/ip16plus_chargport_manual.html'
+            screen: '../individual/ip16plus_screen_manual.html',
+            battery: '../individual/ip16plus_battery_manual.html',
+            backglass: '../individual/ip16plus_backglass_manual.html',
+            rearcam: '../individual/ip16plus_rearcam_manual.html',
+            frontcam: '../individual/ip16plus_frontcam_manual.html',
+            loudspeaker: '../individual/ip16plus_loudspeaker_manual.html',
+            earpiece: '../individual/ip16plus_earpiece_manual.html',
+            taptic: '../individual/ip16plus_taptic_manual.html',
+            mic: '../individual/ip16plus_mic_manual.html',
+            '5gmmwave': '../individual/ip16plus_5gmmwave_manual.html',
+            ccbutton: '../individual/ip16plus_ccbutton_manual.html',
+            chargport: '../individual/ip16plus_chargport_manual.html'
         };
         if (!files[type]) return;
         var iframe = document.getElementById('manualIframe16Plus');
@@ -4323,7 +4323,7 @@
 
     function openOverallManual16Plus() {
         var iframe = document.getElementById('manualIframe16Plus');
-        iframe.src = 'sys_data/overall/ip16plus_overall_manual.html';
+        iframe.src = '../overall/ip16plus_overall_manual.html';
         document.getElementById('detailTab16Plus-overall').classList.remove('active');
         document.getElementById('manualIframeWrapper16Plus').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -4360,23 +4360,23 @@
 
     function openIndividualManual16Pro(type) {
         var files = {
-            screen: 'sys_data/individual/ip16pro_screen_manual.html',
-            battery: 'sys_data/individual/ip16pro_battery_manual.html',
-            backglass: 'sys_data/individual/ip16pro_backglass_manual.html',
-            rearcam: 'sys_data/individual/ip16pro_rearcam_manual.html',
-            frontcam: 'sys_data/individual/ip16pro_frontcam_manual.html',
-            logicboard: 'sys_data/individual/ip16pro_logicboard_manual.html',
-            loudspeaker: 'sys_data/individual/ip16pro_loudspeaker_manual.html',
-            earpiece: 'sys_data/individual/ip16pro_earpiece_manual.html',
-            taptic: 'sys_data/individual/ip16pro_taptic_manual.html',
-            mic: 'sys_data/individual/ip16pro_mic_manual.html',
-            lidar: 'sys_data/individual/ip16pro_lidar_manual.html',
-            chargingport: 'sys_data/individual/ip16pro_chargingport_manual.html',
-            '5gmmwave': 'sys_data/individual/ip16pro_5gmmwave_manual.html',
-            actionbtn: 'sys_data/individual/ip16pro_actionbtn_manual.html',
-            ccbutton: 'sys_data/individual/ip16pro_ccbutton_manual.html',
-            chargport: 'sys_data/individual/ip16pro_chargport_manual.html',
-            mute: 'sys_data/individual/ip16pro_mute_manual.html'
+            screen: '../individual/ip16pro_screen_manual.html',
+            battery: '../individual/ip16pro_battery_manual.html',
+            backglass: '../individual/ip16pro_backglass_manual.html',
+            rearcam: '../individual/ip16pro_rearcam_manual.html',
+            frontcam: '../individual/ip16pro_frontcam_manual.html',
+            logicboard: '../individual/ip16pro_logicboard_manual.html',
+            loudspeaker: '../individual/ip16pro_loudspeaker_manual.html',
+            earpiece: '../individual/ip16pro_earpiece_manual.html',
+            taptic: '../individual/ip16pro_taptic_manual.html',
+            mic: '../individual/ip16pro_mic_manual.html',
+            lidar: '../individual/ip16pro_lidar_manual.html',
+            chargingport: '../individual/ip16pro_chargingport_manual.html',
+            '5gmmwave': '../individual/ip16pro_5gmmwave_manual.html',
+            actionbtn: '../individual/ip16pro_actionbtn_manual.html',
+            ccbutton: '../individual/ip16pro_ccbutton_manual.html',
+            chargport: '../individual/ip16pro_chargport_manual.html',
+            mute: '../individual/ip16pro_mute_manual.html'
         };
         if (!files[type]) return;
         var iframe = document.getElementById('manualIframe16Pro');
@@ -4400,7 +4400,7 @@
 
     function openOverallManual16Pro() {
         var iframe = document.getElementById('manualIframe16Pro');
-        iframe.src = 'sys_data/overall/ip16pro_overall_manual.html';
+        iframe.src = '../overall/ip16pro_overall_manual.html';
         document.getElementById('detailTab16Pro-overall').classList.remove('active');
         document.getElementById('manualIframeWrapper16Pro').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -4437,23 +4437,23 @@
 
     function openIndividualManual16ProMax(type) {
         var files = {
-            screen: 'sys_data/individual/ip16promax_screen_manual.html',
-            battery: 'sys_data/individual/ip16promax_battery_manual.html',
-            backglass: 'sys_data/individual/ip16promax_backglass_manual.html',
-            rearcam: 'sys_data/individual/ip16promax_rearcam_manual.html',
-            frontcam: 'sys_data/individual/ip16promax_frontcam_manual.html',
-            logicboard: 'sys_data/individual/ip16promax_logicboard_manual.html',
-            loudspeaker: 'sys_data/individual/ip16promax_loudspeaker_manual.html',
-            earpiece: 'sys_data/individual/ip16promax_earpiece_manual.html',
-            taptic: 'sys_data/individual/ip16promax_taptic_manual.html',
-            mic: 'sys_data/individual/ip16promax_mic_manual.html',
-            lidar: 'sys_data/individual/ip16promax_lidar_manual.html',
-            chargingport: 'sys_data/individual/ip16promax_chargingport_manual.html',
-            '5gmmwave': 'sys_data/individual/ip16promax_5gmmwave_manual.html',
-            actionbtn: 'sys_data/individual/ip16promax_actionbtn_manual.html',
-            ccbutton: 'sys_data/individual/ip16promax_ccbutton_manual.html',
-            chargport: 'sys_data/individual/ip16promax_chargport_manual.html',
-            mute: 'sys_data/individual/ip16promax_mute_manual.html'
+            screen: '../individual/ip16promax_screen_manual.html',
+            battery: '../individual/ip16promax_battery_manual.html',
+            backglass: '../individual/ip16promax_backglass_manual.html',
+            rearcam: '../individual/ip16promax_rearcam_manual.html',
+            frontcam: '../individual/ip16promax_frontcam_manual.html',
+            logicboard: '../individual/ip16promax_logicboard_manual.html',
+            loudspeaker: '../individual/ip16promax_loudspeaker_manual.html',
+            earpiece: '../individual/ip16promax_earpiece_manual.html',
+            taptic: '../individual/ip16promax_taptic_manual.html',
+            mic: '../individual/ip16promax_mic_manual.html',
+            lidar: '../individual/ip16promax_lidar_manual.html',
+            chargingport: '../individual/ip16promax_chargingport_manual.html',
+            '5gmmwave': '../individual/ip16promax_5gmmwave_manual.html',
+            actionbtn: '../individual/ip16promax_actionbtn_manual.html',
+            ccbutton: '../individual/ip16promax_ccbutton_manual.html',
+            chargport: '../individual/ip16promax_chargport_manual.html',
+            mute: '../individual/ip16promax_mute_manual.html'
         };
         if (!files[type]) return;
         var iframe = document.getElementById('manualIframe16ProMax');
@@ -4477,7 +4477,7 @@
 
     function openOverallManual16ProMax() {
         var iframe = document.getElementById('manualIframe16ProMax');
-        iframe.src = 'sys_data/overall/ip16promax_overall_manual.html';
+        iframe.src = '../overall/ip16promax_overall_manual.html';
         document.getElementById('detailTab16ProMax-overall').classList.remove('active');
         document.getElementById('manualIframeWrapper16ProMax').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -4514,14 +4514,14 @@
 
     function openIndividualManual16e(type) {
         var files = {
-            screen: 'sys_data/individual/ip16e_screen_manual.html',
-            battery: 'sys_data/individual/ip16e_battery_manual.html',
-            backglass: 'sys_data/individual/ip16e_backglass_manual.html',
-            rearcam: 'sys_data/individual/ip16e_rearcam_manual.html',
-            frontcam: 'sys_data/individual/ip16e_frontcam_manual.html',
-            loudspeaker: 'sys_data/individual/ip16e_loudspeaker_manual.html',
-            earpiece: 'sys_data/individual/ip16e_earpiece_manual.html',
-            taptic: 'sys_data/individual/ip16e_taptic_manual.html'
+            screen: '../individual/ip16e_screen_manual.html',
+            battery: '../individual/ip16e_battery_manual.html',
+            backglass: '../individual/ip16e_backglass_manual.html',
+            rearcam: '../individual/ip16e_rearcam_manual.html',
+            frontcam: '../individual/ip16e_frontcam_manual.html',
+            loudspeaker: '../individual/ip16e_loudspeaker_manual.html',
+            earpiece: '../individual/ip16e_earpiece_manual.html',
+            taptic: '../individual/ip16e_taptic_manual.html'
         };
         if (!files[type]) return;
         var iframe = document.getElementById('manualIframe16e');
@@ -4545,7 +4545,7 @@
 
     function openOverallManual16e() {
         var iframe = document.getElementById('manualIframe16e');
-        iframe.src = 'sys_data/overall/ip16e_overall_manual.html';
+        iframe.src = '../overall/ip16e_overall_manual.html';
         document.getElementById('detailTab16e-overall').classList.remove('active');
         document.getElementById('manualIframeWrapper16e').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -4582,16 +4582,16 @@
 
     function openIndividualManual15(type) {
         var files = {
-            screen: 'sys_data/individual/ip15_screen_manual.html',
-            battery: 'sys_data/individual/ip15_battery_manual.html',
-            backglass: 'sys_data/individual/ip15_backglass_manual.html',
-            rearcam: 'sys_data/individual/ip15_rearcam_manual.html',
-            frontcam: 'sys_data/individual/ip15_frontcam_manual.html',
-            loudspeaker: 'sys_data/individual/ip15_loudspeaker_manual.html',
-            earpiece: 'sys_data/individual/ip15_earpiece_manual.html',
-            taptic: 'sys_data/individual/ip15_taptic_manual.html',
-            mic: 'sys_data/individual/ip15_mic_manual.html',
-            chargport: 'sys_data/individual/ip15_chargport_manual.html'
+            screen: '../individual/ip15_screen_manual.html',
+            battery: '../individual/ip15_battery_manual.html',
+            backglass: '../individual/ip15_backglass_manual.html',
+            rearcam: '../individual/ip15_rearcam_manual.html',
+            frontcam: '../individual/ip15_frontcam_manual.html',
+            loudspeaker: '../individual/ip15_loudspeaker_manual.html',
+            earpiece: '../individual/ip15_earpiece_manual.html',
+            taptic: '../individual/ip15_taptic_manual.html',
+            mic: '../individual/ip15_mic_manual.html',
+            chargport: '../individual/ip15_chargport_manual.html'
         };
         if (!files[type]) return;
         var iframe = document.getElementById('manualIframe15');
@@ -4615,7 +4615,7 @@
 
     function openOverallManual15() {
         var iframe = document.getElementById('manualIframe15');
-        iframe.src = 'sys_data/overall/ip15_overall_manual.html';
+        iframe.src = '../overall/ip15_overall_manual.html';
         document.getElementById('detailTab15-overall').classList.remove('active');
         document.getElementById('manualIframeWrapper15').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -4652,16 +4652,16 @@
 
     function openIndividualManual15Plus(type) {
         var files = {
-            screen: 'sys_data/individual/ip15plus_screen_manual.html',
-            battery: 'sys_data/individual/ip15plus_battery_manual.html',
-            backglass: 'sys_data/individual/ip15plus_backglass_manual.html',
-            rearcam: 'sys_data/individual/ip15plus_rearcam_manual.html',
-            frontcam: 'sys_data/individual/ip15plus_frontcam_manual.html',
-            loudspeaker: 'sys_data/individual/ip15plus_loudspeaker_manual.html',
-            earpiece: 'sys_data/individual/ip15plus_earpiece_manual.html',
-            taptic: 'sys_data/individual/ip15plus_taptic_manual.html',
-            mic: 'sys_data/individual/ip15plus_mic_manual.html',
-            chargport: 'sys_data/individual/ip15plus_chargport_manual.html'
+            screen: '../individual/ip15plus_screen_manual.html',
+            battery: '../individual/ip15plus_battery_manual.html',
+            backglass: '../individual/ip15plus_backglass_manual.html',
+            rearcam: '../individual/ip15plus_rearcam_manual.html',
+            frontcam: '../individual/ip15plus_frontcam_manual.html',
+            loudspeaker: '../individual/ip15plus_loudspeaker_manual.html',
+            earpiece: '../individual/ip15plus_earpiece_manual.html',
+            taptic: '../individual/ip15plus_taptic_manual.html',
+            mic: '../individual/ip15plus_mic_manual.html',
+            chargport: '../individual/ip15plus_chargport_manual.html'
         };
         if (!files[type]) return;
         var iframe = document.getElementById('manualIframe15Plus');
@@ -4685,7 +4685,7 @@
 
     function openOverallManual15Plus() {
         var iframe = document.getElementById('manualIframe15Plus');
-        iframe.src = 'sys_data/overall/ip15plus_overall_manual.html';
+        iframe.src = '../overall/ip15plus_overall_manual.html';
         document.getElementById('detailTab15Plus-overall').classList.remove('active');
         document.getElementById('manualIframeWrapper15Plus').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -4722,21 +4722,21 @@
 
     function openIndividualManual15Pro(type) {
         var files = {
-            screen: 'sys_data/individual/ip15pro_screen_manual.html',
-            battery: 'sys_data/individual/ip15pro_battery_manual.html',
-            backglass: 'sys_data/individual/ip15pro_backglass_manual.html',
-            rearcam: 'sys_data/individual/ip15pro_rearcam_manual.html',
-            frontcam: 'sys_data/individual/ip15pro_frontcam_manual.html',
-            logicboard: 'sys_data/individual/ip15pro_logicboard_manual.html',
-            loudspeaker: 'sys_data/individual/ip15pro_loudspeaker_manual.html',
-            earpiece: 'sys_data/individual/ip15pro_earpiece_manual.html',
-            taptic: 'sys_data/individual/ip15pro_taptic_manual.html',
-            mic: 'sys_data/individual/ip15pro_mic_manual.html',
-            lidar: 'sys_data/individual/ip15pro_lidar_manual.html',
-            chargingport: 'sys_data/individual/ip15pro_chargingport_manual.html',
-            actionbtn: 'sys_data/individual/ip15pro_actionbtn_manual.html',
-            chargport: 'sys_data/individual/ip15pro_chargport_manual.html',
-            mute: 'sys_data/individual/ip15pro_mute_manual.html'
+            screen: '../individual/ip15pro_screen_manual.html',
+            battery: '../individual/ip15pro_battery_manual.html',
+            backglass: '../individual/ip15pro_backglass_manual.html',
+            rearcam: '../individual/ip15pro_rearcam_manual.html',
+            frontcam: '../individual/ip15pro_frontcam_manual.html',
+            logicboard: '../individual/ip15pro_logicboard_manual.html',
+            loudspeaker: '../individual/ip15pro_loudspeaker_manual.html',
+            earpiece: '../individual/ip15pro_earpiece_manual.html',
+            taptic: '../individual/ip15pro_taptic_manual.html',
+            mic: '../individual/ip15pro_mic_manual.html',
+            lidar: '../individual/ip15pro_lidar_manual.html',
+            chargingport: '../individual/ip15pro_chargingport_manual.html',
+            actionbtn: '../individual/ip15pro_actionbtn_manual.html',
+            chargport: '../individual/ip15pro_chargport_manual.html',
+            mute: '../individual/ip15pro_mute_manual.html'
         };
         if (!files[type]) return;
         var iframe = document.getElementById('manualIframe15Pro');
@@ -4760,7 +4760,7 @@
 
     function openOverallManual15Pro() {
         var iframe = document.getElementById('manualIframe15Pro');
-        iframe.src = 'sys_data/overall/ip15pro_overall_manual.html';
+        iframe.src = '../overall/ip15pro_overall_manual.html';
         document.getElementById('detailTab15Pro-overall').classList.remove('active');
         document.getElementById('manualIframeWrapper15Pro').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -4797,21 +4797,21 @@
 
     function openIndividualManual15ProMax(type) {
         var files = {
-            screen: 'sys_data/individual/ip15promax_screen_manual.html',
-            battery: 'sys_data/individual/ip15promax_battery_manual.html',
-            backglass: 'sys_data/individual/ip15promax_backglass_manual.html',
-            rearcam: 'sys_data/individual/ip15promax_rearcam_manual.html',
-            frontcam: 'sys_data/individual/ip15promax_frontcam_manual.html',
-            logicboard: 'sys_data/individual/ip15promax_logicboard_manual.html',
-            loudspeaker: 'sys_data/individual/ip15promax_loudspeaker_manual.html',
-            earpiece: 'sys_data/individual/ip15promax_earpiece_manual.html',
-            taptic: 'sys_data/individual/ip15promax_taptic_manual.html',
-            mic: 'sys_data/individual/ip15promax_mic_manual.html',
-            lidar: 'sys_data/individual/ip15promax_lidar_manual.html',
-            chargingport: 'sys_data/individual/ip15promax_chargingport_manual.html',
-            actionbtn: 'sys_data/individual/ip15promax_actionbtn_manual.html',
-            chargport: 'sys_data/individual/ip15promax_chargport_manual.html',
-            mute: 'sys_data/individual/ip15promax_mute_manual.html'
+            screen: '../individual/ip15promax_screen_manual.html',
+            battery: '../individual/ip15promax_battery_manual.html',
+            backglass: '../individual/ip15promax_backglass_manual.html',
+            rearcam: '../individual/ip15promax_rearcam_manual.html',
+            frontcam: '../individual/ip15promax_frontcam_manual.html',
+            logicboard: '../individual/ip15promax_logicboard_manual.html',
+            loudspeaker: '../individual/ip15promax_loudspeaker_manual.html',
+            earpiece: '../individual/ip15promax_earpiece_manual.html',
+            taptic: '../individual/ip15promax_taptic_manual.html',
+            mic: '../individual/ip15promax_mic_manual.html',
+            lidar: '../individual/ip15promax_lidar_manual.html',
+            chargingport: '../individual/ip15promax_chargingport_manual.html',
+            actionbtn: '../individual/ip15promax_actionbtn_manual.html',
+            chargport: '../individual/ip15promax_chargport_manual.html',
+            mute: '../individual/ip15promax_mute_manual.html'
         };
         if (!files[type]) return;
         var iframe = document.getElementById('manualIframe15ProMax');
@@ -4835,7 +4835,7 @@
 
     function openOverallManual15ProMax() {
         var iframe = document.getElementById('manualIframe15ProMax');
-        iframe.src = 'sys_data/overall/ip15promax_overall_manual.html';
+        iframe.src = '../overall/ip15promax_overall_manual.html';
         document.getElementById('detailTab15ProMax-overall').classList.remove('active');
         document.getElementById('manualIframeWrapper15ProMax').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -4872,14 +4872,14 @@
 
     function openIndividualManual14(type) {
         var files = {
-            screen: 'sys_data/individual/ip14_screen_manual.html',
-            battery: 'sys_data/individual/ip14_battery_manual.html',
-            backglass: 'sys_data/individual/ip14_backglass_manual.html',
-            rearcam: 'sys_data/individual/ip14_rearcam_manual.html',
-            frontcam: 'sys_data/individual/ip14_frontcam_manual.html',
-            loudspeaker: 'sys_data/individual/ip14_loudspeaker_manual.html',
-            earpiece: 'sys_data/individual/ip14_earpiece_manual.html',
-            taptic: 'sys_data/individual/ip14_taptic_manual.html'
+            screen: '../individual/ip14_screen_manual.html',
+            battery: '../individual/ip14_battery_manual.html',
+            backglass: '../individual/ip14_backglass_manual.html',
+            rearcam: '../individual/ip14_rearcam_manual.html',
+            frontcam: '../individual/ip14_frontcam_manual.html',
+            loudspeaker: '../individual/ip14_loudspeaker_manual.html',
+            earpiece: '../individual/ip14_earpiece_manual.html',
+            taptic: '../individual/ip14_taptic_manual.html'
         };
         if (!files[type]) return;
         var iframe = document.getElementById('manualIframe14');
@@ -4903,7 +4903,7 @@
 
     function openOverallManual14() {
         var iframe = document.getElementById('manualIframe14');
-        iframe.src = 'sys_data/overall/ip14_overall_manual.html';
+        iframe.src = '../overall/ip14_overall_manual.html';
         document.getElementById('detailTab14-overall').classList.remove('active');
         document.getElementById('manualIframeWrapper14').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -4940,14 +4940,14 @@
 
     function openIndividualManual14Plus(type) {
         var files = {
-            screen: 'sys_data/individual/ip14plus_screen_manual.html',
-            battery: 'sys_data/individual/ip14plus_battery_manual.html',
-            backglass: 'sys_data/individual/ip14plus_backglass_manual.html',
-            rearcam: 'sys_data/individual/ip14plus_rearcam_manual.html',
-            frontcam: 'sys_data/individual/ip14plus_frontcam_manual.html',
-            loudspeaker: 'sys_data/individual/ip14plus_loudspeaker_manual.html',
-            earpiece: 'sys_data/individual/ip14plus_earpiece_manual.html',
-            taptic: 'sys_data/individual/ip14plus_taptic_manual.html'
+            screen: '../individual/ip14plus_screen_manual.html',
+            battery: '../individual/ip14plus_battery_manual.html',
+            backglass: '../individual/ip14plus_backglass_manual.html',
+            rearcam: '../individual/ip14plus_rearcam_manual.html',
+            frontcam: '../individual/ip14plus_frontcam_manual.html',
+            loudspeaker: '../individual/ip14plus_loudspeaker_manual.html',
+            earpiece: '../individual/ip14plus_earpiece_manual.html',
+            taptic: '../individual/ip14plus_taptic_manual.html'
         };
         if (!files[type]) return;
         var iframe = document.getElementById('manualIframe14Plus');
@@ -4971,7 +4971,7 @@
 
     function openOverallManual14Plus() {
         var iframe = document.getElementById('manualIframe14Plus');
-        iframe.src = 'sys_data/overall/ip14plus_overall_manual.html';
+        iframe.src = '../overall/ip14plus_overall_manual.html';
         document.getElementById('detailTab14Plus-overall').classList.remove('active');
         document.getElementById('manualIframeWrapper14Plus').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -5008,13 +5008,13 @@
 
     function openIndividualManual14Pro(type) {
         var files = {
-            screen: 'sys_data/individual/ip14pro_screen_manual.html',
-            battery: 'sys_data/individual/ip14pro_battery_manual.html',
-            rearcam: 'sys_data/individual/ip14pro_rearcam_manual.html',
-            frontcam: 'sys_data/individual/ip14pro_frontcam_manual.html',
-            loudspeaker: 'sys_data/individual/ip14pro_loudspeaker_manual.html',
-            earpiece: 'sys_data/individual/ip14pro_earpiece_manual.html',
-            taptic: 'sys_data/individual/ip14pro_taptic_manual.html'
+            screen: '../individual/ip14pro_screen_manual.html',
+            battery: '../individual/ip14pro_battery_manual.html',
+            rearcam: '../individual/ip14pro_rearcam_manual.html',
+            frontcam: '../individual/ip14pro_frontcam_manual.html',
+            loudspeaker: '../individual/ip14pro_loudspeaker_manual.html',
+            earpiece: '../individual/ip14pro_earpiece_manual.html',
+            taptic: '../individual/ip14pro_taptic_manual.html'
         };
         if (!files[type]) return;
         var iframe = document.getElementById('manualIframe14Pro');
@@ -5038,7 +5038,7 @@
 
     function openOverallManual14Pro() {
         var iframe = document.getElementById('manualIframe14Pro');
-        iframe.src = 'sys_data/overall/ip14pro_overall_manual.html';
+        iframe.src = '../overall/ip14pro_overall_manual.html';
         document.getElementById('detailTab14Pro-overall').classList.remove('active');
         document.getElementById('manualIframeWrapper14Pro').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -5075,13 +5075,13 @@
 
     function openIndividualManual14ProMax(type) {
         var files = {
-            screen: 'sys_data/individual/ip14promax_screen_manual.html',
-            battery: 'sys_data/individual/ip14promax_battery_manual.html',
-            rearcam: 'sys_data/individual/ip14promax_rearcam_manual.html',
-            frontcam: 'sys_data/individual/ip14promax_frontcam_manual.html',
-            loudspeaker: 'sys_data/individual/ip14promax_loudspeaker_manual.html',
-            earpiece: 'sys_data/individual/ip14promax_earpiece_manual.html',
-            taptic: 'sys_data/individual/ip14promax_taptic_manual.html'
+            screen: '../individual/ip14promax_screen_manual.html',
+            battery: '../individual/ip14promax_battery_manual.html',
+            rearcam: '../individual/ip14promax_rearcam_manual.html',
+            frontcam: '../individual/ip14promax_frontcam_manual.html',
+            loudspeaker: '../individual/ip14promax_loudspeaker_manual.html',
+            earpiece: '../individual/ip14promax_earpiece_manual.html',
+            taptic: '../individual/ip14promax_taptic_manual.html'
         };
         if (!files[type]) return;
         var iframe = document.getElementById('manualIframe14ProMax');
@@ -5105,7 +5105,7 @@
 
     function openOverallManual14ProMax() {
         var iframe = document.getElementById('manualIframe14ProMax');
-        iframe.src = 'sys_data/overall/ip14promax_overall_manual.html';
+        iframe.src = '../overall/ip14promax_overall_manual.html';
         document.getElementById('detailTab14ProMax-overall').classList.remove('active');
         document.getElementById('manualIframeWrapper14ProMax').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -5142,13 +5142,13 @@
 
     function openIndividualManual13(type) {
         var files = {
-            screen: 'sys_data/individual/ip13_screen_manual.html',
-            battery: 'sys_data/individual/ip13_battery_manual.html',
-            rearcam: 'sys_data/individual/ip13_rearcam_manual.html',
-            frontcam: 'sys_data/individual/ip13_frontcam_manual.html',
-            loudspeaker: 'sys_data/individual/ip13_loudspeaker_manual.html',
-            earpiece: 'sys_data/individual/ip13_earpiece_manual.html',
-            taptic: 'sys_data/individual/ip13_taptic_manual.html'
+            screen: '../individual/ip13_screen_manual.html',
+            battery: '../individual/ip13_battery_manual.html',
+            rearcam: '../individual/ip13_rearcam_manual.html',
+            frontcam: '../individual/ip13_frontcam_manual.html',
+            loudspeaker: '../individual/ip13_loudspeaker_manual.html',
+            earpiece: '../individual/ip13_earpiece_manual.html',
+            taptic: '../individual/ip13_taptic_manual.html'
         };
         if (!files[type]) return;
         var iframe = document.getElementById('manualIframe13');
@@ -5172,7 +5172,7 @@
 
     function openOverallManual13() {
         var iframe = document.getElementById('manualIframe13');
-        iframe.src = 'sys_data/overall/ip13_overall_manual.html';
+        iframe.src = '../overall/ip13_overall_manual.html';
         document.getElementById('detailTab13-overall').classList.remove('active');
         document.getElementById('manualIframeWrapper13').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -5209,13 +5209,13 @@
 
     function openIndividualManual13Mini(type) {
         var files = {
-            screen: 'sys_data/individual/ip13mini_screen_manual.html',
-            battery: 'sys_data/individual/ip13mini_battery_manual.html',
-            rearcam: 'sys_data/individual/ip13mini_rearcam_manual.html',
-            frontcam: 'sys_data/individual/ip13mini_frontcam_manual.html',
-            loudspeaker: 'sys_data/individual/ip13mini_loudspeaker_manual.html',
-            earpiece: 'sys_data/individual/ip13mini_earpiece_manual.html',
-            taptic: 'sys_data/individual/ip13mini_taptic_manual.html'
+            screen: '../individual/ip13mini_screen_manual.html',
+            battery: '../individual/ip13mini_battery_manual.html',
+            rearcam: '../individual/ip13mini_rearcam_manual.html',
+            frontcam: '../individual/ip13mini_frontcam_manual.html',
+            loudspeaker: '../individual/ip13mini_loudspeaker_manual.html',
+            earpiece: '../individual/ip13mini_earpiece_manual.html',
+            taptic: '../individual/ip13mini_taptic_manual.html'
         };
         if (!files[type]) return;
         var iframe = document.getElementById('manualIframe13Mini');
@@ -5239,7 +5239,7 @@
 
     function openOverallManual13Mini() {
         var iframe = document.getElementById('manualIframe13Mini');
-        iframe.src = 'sys_data/overall/ip13mini_overall_manual.html';
+        iframe.src = '../overall/ip13mini_overall_manual.html';
         document.getElementById('detailTab13Mini-overall').classList.remove('active');
         document.getElementById('manualIframeWrapper13Mini').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -5276,13 +5276,13 @@
 
     function openIndividualManual13Pro(type) {
         var files = {
-            screen: 'sys_data/individual/ip13pro_screen_manual.html',
-            battery: 'sys_data/individual/ip13pro_battery_manual.html',
-            rearcam: 'sys_data/individual/ip13pro_rearcam_manual.html',
-            frontcam: 'sys_data/individual/ip13pro_frontcam_manual.html',
-            loudspeaker: 'sys_data/individual/ip13pro_loudspeaker_manual.html',
-            earpiece: 'sys_data/individual/ip13pro_earpiece_manual.html',
-            taptic: 'sys_data/individual/ip13pro_taptic_manual.html'
+            screen: '../individual/ip13pro_screen_manual.html',
+            battery: '../individual/ip13pro_battery_manual.html',
+            rearcam: '../individual/ip13pro_rearcam_manual.html',
+            frontcam: '../individual/ip13pro_frontcam_manual.html',
+            loudspeaker: '../individual/ip13pro_loudspeaker_manual.html',
+            earpiece: '../individual/ip13pro_earpiece_manual.html',
+            taptic: '../individual/ip13pro_taptic_manual.html'
         };
         if (!files[type]) return;
         var iframe = document.getElementById('manualIframe13Pro');
@@ -5306,7 +5306,7 @@
 
     function openOverallManual13Pro() {
         var iframe = document.getElementById('manualIframe13Pro');
-        iframe.src = 'sys_data/overall/ip13pro_overall_manual.html';
+        iframe.src = '../overall/ip13pro_overall_manual.html';
         document.getElementById('detailTab13Pro-overall').classList.remove('active');
         document.getElementById('manualIframeWrapper13Pro').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -5343,13 +5343,13 @@
 
     function openIndividualManual13ProMax(type) {
         var files = {
-            screen: 'sys_data/individual/ip13promax_screen_manual.html',
-            battery: 'sys_data/individual/ip13promax_battery_manual.html',
-            rearcam: 'sys_data/individual/ip13promax_rearcam_manual.html',
-            frontcam: 'sys_data/individual/ip13promax_frontcam_manual.html',
-            loudspeaker: 'sys_data/individual/ip13promax_loudspeaker_manual.html',
-            earpiece: 'sys_data/individual/ip13promax_earpiece_manual.html',
-            taptic: 'sys_data/individual/ip13promax_taptic_manual.html'
+            screen: '../individual/ip13promax_screen_manual.html',
+            battery: '../individual/ip13promax_battery_manual.html',
+            rearcam: '../individual/ip13promax_rearcam_manual.html',
+            frontcam: '../individual/ip13promax_frontcam_manual.html',
+            loudspeaker: '../individual/ip13promax_loudspeaker_manual.html',
+            earpiece: '../individual/ip13promax_earpiece_manual.html',
+            taptic: '../individual/ip13promax_taptic_manual.html'
         };
         if (!files[type]) return;
         var iframe = document.getElementById('manualIframe13ProMax');
@@ -5373,7 +5373,7 @@
 
     function openOverallManual13ProMax() {
         var iframe = document.getElementById('manualIframe13ProMax');
-        iframe.src = 'sys_data/overall/ip13promax_overall_manual.html';
+        iframe.src = '../overall/ip13promax_overall_manual.html';
         document.getElementById('detailTab13ProMax-overall').classList.remove('active');
         document.getElementById('manualIframeWrapper13ProMax').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -5410,13 +5410,13 @@
 
     function openIndividualManual12(type) {
         var files = {
-            screen: 'sys_data/individual/ip12_screen_manual.html',
-            battery: 'sys_data/individual/ip12_battery_manual.html',
-            rearcam: 'sys_data/individual/ip12_rearcam_manual.html',
-            frontcam: 'sys_data/individual/ip12_frontcam_manual.html',
-            loudspeaker: 'sys_data/individual/ip12_loudspeaker_manual.html',
-            earpiece: 'sys_data/individual/ip12_earpiece_manual.html',
-            taptic: 'sys_data/individual/ip12_taptic_manual.html'
+            screen: '../individual/ip12_screen_manual.html',
+            battery: '../individual/ip12_battery_manual.html',
+            rearcam: '../individual/ip12_rearcam_manual.html',
+            frontcam: '../individual/ip12_frontcam_manual.html',
+            loudspeaker: '../individual/ip12_loudspeaker_manual.html',
+            earpiece: '../individual/ip12_earpiece_manual.html',
+            taptic: '../individual/ip12_taptic_manual.html'
         };
         if (!files[type]) return;
         var iframe = document.getElementById('manualIframe12');
@@ -5440,7 +5440,7 @@
 
     function openOverallManual12() {
         var iframe = document.getElementById('manualIframe12');
-        iframe.src = 'sys_data/overall/ip12_overall_manual.html';
+        iframe.src = '../overall/ip12_overall_manual.html';
         document.getElementById('detailTab12-overall').classList.remove('active');
         document.getElementById('manualIframeWrapper12').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -5477,13 +5477,13 @@
 
     function openIndividualManual12Mini(type) {
         var files = {
-            screen: 'sys_data/individual/ip12mini_screen_manual.html',
-            battery: 'sys_data/individual/ip12mini_battery_manual.html',
-            rearcam: 'sys_data/individual/ip12mini_rearcam_manual.html',
-            frontcam: 'sys_data/individual/ip12mini_frontcam_manual.html',
-            loudspeaker: 'sys_data/individual/ip12mini_loudspeaker_manual.html',
-            earpiece: 'sys_data/individual/ip12mini_earpiece_manual.html',
-            taptic: 'sys_data/individual/ip12mini_taptic_manual.html'
+            screen: '../individual/ip12mini_screen_manual.html',
+            battery: '../individual/ip12mini_battery_manual.html',
+            rearcam: '../individual/ip12mini_rearcam_manual.html',
+            frontcam: '../individual/ip12mini_frontcam_manual.html',
+            loudspeaker: '../individual/ip12mini_loudspeaker_manual.html',
+            earpiece: '../individual/ip12mini_earpiece_manual.html',
+            taptic: '../individual/ip12mini_taptic_manual.html'
         };
         if (!files[type]) return;
         var iframe = document.getElementById('manualIframe12Mini');
@@ -5507,7 +5507,7 @@
 
     function openOverallManual12Mini() {
         var iframe = document.getElementById('manualIframe12Mini');
-        iframe.src = 'sys_data/overall/ip12mini_overall_manual.html';
+        iframe.src = '../overall/ip12mini_overall_manual.html';
         document.getElementById('detailTab12Mini-overall').classList.remove('active');
         document.getElementById('manualIframeWrapper12Mini').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -5544,13 +5544,13 @@
 
     function openIndividualManual12Pro(type) {
         var files = {
-            screen: 'sys_data/individual/ip12pro_screen_manual.html',
-            battery: 'sys_data/individual/ip12pro_battery_manual.html',
-            rearcam: 'sys_data/individual/ip12pro_rearcam_manual.html',
-            frontcam: 'sys_data/individual/ip12pro_frontcam_manual.html',
-            loudspeaker: 'sys_data/individual/ip12pro_loudspeaker_manual.html',
-            earpiece: 'sys_data/individual/ip12pro_earpiece_manual.html',
-            taptic: 'sys_data/individual/ip12pro_taptic_manual.html'
+            screen: '../individual/ip12pro_screen_manual.html',
+            battery: '../individual/ip12pro_battery_manual.html',
+            rearcam: '../individual/ip12pro_rearcam_manual.html',
+            frontcam: '../individual/ip12pro_frontcam_manual.html',
+            loudspeaker: '../individual/ip12pro_loudspeaker_manual.html',
+            earpiece: '../individual/ip12pro_earpiece_manual.html',
+            taptic: '../individual/ip12pro_taptic_manual.html'
         };
         if (!files[type]) return;
         var iframe = document.getElementById('manualIframe12Pro');
@@ -5574,7 +5574,7 @@
 
     function openOverallManual12Pro() {
         var iframe = document.getElementById('manualIframe12Pro');
-        iframe.src = 'sys_data/overall/ip12pro_overall_manual.html';
+        iframe.src = '../overall/ip12pro_overall_manual.html';
         document.getElementById('detailTab12Pro-overall').classList.remove('active');
         document.getElementById('manualIframeWrapper12Pro').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -5611,13 +5611,13 @@
 
     function openIndividualManual12ProMax(type) {
         var files = {
-            screen: 'sys_data/individual/ip12promax_screen_manual.html',
-            battery: 'sys_data/individual/ip12promax_battery_manual.html',
-            rearcam: 'sys_data/individual/ip12promax_rearcam_manual.html',
-            frontcam: 'sys_data/individual/ip12promax_frontcam_manual.html',
-            loudspeaker: 'sys_data/individual/ip12promax_loudspeaker_manual.html',
-            earpiece: 'sys_data/individual/ip12promax_earpiece_manual.html',
-            taptic: 'sys_data/individual/ip12promax_taptic_manual.html'
+            screen: '../individual/ip12promax_screen_manual.html',
+            battery: '../individual/ip12promax_battery_manual.html',
+            rearcam: '../individual/ip12promax_rearcam_manual.html',
+            frontcam: '../individual/ip12promax_frontcam_manual.html',
+            loudspeaker: '../individual/ip12promax_loudspeaker_manual.html',
+            earpiece: '../individual/ip12promax_earpiece_manual.html',
+            taptic: '../individual/ip12promax_taptic_manual.html'
         };
         if (!files[type]) return;
         var iframe = document.getElementById('manualIframe12ProMax');
@@ -5641,7 +5641,7 @@
 
     function openOverallManual12ProMax() {
         var iframe = document.getElementById('manualIframe12ProMax');
-        iframe.src = 'sys_data/overall/ip12promax_overall_manual.html';
+        iframe.src = '../overall/ip12promax_overall_manual.html';
         document.getElementById('detailTab12ProMax-overall').classList.remove('active');
         document.getElementById('manualIframeWrapper12ProMax').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -5678,13 +5678,13 @@
 
     function openIndividualManualXSMax(type) {
         var files = {
-            screen: 'sys_data/individual/ipxsmax_screen_manual.html',
-            battery: 'sys_data/individual/ipxsmax_battery_manual.html',
-            rearcam: 'sys_data/individual/ipxsmax_rearcam_manual.html',
-            frontcam: 'sys_data/individual/ipxsmax_frontcam_manual.html',
-            loudspeaker: 'sys_data/individual/ipxsmax_loudspeaker_manual.html',
-            earpiece: 'sys_data/individual/ipxsmax_earpiece_manual.html',
-            taptic: 'sys_data/individual/ipxsmax_taptic_manual.html'
+            screen: '../individual/ipxsmax_screen_manual.html',
+            battery: '../individual/ipxsmax_battery_manual.html',
+            rearcam: '../individual/ipxsmax_rearcam_manual.html',
+            frontcam: '../individual/ipxsmax_frontcam_manual.html',
+            loudspeaker: '../individual/ipxsmax_loudspeaker_manual.html',
+            earpiece: '../individual/ipxsmax_earpiece_manual.html',
+            taptic: '../individual/ipxsmax_taptic_manual.html'
         };
         if (!files[type]) return;
         var iframe = document.getElementById('manualIframeXSMax');
@@ -5708,7 +5708,7 @@
 
     function openOverallManualXSMax() {
         var iframe = document.getElementById('manualIframeXSMax');
-        iframe.src = 'sys_data/overall/ipxsmax_overall_manual.html';
+        iframe.src = '../overall/ipxsmax_overall_manual.html';
         document.getElementById('detailTabXSMax-overall').classList.remove('active');
         document.getElementById('manualIframeWrapperXSMax').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -5745,13 +5745,13 @@
 
     function openIndividualManualXS(type) {
         var files = {
-            screen: 'sys_data/individual/ipxs_screen_manual.html',
-            battery: 'sys_data/individual/ipxs_battery_manual.html',
-            rearcam: 'sys_data/individual/ipxs_rearcam_manual.html',
-            frontcam: 'sys_data/individual/ipxs_frontcam_manual.html',
-            loudspeaker: 'sys_data/individual/ipxs_loudspeaker_manual.html',
-            earpiece: 'sys_data/individual/ipxs_earpiece_manual.html',
-            taptic: 'sys_data/individual/ipxs_taptic_manual.html'
+            screen: '../individual/ipxs_screen_manual.html',
+            battery: '../individual/ipxs_battery_manual.html',
+            rearcam: '../individual/ipxs_rearcam_manual.html',
+            frontcam: '../individual/ipxs_frontcam_manual.html',
+            loudspeaker: '../individual/ipxs_loudspeaker_manual.html',
+            earpiece: '../individual/ipxs_earpiece_manual.html',
+            taptic: '../individual/ipxs_taptic_manual.html'
         };
         if (!files[type]) return;
         var iframe = document.getElementById('manualIframeXS');
@@ -5775,7 +5775,7 @@
 
     function openOverallManualXS() {
         var iframe = document.getElementById('manualIframeXS');
-        iframe.src = 'sys_data/overall/ipxs_overall_manual.html';
+        iframe.src = '../overall/ipxs_overall_manual.html';
         document.getElementById('detailTabXS-overall').classList.remove('active');
         document.getElementById('manualIframeWrapperXS').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -5812,13 +5812,13 @@
 
     function openIndividualManualXR(type) {
         var files = {
-            screen: 'sys_data/individual/ipxr_screen_manual.html',
-            battery: 'sys_data/individual/ipxr_battery_manual.html',
-            rearcam: 'sys_data/individual/ipxr_rearcam_manual.html',
-            frontcam: 'sys_data/individual/ipxr_frontcam_manual.html',
-            loudspeaker: 'sys_data/individual/ipxr_loudspeaker_manual.html',
-            earpiece: 'sys_data/individual/ipxr_earpiece_manual.html',
-            taptic: 'sys_data/individual/ipxr_taptic_manual.html'
+            screen: '../individual/ipxr_screen_manual.html',
+            battery: '../individual/ipxr_battery_manual.html',
+            rearcam: '../individual/ipxr_rearcam_manual.html',
+            frontcam: '../individual/ipxr_frontcam_manual.html',
+            loudspeaker: '../individual/ipxr_loudspeaker_manual.html',
+            earpiece: '../individual/ipxr_earpiece_manual.html',
+            taptic: '../individual/ipxr_taptic_manual.html'
         };
         if (!files[type]) return;
         var iframe = document.getElementById('manualIframeXR');
@@ -5842,7 +5842,7 @@
 
     function openOverallManualXR() {
         var iframe = document.getElementById('manualIframeXR');
-        iframe.src = 'sys_data/overall/ipxr_overall_manual.html';
+        iframe.src = '../overall/ipxr_overall_manual.html';
         document.getElementById('detailTabXR-overall').classList.remove('active');
         document.getElementById('manualIframeWrapperXR').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -5879,13 +5879,13 @@
 
     function openIndividualManualX(type) {
         var files = {
-            screen: 'sys_data/individual/ipx_screen_manual.html',
-            battery: 'sys_data/individual/ipx_battery_manual.html',
-            rearcam: 'sys_data/individual/ipx_rearcam_manual.html',
-            frontcam: 'sys_data/individual/ipx_frontcam_manual.html',
-            loudspeaker: 'sys_data/individual/ipx_loudspeaker_manual.html',
-            earpiece: 'sys_data/individual/ipx_earpiece_manual.html',
-            taptic: 'sys_data/individual/ipx_taptic_manual.html'
+            screen: '../individual/ipx_screen_manual.html',
+            battery: '../individual/ipx_battery_manual.html',
+            rearcam: '../individual/ipx_rearcam_manual.html',
+            frontcam: '../individual/ipx_frontcam_manual.html',
+            loudspeaker: '../individual/ipx_loudspeaker_manual.html',
+            earpiece: '../individual/ipx_earpiece_manual.html',
+            taptic: '../individual/ipx_taptic_manual.html'
         };
         if (!files[type]) return;
         var iframe = document.getElementById('manualIframeX');
@@ -5909,7 +5909,7 @@
 
     function openOverallManualX() {
         var iframe = document.getElementById('manualIframeX');
-        iframe.src = 'sys_data/overall/ipx_overall_manual.html';
+        iframe.src = '../overall/ipx_overall_manual.html';
         document.getElementById('detailTabX-overall').classList.remove('active');
         document.getElementById('manualIframeWrapperX').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -5946,13 +5946,13 @@
 
     function openIndividualManualSE3(type) {
         var files = {
-            screen: 'sys_data/individual/ipse3_screen_manual.html',
-            battery: 'sys_data/individual/ipse3_battery_manual.html',
-            rearcam: 'sys_data/individual/ipse3_rearcam_manual.html',
-            frontcam: 'sys_data/individual/ipse3_frontcam_manual.html',
-            loudspeaker: 'sys_data/individual/ipse3_loudspeaker_manual.html',
-            earpiece: 'sys_data/individual/ipse3_earpiece_manual.html',
-            taptic: 'sys_data/individual/ipse3_taptic_manual.html'
+            screen: '../individual/ipse3_screen_manual.html',
+            battery: '../individual/ipse3_battery_manual.html',
+            rearcam: '../individual/ipse3_rearcam_manual.html',
+            frontcam: '../individual/ipse3_frontcam_manual.html',
+            loudspeaker: '../individual/ipse3_loudspeaker_manual.html',
+            earpiece: '../individual/ipse3_earpiece_manual.html',
+            taptic: '../individual/ipse3_taptic_manual.html'
         };
         if (!files[type]) return;
         var iframe = document.getElementById('manualIframeSE3');
@@ -5976,7 +5976,7 @@
 
     function openOverallManualSE3() {
         var iframe = document.getElementById('manualIframeSE3');
-        iframe.src = 'sys_data/overall/ipse3_overall_manual.html';
+        iframe.src = '../overall/ipse3_overall_manual.html';
         document.getElementById('detailTabSE3-overall').classList.remove('active');
         document.getElementById('manualIframeWrapperSE3').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -6013,13 +6013,13 @@
 
     function openIndividualManualSE2(type) {
         var files = {
-            screen: 'sys_data/individual/ipse2_screen_manual.html',
-            battery: 'sys_data/individual/ipse2_battery_manual.html',
-            rearcam: 'sys_data/individual/ipse2_rearcam_manual.html',
-            frontcam: 'sys_data/individual/ipse2_frontcam_manual.html',
-            loudspeaker: 'sys_data/individual/ipse2_loudspeaker_manual.html',
-            earpiece: 'sys_data/individual/ipse2_earpiece_manual.html',
-            taptic: 'sys_data/individual/ipse2_taptic_manual.html'
+            screen: '../individual/ipse2_screen_manual.html',
+            battery: '../individual/ipse2_battery_manual.html',
+            rearcam: '../individual/ipse2_rearcam_manual.html',
+            frontcam: '../individual/ipse2_frontcam_manual.html',
+            loudspeaker: '../individual/ipse2_loudspeaker_manual.html',
+            earpiece: '../individual/ipse2_earpiece_manual.html',
+            taptic: '../individual/ipse2_taptic_manual.html'
         };
         if (!files[type]) return;
         var iframe = document.getElementById('manualIframeSE2');
@@ -6043,7 +6043,7 @@
 
     function openOverallManualSE2() {
         var iframe = document.getElementById('manualIframeSE2');
-        iframe.src = 'sys_data/overall/ipse2_overall_manual.html';
+        iframe.src = '../overall/ipse2_overall_manual.html';
         document.getElementById('detailTabSE2-overall').classList.remove('active');
         document.getElementById('manualIframeWrapperSE2').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -6080,12 +6080,12 @@
 
     function openIndividualManualSE1(type) {
         var files = {
-            screen: 'sys_data/individual/ipse1_screen_manual.html',
-            battery: 'sys_data/individual/ipse1_battery_manual.html',
-            rearcam: 'sys_data/individual/ipse1_rearcam_manual.html',
-            frontcam: 'sys_data/individual/ipse1_frontcam_manual.html',
-            loudspeaker: 'sys_data/individual/ipse1_loudspeaker_manual.html',
-            earpiece: 'sys_data/individual/ipse1_earpiece_manual.html'
+            screen: '../individual/ipse1_screen_manual.html',
+            battery: '../individual/ipse1_battery_manual.html',
+            rearcam: '../individual/ipse1_rearcam_manual.html',
+            frontcam: '../individual/ipse1_frontcam_manual.html',
+            loudspeaker: '../individual/ipse1_loudspeaker_manual.html',
+            earpiece: '../individual/ipse1_earpiece_manual.html'
         };
         if (!files[type]) return;
         var iframe = document.getElementById('manualIframeSE1');
@@ -6109,7 +6109,7 @@
 
     function openOverallManualSE1() {
         var iframe = document.getElementById('manualIframeSE1');
-        iframe.src = 'sys_data/overall/ipse1_overall_manual.html';
+        iframe.src = '../overall/ipse1_overall_manual.html';
         document.getElementById('detailTabSE1-overall').classList.remove('active');
         document.getElementById('manualIframeWrapperSE1').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -6146,13 +6146,13 @@
 
     function openIndividualManual11ProMax(type) {
         var files = {
-            screen: 'sys_data/individual/ip11promax_screen_manual.html',
-            battery: 'sys_data/individual/ip11promax_battery_manual.html',
-            rearcam: 'sys_data/individual/ip11promax_rearcam_manual.html',
-            frontcam: 'sys_data/individual/ip11promax_frontcam_manual.html',
-            loudspeaker: 'sys_data/individual/ip11promax_loudspeaker_manual.html',
-            earpiece: 'sys_data/individual/ip11promax_earpiece_manual.html',
-            taptic: 'sys_data/individual/ip11promax_taptic_manual.html'
+            screen: '../individual/ip11promax_screen_manual.html',
+            battery: '../individual/ip11promax_battery_manual.html',
+            rearcam: '../individual/ip11promax_rearcam_manual.html',
+            frontcam: '../individual/ip11promax_frontcam_manual.html',
+            loudspeaker: '../individual/ip11promax_loudspeaker_manual.html',
+            earpiece: '../individual/ip11promax_earpiece_manual.html',
+            taptic: '../individual/ip11promax_taptic_manual.html'
         };
         if (!files[type]) return;
         var iframe = document.getElementById('manualIframe11ProMax');
@@ -6176,7 +6176,7 @@
 
     function openOverallManual11ProMax() {
         var iframe = document.getElementById('manualIframe11ProMax');
-        iframe.src = 'sys_data/overall/ip11promax_overall_manual.html';
+        iframe.src = '../overall/ip11promax_overall_manual.html';
         document.getElementById('detailTab11ProMax-overall').classList.remove('active');
         document.getElementById('manualIframeWrapper11ProMax').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -6213,13 +6213,13 @@
 
     function openIndividualManual11Pro(type) {
         var files = {
-            screen: 'sys_data/individual/ip11pro_screen_manual.html',
-            battery: 'sys_data/individual/ip11pro_battery_manual.html',
-            rearcam: 'sys_data/individual/ip11pro_rearcam_manual.html',
-            frontcam: 'sys_data/individual/ip11pro_frontcam_manual.html',
-            loudspeaker: 'sys_data/individual/ip11pro_loudspeaker_manual.html',
-            earpiece: 'sys_data/individual/ip11pro_earpiece_manual.html',
-            taptic: 'sys_data/individual/ip11pro_taptic_manual.html'
+            screen: '../individual/ip11pro_screen_manual.html',
+            battery: '../individual/ip11pro_battery_manual.html',
+            rearcam: '../individual/ip11pro_rearcam_manual.html',
+            frontcam: '../individual/ip11pro_frontcam_manual.html',
+            loudspeaker: '../individual/ip11pro_loudspeaker_manual.html',
+            earpiece: '../individual/ip11pro_earpiece_manual.html',
+            taptic: '../individual/ip11pro_taptic_manual.html'
         };
         if (!files[type]) return;
         var iframe = document.getElementById('manualIframe11Pro');
@@ -6243,7 +6243,7 @@
 
     function openOverallManual11Pro() {
         var iframe = document.getElementById('manualIframe11Pro');
-        iframe.src = 'sys_data/overall/ip11pro_overall_manual.html';
+        iframe.src = '../overall/ip11pro_overall_manual.html';
         document.getElementById('detailTab11Pro-overall').classList.remove('active');
         document.getElementById('manualIframeWrapper11Pro').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -6280,13 +6280,13 @@
 
     function openIndividualManual11(type) {
         var files = {
-            screen: 'sys_data/individual/ip11_screen_manual.html',
-            battery: 'sys_data/individual/ip11_battery_manual.html',
-            rearcam: 'sys_data/individual/ip11_rearcam_manual.html',
-            frontcam: 'sys_data/individual/ip11_frontcam_manual.html',
-            loudspeaker: 'sys_data/individual/ip11_loudspeaker_manual.html',
-            earpiece: 'sys_data/individual/ip11_earpiece_manual.html',
-            taptic: 'sys_data/individual/ip11_taptic_manual.html'
+            screen: '../individual/ip11_screen_manual.html',
+            battery: '../individual/ip11_battery_manual.html',
+            rearcam: '../individual/ip11_rearcam_manual.html',
+            frontcam: '../individual/ip11_frontcam_manual.html',
+            loudspeaker: '../individual/ip11_loudspeaker_manual.html',
+            earpiece: '../individual/ip11_earpiece_manual.html',
+            taptic: '../individual/ip11_taptic_manual.html'
         };
         if (!files[type]) return;
         var iframe = document.getElementById('manualIframe11');
@@ -6310,7 +6310,7 @@
 
     function openOverallManual11() {
         var iframe = document.getElementById('manualIframe11');
-        iframe.src = 'sys_data/overall/ip11_overall_manual.html';
+        iframe.src = '../overall/ip11_overall_manual.html';
         document.getElementById('detailTab11-overall').classList.remove('active');
         document.getElementById('manualIframeWrapper11').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -6347,13 +6347,13 @@
 
     function openIndividualManual8Plus(type) {
         var files = {
-            screen: 'sys_data/individual/ip8plus_screen_manual.html',
-            battery: 'sys_data/individual/ip8plus_battery_manual.html',
-            rearcam: 'sys_data/individual/ip8plus_rearcam_manual.html',
-            frontcam: 'sys_data/individual/ip8plus_frontcam_manual.html',
-            loudspeaker: 'sys_data/individual/ip8plus_loudspeaker_manual.html',
-            earpiece: 'sys_data/individual/ip8plus_earpiece_manual.html',
-            taptic: 'sys_data/individual/ip8plus_taptic_manual.html'
+            screen: '../individual/ip8plus_screen_manual.html',
+            battery: '../individual/ip8plus_battery_manual.html',
+            rearcam: '../individual/ip8plus_rearcam_manual.html',
+            frontcam: '../individual/ip8plus_frontcam_manual.html',
+            loudspeaker: '../individual/ip8plus_loudspeaker_manual.html',
+            earpiece: '../individual/ip8plus_earpiece_manual.html',
+            taptic: '../individual/ip8plus_taptic_manual.html'
         };
         if (!files[type]) return;
         var iframe = document.getElementById('manualIframe8Plus');
@@ -6377,7 +6377,7 @@
 
     function openOverallManual8Plus() {
         var iframe = document.getElementById('manualIframe8Plus');
-        iframe.src = 'sys_data/overall/ip8plus_overall_manual.html';
+        iframe.src = '../overall/ip8plus_overall_manual.html';
         document.getElementById('detailTab8Plus-overall').classList.remove('active');
         document.getElementById('manualIframeWrapper8Plus').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -6414,13 +6414,13 @@
 
     function openIndividualManual8(type) {
         var files = {
-            screen: 'sys_data/individual/ip8_screen_manual.html',
-            battery: 'sys_data/individual/ip8_battery_manual.html',
-            rearcam: 'sys_data/individual/ip8_rearcam_manual.html',
-            frontcam: 'sys_data/individual/ip8_frontcam_manual.html',
-            loudspeaker: 'sys_data/individual/ip8_loudspeaker_manual.html',
-            earpiece: 'sys_data/individual/ip8_earpiece_manual.html',
-            taptic: 'sys_data/individual/ip8_taptic_manual.html'
+            screen: '../individual/ip8_screen_manual.html',
+            battery: '../individual/ip8_battery_manual.html',
+            rearcam: '../individual/ip8_rearcam_manual.html',
+            frontcam: '../individual/ip8_frontcam_manual.html',
+            loudspeaker: '../individual/ip8_loudspeaker_manual.html',
+            earpiece: '../individual/ip8_earpiece_manual.html',
+            taptic: '../individual/ip8_taptic_manual.html'
         };
         if (!files[type]) return;
         var iframe = document.getElementById('manualIframe8');
@@ -6444,7 +6444,7 @@
 
     function openOverallManual8() {
         var iframe = document.getElementById('manualIframe8');
-        iframe.src = 'sys_data/overall/ip8_overall_manual.html';
+        iframe.src = '../overall/ip8_overall_manual.html';
         document.getElementById('detailTab8-overall').classList.remove('active');
         document.getElementById('manualIframeWrapper8').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -6481,13 +6481,13 @@
 
     function openIndividualManual7Plus(type) {
         var files = {
-            screen: 'sys_data/individual/ip7plus_screen_manual.html',
-            battery: 'sys_data/individual/ip7plus_battery_manual.html',
-            rearcam: 'sys_data/individual/ip7plus_rearcam_manual.html',
-            frontcam: 'sys_data/individual/ip7plus_frontcam_manual.html',
-            loudspeaker: 'sys_data/individual/ip7plus_loudspeaker_manual.html',
-            earpiece: 'sys_data/individual/ip7plus_earpiece_manual.html',
-            taptic: 'sys_data/individual/ip7plus_taptic_manual.html'
+            screen: '../individual/ip7plus_screen_manual.html',
+            battery: '../individual/ip7plus_battery_manual.html',
+            rearcam: '../individual/ip7plus_rearcam_manual.html',
+            frontcam: '../individual/ip7plus_frontcam_manual.html',
+            loudspeaker: '../individual/ip7plus_loudspeaker_manual.html',
+            earpiece: '../individual/ip7plus_earpiece_manual.html',
+            taptic: '../individual/ip7plus_taptic_manual.html'
         };
         if (!files[type]) return;
         var iframe = document.getElementById('manualIframe7Plus');
@@ -6511,7 +6511,7 @@
 
     function openOverallManual7Plus() {
         var iframe = document.getElementById('manualIframe7Plus');
-        iframe.src = 'sys_data/overall/ip7plus_overall_manual.html';
+        iframe.src = '../overall/ip7plus_overall_manual.html';
         document.getElementById('detailTab7Plus-overall').classList.remove('active');
         document.getElementById('manualIframeWrapper7Plus').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -6548,13 +6548,13 @@
 
     function openIndividualManual7(type) {
         var files = {
-            screen: 'sys_data/individual/ip7_screen_manual.html',
-            battery: 'sys_data/individual/ip7_battery_manual.html',
-            rearcam: 'sys_data/individual/ip7_rearcam_manual.html',
-            frontcam: 'sys_data/individual/ip7_frontcam_manual.html',
-            loudspeaker: 'sys_data/individual/ip7_loudspeaker_manual.html',
-            earpiece: 'sys_data/individual/ip7_earpiece_manual.html',
-            taptic: 'sys_data/individual/ip7_taptic_manual.html'
+            screen: '../individual/ip7_screen_manual.html',
+            battery: '../individual/ip7_battery_manual.html',
+            rearcam: '../individual/ip7_rearcam_manual.html',
+            frontcam: '../individual/ip7_frontcam_manual.html',
+            loudspeaker: '../individual/ip7_loudspeaker_manual.html',
+            earpiece: '../individual/ip7_earpiece_manual.html',
+            taptic: '../individual/ip7_taptic_manual.html'
         };
         if (!files[type]) return;
         var iframe = document.getElementById('manualIframe7');
@@ -6578,7 +6578,7 @@
 
     function openOverallManual7() {
         var iframe = document.getElementById('manualIframe7');
-        iframe.src = 'sys_data/overall/ip7_overall_manual.html';
+        iframe.src = '../overall/ip7_overall_manual.html';
         document.getElementById('detailTab7-overall').classList.remove('active');
         document.getElementById('manualIframeWrapper7').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -6615,13 +6615,13 @@
 
     function openIndividualManual6sPlus(type) {
         var files = {
-            screen: 'sys_data/individual/ip6splus_screen_manual.html',
-            battery: 'sys_data/individual/ip6splus_battery_manual.html',
-            rearcam: 'sys_data/individual/ip6splus_rearcam_manual.html',
-            frontcam: 'sys_data/individual/ip6splus_frontcam_manual.html',
-            loudspeaker: 'sys_data/individual/ip6splus_loudspeaker_manual.html',
-            earpiece: 'sys_data/individual/ip6splus_earpiece_manual.html',
-            taptic: 'sys_data/individual/ip6splus_taptic_manual.html'
+            screen: '../individual/ip6splus_screen_manual.html',
+            battery: '../individual/ip6splus_battery_manual.html',
+            rearcam: '../individual/ip6splus_rearcam_manual.html',
+            frontcam: '../individual/ip6splus_frontcam_manual.html',
+            loudspeaker: '../individual/ip6splus_loudspeaker_manual.html',
+            earpiece: '../individual/ip6splus_earpiece_manual.html',
+            taptic: '../individual/ip6splus_taptic_manual.html'
         };
         if (!files[type]) return;
         var iframe = document.getElementById('manualIframe6sPlus');
@@ -6645,7 +6645,7 @@
 
     function openOverallManual6sPlus() {
         var iframe = document.getElementById('manualIframe6sPlus');
-        iframe.src = 'sys_data/overall/ip6splus_overall_manual.html';
+        iframe.src = '../overall/ip6splus_overall_manual.html';
         document.getElementById('detailTab6sPlus-overall').classList.remove('active');
         document.getElementById('manualIframeWrapper6sPlus').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -6682,13 +6682,13 @@
 
     function openIndividualManual6s(type) {
         var files = {
-            screen: 'sys_data/individual/ip6s_screen_manual.html',
-            battery: 'sys_data/individual/ip6s_battery_manual.html',
-            rearcam: 'sys_data/individual/ip6s_rearcam_manual.html',
-            frontcam: 'sys_data/individual/ip6s_frontcam_manual.html',
-            loudspeaker: 'sys_data/individual/ip6s_loudspeaker_manual.html',
-            earpiece: 'sys_data/individual/ip6s_earpiece_manual.html',
-            taptic: 'sys_data/individual/ip6s_taptic_manual.html'
+            screen: '../individual/ip6s_screen_manual.html',
+            battery: '../individual/ip6s_battery_manual.html',
+            rearcam: '../individual/ip6s_rearcam_manual.html',
+            frontcam: '../individual/ip6s_frontcam_manual.html',
+            loudspeaker: '../individual/ip6s_loudspeaker_manual.html',
+            earpiece: '../individual/ip6s_earpiece_manual.html',
+            taptic: '../individual/ip6s_taptic_manual.html'
         };
         if (!files[type]) return;
         var iframe = document.getElementById('manualIframe6s');
@@ -6712,7 +6712,7 @@
 
     function openOverallManual6s() {
         var iframe = document.getElementById('manualIframe6s');
-        iframe.src = 'sys_data/overall/ip6s_overall_manual.html';
+        iframe.src = '../overall/ip6s_overall_manual.html';
         document.getElementById('detailTab6s-overall').classList.remove('active');
         document.getElementById('manualIframeWrapper6s').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -6749,13 +6749,13 @@
 
     function openIndividualManual6Plus(type) {
         var files = {
-            screen: 'sys_data/individual/ip6plus_screen_manual.html',
-            battery: 'sys_data/individual/ip6plus_battery_manual.html',
-            rearcam: 'sys_data/individual/ip6plus_rearcam_manual.html',
-            frontcam: 'sys_data/individual/ip6plus_frontcam_manual.html',
-            loudspeaker: 'sys_data/individual/ip6plus_loudspeaker_manual.html',
-            earpiece: 'sys_data/individual/ip6plus_earpiece_manual.html',
-            vibrator: 'sys_data/individual/ip6plus_vibrator_manual.html'
+            screen: '../individual/ip6plus_screen_manual.html',
+            battery: '../individual/ip6plus_battery_manual.html',
+            rearcam: '../individual/ip6plus_rearcam_manual.html',
+            frontcam: '../individual/ip6plus_frontcam_manual.html',
+            loudspeaker: '../individual/ip6plus_loudspeaker_manual.html',
+            earpiece: '../individual/ip6plus_earpiece_manual.html',
+            vibrator: '../individual/ip6plus_vibrator_manual.html'
         };
         if (!files[type]) return;
         var iframe = document.getElementById('manualIframe6Plus');
@@ -6779,7 +6779,7 @@
 
     function openOverallManual6Plus() {
         var iframe = document.getElementById('manualIframe6Plus');
-        iframe.src = 'sys_data/overall/ip6plus_overall_manual.html';
+        iframe.src = '../overall/ip6plus_overall_manual.html';
         document.getElementById('detailTab6Plus-overall').classList.remove('active');
         document.getElementById('manualIframeWrapper6Plus').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -6816,13 +6816,13 @@
 
     function openIndividualManual6(type) {
         var files = {
-            screen: 'sys_data/individual/ip6_screen_manual.html',
-            battery: 'sys_data/individual/ip6_battery_manual.html',
-            rearcam: 'sys_data/individual/ip6_rearcam_manual.html',
-            frontcam: 'sys_data/individual/ip6_frontcam_manual.html',
-            loudspeaker: 'sys_data/individual/ip6_loudspeaker_manual.html',
-            earpiece: 'sys_data/individual/ip6_earpiece_manual.html',
-            vibrator: 'sys_data/individual/ip6_vibrator_manual.html'
+            screen: '../individual/ip6_screen_manual.html',
+            battery: '../individual/ip6_battery_manual.html',
+            rearcam: '../individual/ip6_rearcam_manual.html',
+            frontcam: '../individual/ip6_frontcam_manual.html',
+            loudspeaker: '../individual/ip6_loudspeaker_manual.html',
+            earpiece: '../individual/ip6_earpiece_manual.html',
+            vibrator: '../individual/ip6_vibrator_manual.html'
         };
         if (!files[type]) return;
         var iframe = document.getElementById('manualIframe6');
@@ -6846,7 +6846,7 @@
 
     function openOverallManual6() {
         var iframe = document.getElementById('manualIframe6');
-        iframe.src = 'sys_data/overall/ip6_overall_manual.html';
+        iframe.src = '../overall/ip6_overall_manual.html';
         document.getElementById('detailTab6-overall').classList.remove('active');
         document.getElementById('manualIframeWrapper6').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -6883,13 +6883,13 @@
 
     function openIndividualManual5s(type) {
         var files = {
-            screen: 'sys_data/individual/ip5s_screen_manual.html',
-            battery: 'sys_data/individual/ip5s_battery_manual.html',
-            rearcam: 'sys_data/individual/ip5s_rearcam_manual.html',
-            frontcam: 'sys_data/individual/ip5s_frontcam_manual.html',
-            loudspeaker: 'sys_data/individual/ip5s_loudspeaker_manual.html',
-            earpiece: 'sys_data/individual/ip5s_earpiece_manual.html',
-            vibrator: 'sys_data/individual/ip5s_vibrator_manual.html'
+            screen: '../individual/ip5s_screen_manual.html',
+            battery: '../individual/ip5s_battery_manual.html',
+            rearcam: '../individual/ip5s_rearcam_manual.html',
+            frontcam: '../individual/ip5s_frontcam_manual.html',
+            loudspeaker: '../individual/ip5s_loudspeaker_manual.html',
+            earpiece: '../individual/ip5s_earpiece_manual.html',
+            vibrator: '../individual/ip5s_vibrator_manual.html'
         };
         if (!files[type]) return;
         var iframe = document.getElementById('manualIframe5s');
@@ -6913,7 +6913,7 @@
 
     function openOverallManual5s() {
         var iframe = document.getElementById('manualIframe5s');
-        iframe.src = 'sys_data/overall/ip5s_overall_manual.html';
+        iframe.src = '../overall/ip5s_overall_manual.html';
         document.getElementById('detailTab5s-overall').classList.remove('active');
         document.getElementById('manualIframeWrapper5s').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -6950,13 +6950,13 @@
 
     function openIndividualManual5c(type) {
         var files = {
-            screen: 'sys_data/individual/ip5c_screen_manual.html',
-            battery: 'sys_data/individual/ip5c_battery_manual.html',
-            rearcam: 'sys_data/individual/ip5c_rearcam_manual.html',
-            frontcam: 'sys_data/individual/ip5c_frontcam_manual.html',
-            loudspeaker: 'sys_data/individual/ip5c_loudspeaker_manual.html',
-            earpiece: 'sys_data/individual/ip5c_earpiece_manual.html',
-            vibrator: 'sys_data/individual/ip5c_vibrator_manual.html'
+            screen: '../individual/ip5c_screen_manual.html',
+            battery: '../individual/ip5c_battery_manual.html',
+            rearcam: '../individual/ip5c_rearcam_manual.html',
+            frontcam: '../individual/ip5c_frontcam_manual.html',
+            loudspeaker: '../individual/ip5c_loudspeaker_manual.html',
+            earpiece: '../individual/ip5c_earpiece_manual.html',
+            vibrator: '../individual/ip5c_vibrator_manual.html'
         };
         if (!files[type]) return;
         var iframe = document.getElementById('manualIframe5c');
@@ -6980,7 +6980,7 @@
 
     function openOverallManual5c() {
         var iframe = document.getElementById('manualIframe5c');
-        iframe.src = 'sys_data/overall/ip5c_overall_manual.html';
+        iframe.src = '../overall/ip5c_overall_manual.html';
         document.getElementById('detailTab5c-overall').classList.remove('active');
         document.getElementById('manualIframeWrapper5c').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -7017,13 +7017,13 @@
 
     function openIndividualManual5(type) {
         var files = {
-            screen: 'sys_data/individual/ip5_screen_manual.html',
-            battery: 'sys_data/individual/ip5_battery_manual.html',
-            rearcam: 'sys_data/individual/ip5_rearcam_manual.html',
-            frontcam: 'sys_data/individual/ip5_frontcam_manual.html',
-            loudspeaker: 'sys_data/individual/ip5_loudspeaker_manual.html',
-            earpiece: 'sys_data/individual/ip5_earpiece_manual.html',
-            vibrator: 'sys_data/individual/ip5_vibrator_manual.html'
+            screen: '../individual/ip5_screen_manual.html',
+            battery: '../individual/ip5_battery_manual.html',
+            rearcam: '../individual/ip5_rearcam_manual.html',
+            frontcam: '../individual/ip5_frontcam_manual.html',
+            loudspeaker: '../individual/ip5_loudspeaker_manual.html',
+            earpiece: '../individual/ip5_earpiece_manual.html',
+            vibrator: '../individual/ip5_vibrator_manual.html'
         };
         if (!files[type]) return;
         var iframe = document.getElementById('manualIframe5');
@@ -7047,7 +7047,7 @@
 
     function openOverallManual5() {
         var iframe = document.getElementById('manualIframe5');
-        iframe.src = 'sys_data/overall/ip5_overall_manual.html';
+        iframe.src = '../overall/ip5_overall_manual.html';
         document.getElementById('detailTab5-overall').classList.remove('active');
         document.getElementById('manualIframeWrapper5').classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
